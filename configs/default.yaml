@@ -1,0 +1,114 @@
+# ALKoG default configuration
+# Edit this file to customise an experiment; all unset keys fall back to code defaults.
+# Run with: alkog-train --config configs/default.yaml
+
+project_name: alkog
+run_name: run_001
+device: auto  # auto | cpu | cuda | mps
+
+rewards:
+  task_completion: 1.0
+  communication_success: 0.5
+  predictive_accuracy: 0.2
+  novel_abstraction: 0.1
+  time_step_cost: -0.01
+  failed_interaction: -0.3
+  communication_failure: -0.2
+  redundant_abstraction: -0.1
+  kg_inconsistency: -0.15
+
+kg:
+  node_embedding_dim: 256      # must equal agent.visual_encoder.output_dim
+  affordance_dim: 32
+  edge_feature_dim: 64
+  max_nodes: 128
+  max_edges: 512
+  redundancy_similarity_threshold: 0.92
+  min_occurrences_for_stable_node: 3
+  node_prune_occurrence_threshold: 1
+  edge_confidence_decay: 0.95
+  edge_prune_confidence_threshold: 0.05
+  edge_confidence_boost: 0.15
+  num_gnn_layers: 3
+  gnn_hidden_dim: 256
+  graph_embedding_dim: 512
+
+agent:
+  num_agents: 1          # overridden per curriculum phase at runtime
+  share_policy: true
+
+  visual_encoder:
+    backbone: resnet18   # resnet18 | resnet50
+    pretrained: true
+    freeze_early_layers: true
+    output_dim: 256      # must equal kg.node_embedding_dim
+    bounding_box_pool: roi_align
+
+  token_vocab:
+    vocab_size: 64
+    max_utterance_length: 8
+    utterance_history_length: 16
+    token_embedding_dim: 64
+    binding_learning_rate: 0.05
+
+  policy_network:
+    hidden_dim: 512
+    num_trunk_layers: 2
+    use_layer_norm: true
+    action_head_hidden_dim: 256
+    value_head_hidden_dim: 256
+
+training:
+  total_timesteps: 10_000_000
+  num_envs: 8
+  seed: 42
+  checkpoint_interval_steps: 50_000
+  eval_interval_steps: 10_000
+  checkpoint_dir: checkpoints/
+  log_dir: logs/
+
+  ppo:
+    learning_rate: 3.0e-4
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_epsilon: 0.2
+    entropy_coef: 0.01
+    value_loss_coef: 0.5
+    max_grad_norm: 0.5
+    n_epochs: 4
+    minibatch_size: 64
+    rollout_length: 2048
+    lr_anneal: true
+
+  # Curriculum phases are defined in code (config/training.py) and
+  # can be overridden here if needed.  Leave blank to use defaults.
+  curriculum: {}
+
+environment:
+  use_godot: false   # false = mock env; true = connect to Godot via WebSocket
+  render_mode: null
+
+  observation:
+    width: 84
+    height: 84
+    channels: 3
+    stack_frames: 1
+    normalize: true
+
+  bounding_box:
+    min_size_fraction: 0.05
+    max_size_fraction: 0.5
+    max_proposals_per_step: 1
+
+  godot_bridge:
+    host: localhost
+    port: 7654
+    timeout_seconds: 5.0
+    max_reconnect_attempts: 5
+
+wandb:
+  enabled: false
+  project: alkog
+  entity: null
+  tags: []
+  notes: ""
