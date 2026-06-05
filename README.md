@@ -12,14 +12,14 @@ Agents in a procedurally generated 2D/3D world learn to:
 
 ```
 alkog/
-├── config/         Block 1 ✅  Pydantic configs (rewards, KG, agent, training, env)
-├── kg/             Block 2 🔜  Knowledge graph module (nodes, edges, NetworkX backend)
-├── agents/         Block 3 🔜  Token vocabulary + symbol binding
-│                   Block 5 🔜  Neural architecture (visual encoder, GNN, policy)
-├── training/       Block 6 🔜  Reward functions
-│                   Block 7 🔜  PPO training loop + curriculum manager
-├── environment/    Block 8 🔜  Mock Gymnasium environment (no Godot required)
-├── evaluation/     Block 9 🔜  KG Gini impurity, communication success metrics
+├── config/         Block 1 -  Pydantic configs (rewards, KG, agent, training, env)
+├── kg/             Block 2 -  Knowledge graph module (nodes, edges, NetworkX backend)
+├── agents/         Block 3 -  Token vocabulary + symbol binding
+│                   Block 5 -  Neural architecture (visual encoder, GNN, policy)
+├── training/       Block 6 -  Reward functions
+│                   Block 7 -  PPO training loop + curriculum manager
+├── environment/    Block 8 -  Mock Gymnasium environment (no Godot required)
+├── evaluation/     Block 9 -  KG Gini impurity, communication success metrics
 └── utils/          Logging, W&B wrapper
 ```
 
