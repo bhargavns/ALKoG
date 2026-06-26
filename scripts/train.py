@@ -21,6 +21,7 @@ from typing import Optional
 import typer
 
 from alkog.config.base import ALKoGConfig
+from alkog.training import train_basic_ppo
 from alkog.utils.logging import finish_wandb, get_logger, init_wandb
 
 app = typer.Typer(name="alkog-train", add_completion=False)
@@ -49,6 +50,24 @@ def train(
         "--dry-run",
         help="Load config, print it, then exit.  Useful for validating YAML.",
     ),
+    env_id: str = typer.Option(
+        "CartPole-v1",
+        "--env-id",
+        help="Gymnasium env id used by the basic PPO trainer.",
+    ),
+    total_timesteps: Optional[int] = typer.Option(  # noqa: UP007
+        None,
+        "--total-timesteps",
+        help=(
+            "Override cfg.training.total_timesteps for this run. "
+            "Useful for short smoke tests."
+        ),
+    ),
+    seed: Optional[int] = typer.Option(  # noqa: UP007
+        None,
+        "--seed",
+        help="Override cfg.training.seed for this run.",
+    ),
 ) -> None:
     # ------------------------------------------------------------------
     # 1. Load config
@@ -63,6 +82,8 @@ def train(
         cfg = cfg.model_copy(update={"run_name": run_name})
     if device is not None:
         cfg = cfg.model_copy(update={"device": device})
+    if seed is not None:
+        cfg = cfg.model_copy(update={"training": cfg.training.model_copy(update={"seed": seed})})
 
     log = get_logger("alkog.train", log_dir=cfg.training.log_dir)
     log.info(f"Config loaded: {cfg}")
@@ -85,9 +106,17 @@ def train(
     init_wandb(cfg)
 
     # ------------------------------------------------------------------
-    # 4. Training loop (placeholder — Block 7)
+    # 4. Basic PPO training loop
     # ------------------------------------------------------------------
-    log.info("Training loop not yet implemented (Block 7).  Scaffold complete.")
+    run_timesteps = total_timesteps or cfg.training.total_timesteps
+    summary = train_basic_ppo(
+        cfg=cfg,
+        env_id=env_id,
+        total_timesteps=run_timesteps,
+        seed=cfg.training.seed,
+        log=log,
+    )
+    log.info(f"Training complete: {summary}")
 
     # ------------------------------------------------------------------
     # 5. Cleanup
