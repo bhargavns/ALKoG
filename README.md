@@ -1,7 +1,7 @@
 # ALKoG — Active Learning Knowledge Graph Framework
 
 The five-object soft-category perception/PPO experiment is documented in
-[`troy_dev_ppo/SOFT_CATEGORY_QUICKSTART.md`](troy_dev_ppo/SOFT_CATEGORY_QUICKSTART.md).
+[`bhargav_dev_ppo/SOFT_CATEGORY_QUICKSTART.md`](bhargav_dev_ppo/SOFT_CATEGORY_QUICKSTART.md).
 
 A simulated knowledge graph-based active learning framework for studying emergent symbolic grounding in multi-agent RL environments.
 

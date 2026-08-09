@@ -1,6 +1,7 @@
 #!/bin/python3
 import sys, os
-os.environ.setdefault("MUJOCO_GL", "egl")
+if sys.platform != "darwin":
+    os.environ.setdefault("MUJOCO_GL", "egl")
 import gymnasium as gym
 from gymnasium.wrappers import RecordVideo
 

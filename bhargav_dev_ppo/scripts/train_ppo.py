@@ -1,6 +1,7 @@
 #!/bin/python3
 import sys, os
-os.environ.setdefault("MUJOCO_GL", "egl")
+if sys.platform != "darwin":
+    os.environ.setdefault("MUJOCO_GL", "egl")
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import numpy as np
@@ -21,8 +22,8 @@ g_Logger = Logger(__name__)
 g_ArgParse = ArgumentParser()
 print = g_Logger.print
 
-_TROY_DEV = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-_OUTPUT = os.path.join(_TROY_DEV, "output")
+_BHARGAV_DEV = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_OUTPUT = os.path.join(_BHARGAV_DEV, "output")
 
 ACTION_LABELS = ("forward", "backward", "left", "right")
 

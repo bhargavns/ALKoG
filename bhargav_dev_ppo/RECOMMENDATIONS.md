@@ -7,7 +7,7 @@
 
 ## Purpose
 
-This document explains the current `troy_dev_ppo` system, why performance fell after removing direct object-distance inputs, and a practical sequence of changes to make the visual pipeline more reliable.
+This document explains the current `bhargav_dev_ppo` system, why performance fell after removing direct object-distance inputs, and a practical sequence of changes to make the visual pipeline more reliable.
 
 The objective is **not** to return direct simulator distances to the PPO policy. Instead, the policy should act from image-derived object evidence, visual geometry, and an explicitly uncertainty-aware memory.
 

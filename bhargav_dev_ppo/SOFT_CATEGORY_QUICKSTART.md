@@ -18,7 +18,7 @@ evaluate predictions. Training and inference receive RGB frames.
 
 ## 1. Create an environment
 
-From `troy_dev_ppo/`:
+From `bhargav_dev_ppo/`:
 
 ```bash
 python3.11 -m venv .venv
@@ -30,8 +30,8 @@ python scripts/download_sam_checkpoint.py
 
 ResNet-18 ImageNet weights are downloaded by `torchvision` the first time the
 perception pipeline starts. On a headless Linux server, run
-`export MUJOCO_GL=egl`. Use `--device cpu` without CUDA; SAM ViT-B is much
-faster on a CUDA GPU.
+`export MUJOCO_GL=egl`; macOS uses the default Cocoa renderer. Use `--device cpu`
+without CUDA; SAM ViT-B is much faster on a CUDA GPU.
 
 ## 2. Run a small smoke test
 

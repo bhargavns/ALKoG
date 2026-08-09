@@ -1,6 +1,7 @@
 #!/bin/python3
 import sys, os
-os.environ.setdefault("MUJOCO_GL", "egl")
+if sys.platform != "darwin":
+    os.environ.setdefault("MUJOCO_GL", "egl")
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import cv2
@@ -19,7 +20,7 @@ g_Logger = Logger(__name__)
 g_ArgParse = ArgumentParser()
 print = g_Logger.print
 
-_TROY_DEV = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_BHARGAV_DEV = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 required_arguments = []
 optional_arguments = {
@@ -31,7 +32,7 @@ optional_arguments = {
     "consolidate_threshold": "0.85",  # post-pass: merge splintered nodes above this
     "prune_frac": "0.01",       # post-pass: prune nodes below this fraction of detections
     "min_count": "5",           # floor for the exposure-scaled prune threshold
-    "out_dir": os.path.join(_TROY_DEV, "output", "runs"),
+    "out_dir": os.path.join(_BHARGAV_DEV, "output", "runs"),
     "run_name": "",             # optional suffix on the run directory name
     "debug_images": "8",        # save this many annotated perception passes
     "verbose": "1",             # 1 = log every perception pass in detail

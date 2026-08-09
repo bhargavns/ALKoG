@@ -11,8 +11,8 @@ g_Logger = Logger(__name__)
 g_ArgParse = ArgumentParser()
 print = g_Logger.print
 
-_TROY_DEV = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-_OUTPUT = os.path.join(_TROY_DEV, "output")
+_BHARGAV_DEV = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_OUTPUT = os.path.join(_BHARGAV_DEV, "output")
 
 required_arguments = []
 optional_arguments = {
