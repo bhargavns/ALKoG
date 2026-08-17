@@ -21,7 +21,7 @@ class SymbolicKG:
     """
 
     def __init__(
-        self, embedding_dim=EMBEDDING_DIM, similarity_threshold=0.80, device="cuda", seed=0
+        self, embedding_dim=EMBEDDING_DIM, similarity_threshold=0.50, device="cuda", seed=0
     ):
         self.device = device
         self.embedding_dim = embedding_dim
@@ -45,48 +45,66 @@ class SymbolicKG:
     # ------------------------------------------------------------------ match
 
     def _best_match(self, embedding):
-        """embedding: [512] normalized tensor. Returns (node_id or None, best_sim)."""
+        """embedding: [512] normalized tensor.
+
+        Returns (node_id or None, best_sim, all_sims). all_sims is the
+        similarity to every node *at this moment*; diagnostics need that
+        snapshot because node embeddings drift under the EMA update, so
+        recomputing a similarity even one detection later gives a different
+        number.
+        """
         if self.num_nodes == 0:
-            return None, -1.0
+            return None, -1.0, torch.empty(0, device=self.device)
         sims = self.embeddings @ embedding.to(self.device)
         best = int(torch.argmax(sims))
         best_sim = float(sims[best])
         if best_sim >= self.similarity_threshold:
-            return best, best_sim
-        return None, best_sim
+            return best, best_sim, sims
+        return None, best_sim, sims
 
     def match_or_add(self, embedding):
         """Phase 1: merge into the best node above threshold (EMA update) or
-        create a new node with a fresh random symbol. Returns (node_id, created)."""
+        create a new node with a fresh random symbol.
+
+        Returns (node_id, created, best_sim, all_sims), all measured *before*
+        this detection was absorbed. On a creation, best_sim is the near-miss
+        that fell below the threshold."""
         embedding = embedding.to(self.device)
-        node_id, _ = self._best_match(embedding)
+        node_id, best_sim, sims = self._best_match(embedding)
         if node_id is not None:
             updated = (1 - EMA_ALPHA) * self.embeddings[node_id] + EMA_ALPHA * embedding
             self.embeddings[node_id] = F.normalize(updated, dim=0)
             self.counts[node_id] += 1
-            return node_id, False
+            return node_id, False, best_sim, sims
         self.embeddings = torch.cat([self.embeddings, embedding.unsqueeze(0)])
         self.symbols = torch.cat(
             [self.symbols, torch.randn(1, SYMBOL_DIM, generator=self._gen)]
         )
         self.counts.append(1)
-        return self.num_nodes - 1, True
+        return self.num_nodes - 1, True, best_sim, sims
 
     def match_only(self, embedding):
         """Phase 2: match against frozen structure. Returns node_id or None."""
-        node_id, _ = self._best_match(embedding.to(self.device))
+        node_id, _, _ = self._best_match(embedding.to(self.device))
         return node_id
 
-    def match_batch(self, embeddings, allow_add):
-        """Match [N,512] embeddings. Returns list of node_id or None."""
-        ids = []
+    def match_batch(self, embeddings, allow_add, with_info=False):
+        """Match [N,512] embeddings. Returns list of node_id or None.
+
+        with_info=True additionally returns a per-detection list of
+        {"created", "best_sim", "sims"} dicts, for oracle diagnostics.
+        """
+        ids, info = [], []
         for emb in embeddings:
             if allow_add:
-                node_id, _ = self.match_or_add(emb)
+                node_id, created, best_sim, sims = self.match_or_add(emb)
             else:
                 node_id = self.match_only(emb)
+                created, best_sim, sims = False, -1.0, torch.empty(0)
             ids.append(node_id)
-        return ids
+            if with_info:
+                info.append({"created": created, "best_sim": best_sim, "sims": sims})
+        return (ids, info) if with_info else ids
 
     def match_batch_sims(self, embeddings):
         """Phase 2: match [N,E] embeddings against the frozen node set.
@@ -94,7 +112,7 @@ class SymbolicKG:
         cosine similarity (reported even when below threshold)."""
         ids, sims = [], []
         for emb in embeddings:
-            node_id, sim = self._best_match(emb.to(self.device))
+            node_id, sim, _ = self._best_match(emb.to(self.device))
             ids.append(node_id)
             sims.append(sim)
         return ids, sims

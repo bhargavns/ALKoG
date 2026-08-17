@@ -14,6 +14,7 @@ from lib.Perception import PerceptionPipeline
 from lib.SymbolicKG import SymbolicKG
 from lib.Grounding import perceive_scene_geo, assemble_triples_geo
 from lib.SymbolPolicy import TripleActorCritic
+from lib.TransformerPolicy import TransformerActorCritic
 from lib.PPOTrainer import PPOTrainer
 from lib.VideoRecorder import record_points, record_policy_episode
 from lib import Diagnostics
@@ -40,6 +41,11 @@ optional_arguments = {
     "run_name": "",           # optional suffix on the run directory name
     "device": "cuda",
     "seed": "0",
+    "init_from": "",          # warm-start model weights from a saved policy .pt
+    "model": "slot",          # policy architecture: slot (default) | transformer
+    "normalize_value": "1",   # standardize value loss to the advantage scale
+    "food_near_lion": "0.0",  # prob. food spawns near the lion (conflict layout)
+    "food_near_lion_offset": "1.5",  # gap (units) so both stay perceivable to SAM
 }
 
 USAGE = """
@@ -93,7 +99,13 @@ Each invocation writes to a fresh timestamped run directory under `out_dir`
     Optional:
         kg=latest iterations=150 horizon=2048 k_triples=6 perceive_every=75
         lr=3e-4 checkpoint_every=25 out_dir=.../output/runs run_name=
-        device=cuda seed=0
+        device=cuda seed=0 init_from=
+            (init_from: path to a saved policy .pt to warm-start the model
+            weights from -- e.g. a previous run's policy_final.pt, to extend
+            training beyond that run's iteration budget. Starts a fresh run
+            dir/metrics/optimizer; only the weights carry over. The symbol
+            drift report still measures against the untouched phase-1 KG
+            init, not the warm-start checkpoint.)
 
     Example Usage:
         train_ppo.py iterations=200 run_name=long_run
@@ -122,6 +134,11 @@ def train():
     run_name = g_ArgParse.get("run_name")
     device = g_ArgParse.get("device")
     seed = int(g_ArgParse.get("seed"))
+    init_from = g_ArgParse.get("init_from")
+    model_kind = g_ArgParse.get("model")
+    normalize_value = g_ArgParse.get("normalize_value") == "1"
+    food_near_lion = float(g_ArgParse.get("food_near_lion"))
+    food_near_lion_offset = float(g_ArgParse.get("food_near_lion_offset"))
 
     if kg_path == "latest":
         kg_path = Diagnostics.latest_kg_path(_OUTPUT)
@@ -144,7 +161,14 @@ def train():
     print(f"Loaded KG from {kg_path}: {kg.num_nodes} nodes, {len(kg.edges)} distinct edges")
     print("\n" + Diagnostics.kg_report(kg))
 
-    env = KinematicKGWorldEnv(seed=seed)
+    env = KinematicKGWorldEnv(
+        seed=seed,
+        food_near_lion_prob=food_near_lion,
+        food_near_lion_offset=food_near_lion_offset,
+    )
+    print(
+        f"Env: food_near_lion_prob={food_near_lion} offset={food_near_lion_offset}"
+    )
     print("Loading SAM + ResNet-18 (GPU)...")
     pipeline = PerceptionPipeline(device=device)
 
@@ -152,19 +176,29 @@ def train():
         per_frame = perceive_scene_geo(env, pipeline, kg)
         return assemble_triples_geo(kg, per_frame, k=k_triples)
 
-    model = TripleActorCritic(
+    ModelCls = TransformerActorCritic if model_kind == "transformer" else TripleActorCritic
+    print(f"Policy architecture: {model_kind} ({ModelCls.__name__})")
+    model = ModelCls(
         kg,
         obs_dim=env.observation_space.shape[0],
         n_actions=int(env.action_space.n),
         k_triples=k_triples,
     )
+    # captured before any init_from load, so the drift report always measures
+    # against the untouched phase-1 KG init, not a warm-start checkpoint
     initial_node_symbols = model.symbol_table.node_symbols.detach().cpu().clone()
     initial_rel_symbols = model.symbol_table.relation_symbols.detach().cpu().clone()
+
+    if init_from:
+        model.load_state_dict(torch.load(init_from, map_location=device, weights_only=True))
+        print(f"Warm-started model weights from {init_from}")
 
     trainer = PPOTrainer(
         model, env, triple_fn, device=device, horizon=horizon, lr=lr,
         perceive_every_steps=perceive_every, record_trajectories=True,
+        normalize_value_loss=normalize_value,
     )
+    print(f"normalize_value_loss={normalize_value}")
 
     def record_video(it):
         path = os.path.join(video_dir, f"policy_iter{it:04d}.mp4")
@@ -199,6 +233,12 @@ def train():
         fracs = " ".join(
             f"{name[0]}={frac:.2f}" for name, frac in zip(ACTION_LABELS, stats["action_fracs"])
         )
+        near = (
+            f" | NEAR caged_food={stats['near_caged_food_rate']:.2f} "
+            f"loose_food={stats['near_loose_food_rate']:.2f} "
+            f"loose_death={stats['near_loose_death_rate']:.2f}"
+            if food_near_lion > 0 else ""
+        )
         print(
             f"iter {it}/{iterations}: return={stats['mean_return']:+.2f} "
             f"len={stats['mean_length']:.0f} food={stats['food_rate']:.2f} "
@@ -208,8 +248,8 @@ def train():
             f"loose_death={stats['loose_death_rate']:.2f} "
             f"| pi={stats['pi_loss']:.3f} v={stats['v_loss']:.3f} "
             f"ent={stats['entropy']:.2f} kl={stats['approx_kl']:.4f} "
-            f"clip={stats['clip_frac']:.2f} ev={stats['explained_var']:+.2f} "
-            f"| acts[{fracs}]"
+            f"clip={stats['clip_frac']:.2f} ev={stats['explained_var']:+.2f}"
+            f"{near} | acts[{fracs}]"
         )
 
         if it in record_iters:

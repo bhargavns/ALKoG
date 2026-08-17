@@ -39,6 +39,7 @@ class PPOTrainer:
         max_grad_norm=0.5,
         perceive_every_steps=0,  # 0 = re-perceive only at episode reset
         record_trajectories=False,  # keep per-episode xy paths for diagnostics
+        normalize_value_loss=False,  # standardize value loss to the advantage scale
     ):
         self.model = model.to(device)
         self.env = env
@@ -55,6 +56,7 @@ class PPOTrainer:
         self.max_grad_norm = max_grad_norm
         self.perceive_every_steps = perceive_every_steps
         self.record_trajectories = record_trajectories
+        self.normalize_value_loss = normalize_value_loss
         self.optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
         self._obs = None
@@ -132,6 +134,10 @@ class PPOTrainer:
 
         ep_returns, ep_lengths, foods, deaths, timeouts = [], [], 0, 0, 0
         caged_eps, caged_foods, loose_eps, loose_foods, loose_deaths = 0, 0, 0, 0, 0
+        # conflict layouts (food co-located with the lion): the symbol-forcing
+        # cases. near_caged should be grabbed; near_loose should be avoided.
+        near_caged_eps, near_caged_foods = 0, 0
+        near_loose_eps, near_loose_foods, near_loose_deaths = 0, 0, 0
 
         self.model.eval()
         for t in range(self.horizon):
@@ -181,13 +187,22 @@ class PPOTrainer:
                 foods += int(info.get("food_reached", False))
                 deaths += int(info.get("lion_caught", False))
                 timeouts += int(truncated and not terminated)
-                if info.get("lion_caged", False):
+                caged = info.get("lion_caged", False)
+                if caged:
                     caged_eps += 1
                     caged_foods += int(info.get("food_reached", False))
                 else:
                     loose_eps += 1
                     loose_foods += int(info.get("food_reached", False))
                     loose_deaths += int(info.get("lion_caught", False))
+                if info.get("food_near_lion", False):
+                    if caged:
+                        near_caged_eps += 1
+                        near_caged_foods += int(info.get("food_reached", False))
+                    else:
+                        near_loose_eps += 1
+                        near_loose_foods += int(info.get("food_reached", False))
+                        near_loose_deaths += int(info.get("lion_caught", False))
                 self._finish_trajectory(info, truncated)
                 self._reset_env()
             else:
@@ -219,6 +234,13 @@ class PPOTrainer:
             adv_buf[t] = last_gae
         ret_buf = adv_buf + val_buf
         adv_buf = (adv_buf - adv_buf.mean()) / (adv_buf.std() + 1e-8)
+        # Standardize the value-loss residual by the return std so the critic
+        # gradient into the shared symbol trunk is on the same unit scale as
+        # the (already unit-std) advantages -- otherwise v_loss ~ Var(returns)
+        # and its gradient swamps the actor's by 75-330x (grad_attribution
+        # diagnostic). Critic predictions stay in raw return space (GAE and
+        # bootstrapping are unaffected); only the loss gradient is rescaled.
+        ret_scale = (ret_buf.std() + 1e-8) if self.normalize_value_loss else 1.0
 
         self.model.train()
         pi_losses, v_losses, entropies, approx_kls, clip_fracs = [], [], [], [], []
@@ -232,7 +254,7 @@ class PPOTrainer:
                 ratio = torch.exp(logp - logp_buf[idx])
                 clipped = torch.clamp(ratio, 1 - self.clip_ratio, 1 + self.clip_ratio)
                 pi_loss = -torch.min(ratio * adv_buf[idx], clipped * adv_buf[idx]).mean()
-                v_loss = ((value - ret_buf[idx]) ** 2).mean()
+                v_loss = (((value - ret_buf[idx]) / ret_scale) ** 2).mean()
                 ent = entropy.mean()
 
                 loss = pi_loss + self.vf_coef * v_loss - self.ent_coef * ent
@@ -270,6 +292,9 @@ class PPOTrainer:
             "caged_food_rate": caged_foods / max(1, caged_eps),
             "loose_food_rate": loose_foods / max(1, loose_eps),
             "loose_death_rate": loose_deaths / max(1, loose_eps),
+            "near_caged_food_rate": near_caged_foods / max(1, near_caged_eps),
+            "near_loose_food_rate": near_loose_foods / max(1, near_loose_eps),
+            "near_loose_death_rate": near_loose_deaths / max(1, near_loose_eps),
             "pi_loss": float(np.mean(pi_losses)),
             "v_loss": float(np.mean(v_losses)),
             "entropy": float(np.mean(entropies)),

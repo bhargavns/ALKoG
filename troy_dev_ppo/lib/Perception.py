@@ -129,11 +129,14 @@ class PerceptionPipeline:
         self.device = device
 
     def detect(self, frame):
-        """Returns (boxes, embeddings): XYXY boxes and [N, EMBEDDING_DIM] tensor."""
+        """Returns (boxes, embeddings, masks): XYXY boxes, [N, EMBEDDING_DIM]
+        tensor, and the matching boolean HxW segmentation masks. The masks were
+        already computed for the colour histogram; they are returned so ground
+        truth can be looked up per detection (see lib/Oracle.py)."""
         boxes, masks = self.proposer.propose(frame)
         cnn = self.encoder.encode(frame, boxes)
         if not boxes:
-            return boxes, torch.empty(0, EMBEDDING_DIM, device=self.device)
+            return boxes, torch.empty(0, EMBEDDING_DIM, device=self.device), masks
         hists = torch.stack(
             [
                 torch.from_numpy(mask_color_histogram(frame, m)).to(self.device)
@@ -141,7 +144,7 @@ class PerceptionPipeline:
             ]
         )
         w = float(np.sqrt(0.5))
-        return boxes, torch.cat([w * cnn, w * hists], dim=1)
+        return boxes, torch.cat([w * cnn, w * hists], dim=1), masks
 
 
 def union_boxes_by_concept(concept_ids, boxes):

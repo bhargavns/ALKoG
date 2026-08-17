@@ -13,6 +13,7 @@ from lib.KGWorldEnv import KGWorldEnv
 from lib.Perception import PerceptionPipeline
 from lib.SymbolicKG import SymbolicKG
 from lib.Grounding import perceive_scene, draw_debug_frame
+from lib.Oracle import KGOracle
 from lib.VideoRecorder import PanoramaRecorder, record_points
 from lib import Diagnostics
 
@@ -28,13 +29,16 @@ optional_arguments = {
     "steps": "120",             # env steps per episode
     "perceive_every": "15",     # run SAM+CNN every N steps
     "action_hold": "15",        # resample the random action every N steps
-    "threshold": "0.80",        # cosine similarity for merging into a concept node
+    "threshold": "0.50",        # cosine similarity for merging into a concept node
     "consolidate_threshold": "0.85",  # post-pass: merge splintered nodes above this
     "prune_frac": "0.01",       # post-pass: prune nodes below this fraction of detections
     "min_count": "5",           # floor for the exposure-scaled prune threshold
     "out_dir": os.path.join(_TROY_DEV, "output", "runs"),
     "run_name": "",             # optional suffix on the run directory name
     "debug_images": "8",        # save this many annotated perception passes
+    "oracle": "1",              # 1 = score every detection against MuJoCo ground truth
+    "oracle_images": "40",      # max saved false-merge/false-split comparison panels
+    "oracle_coverage": "0.5",   # min fraction of a mask one body must cover to label it
     "verbose": "1",             # 1 = log every perception pass in detail
     "device": "cuda",
     "seed": "0",
@@ -64,7 +68,8 @@ Each invocation writes to a fresh timestamped run directory under `out_dir`
 
     Optional:
         episodes=12 steps=120 perceive_every=15 action_hold=15
-        threshold=0.80 consolidate_threshold=0.85 prune_frac=0.01 min_count=5
+        threshold=0.50 consolidate_threshold=0.85 prune_frac=0.01 min_count=5
+        oracle=1 oracle_images=40 oracle_coverage=0.5
         out_dir=.../output/runs run_name= debug_images=8 verbose=1
         device=cuda seed=0
 
@@ -99,6 +104,9 @@ def build_kg():
     out_dir = g_ArgParse.get("out_dir")
     run_name = g_ArgParse.get("run_name")
     debug_images = int(g_ArgParse.get("debug_images"))
+    use_oracle = int(g_ArgParse.get("oracle"))
+    oracle_images = int(g_ArgParse.get("oracle_images"))
+    oracle_coverage = float(g_ArgParse.get("oracle_coverage"))
     verbose = int(g_ArgParse.get("verbose"))
     device = g_ArgParse.get("device")
     seed = int(g_ArgParse.get("seed"))
@@ -123,6 +131,18 @@ def build_kg():
     print("Loading SAM + ResNet-18 (GPU)...")
     pipeline = PerceptionPipeline(device=device)
     kg = SymbolicKG(similarity_threshold=threshold, device=device, seed=seed)
+
+    oracle = None
+    if use_oracle:
+        oracle_dir = os.path.join(run_dir, "oracle")
+        oracle = KGOracle(
+            env.model,
+            oracle_dir,
+            min_coverage=oracle_coverage,
+            max_images=oracle_images,
+            verbose=bool(verbose),
+        )
+        print(f"Oracle enabled -> {oracle_dir}")
 
     # best (largest-area) crop per concept, kept for "what did this node see" diagnostics
     exemplars = {}  # concept_id -> (area, BGR crop)
@@ -157,7 +177,20 @@ def build_kg():
                 continue
             ep_passes += 1
             nodes_before = kg.num_nodes
-            per_frame = perceive_scene(env, pipeline, kg, allow_add=True)
+            context = None
+            if oracle is not None:
+                info = env._get_info()
+                context = {
+                    "episode": ep,
+                    "step": step,
+                    "lion_caged": bool(env.lion_caged),
+                    "dist_lion": round(info["dist_to_lion"], 3),
+                    "dist_food": round(info["dist_to_food"], 3),
+                    "dist_cage": round(info["dist_to_cage"], 3),
+                }
+            per_frame = perceive_scene(
+                env, pipeline, kg, allow_add=True, oracle=oracle, context=context
+            )
             if recorder is not None:
                 # reuse the frames perception just rendered; overlays are live
                 recorder.add(
@@ -260,6 +293,14 @@ def build_kg():
     written.append(Diagnostics.save_phase1_curves(metric_rows, plot_dir))
     for p in written:
         print(f"Wrote plot {p}")
+
+    if oracle is not None:
+        print("\n" + oracle.close(kg=kg, remap=remap))
+        print(f"Oracle detection log: {oracle.detections_path}")
+        print(f"Oracle embeddings:    {oracle.embeddings_path}")
+        print(f"False-merge panels:   {oracle.merge_dir}")
+        print(f"False-split panels:   {oracle.split_dir}")
+        print(f"Sweep thresholds offline with: eval_kg_oracle.py run_dir={run_dir}")
     env.close()
 
 

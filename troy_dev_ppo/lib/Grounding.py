@@ -19,7 +19,7 @@ def frame_maybe_has_objects(frame):
     return int((saturation > _SATURATION_MIN).sum()) >= _SATURATION_PIXELS
 
 
-def perceive_scene(env, pipeline, kg, allow_add):
+def perceive_scene(env, pipeline, kg, allow_add, oracle=None, context=None):
     """Run the full perception stack on the agent's 4-camera panorama.
 
     For each frame: SAM boxes -> CNN embeddings -> KG concept matching ->
@@ -28,55 +28,34 @@ def perceive_scene(env, pipeline, kg, allow_add):
     allow_add=True (phase 1) merges/creates nodes; False (phase 2) matches
     against the frozen graph only.
 
+    Passing a KGOracle additionally renders MuJoCo's segmentation image and
+    scores every detection against ground truth (costs a second render pass per
+    camera). `context` is a dict such as {"episode": e, "step": s} merged into
+    each oracle record; the camera index is added here. The oracle only
+    observes -- it never influences matching.
+
     Returns list of (concept_boxes, relations, frame) per camera, where
     concept_boxes is {concept_id: box} and relations is
     [(src_concept, relation_name, dst_concept)].
     """
     results = []
-    for frame in env.render_panorama():
+    panorama = env.render_panorama(with_segmentation=oracle is not None)
+    for cam_idx, rendered in enumerate(panorama):
+        frame, seg = rendered if oracle is not None else (rendered, None)
         if not frame_maybe_has_objects(frame):
             results.append(({}, [], frame))
             continue
-        boxes, embeddings = pipeline.detect(frame)
-        concept_ids = kg.match_batch(embeddings, allow_add=allow_add)
+        boxes, embeddings, masks = pipeline.detect(frame)
+        concept_ids, info = kg.match_batch(embeddings, allow_add=allow_add, with_info=True)
+        if oracle is not None:
+            oracle.observe(
+                kg, frame, seg, boxes, masks, embeddings, concept_ids, info,
+                {**(context or {}), "cam": cam_idx},
+            )
         concept_boxes = union_boxes_by_concept(concept_ids, boxes)
         relations = relations_from_boxes(concept_boxes, frame.shape[1])
         results.append((concept_boxes, relations, frame))
     return results
-
-
-def assemble_triples(kg, per_frame, k=4):
-    """Build the policy's symbol-triple input from one perception pass.
-
-    Relation triples (src, rel_idx, dst) fill the K slots first, deduplicated
-    across frames; remaining slots take unary entries (concept, PAD, PAD) for
-    detected concepts not already covered by a relation triple. Unfilled slots
-    are all-PAD.
-
-    Returns LongTensor [k, 3].
-    """
-    relation_triples = set()
-    seen_concepts = set()
-    for concept_boxes, relations, _ in per_frame:
-        for src, rel_name, dst in relations:
-            relation_triples.add((src, kg.relation_index(rel_name), dst))
-            seen_concepts.update((src, dst))
-
-    detected = set()
-    for concept_boxes, _, _ in per_frame:
-        for cid in concept_boxes:
-            if cid not in seen_concepts:
-                detected.add(cid)
-
-    # sorted -> a given triple always occupies the same slot (the MLP input
-    # is positional); relation triples take priority over unary detections
-    triples = sorted(relation_triples)
-    triples += [(cid, TRIPLE_PAD, TRIPLE_PAD) for cid in sorted(detected)]
-
-    triples = triples[:k]
-    while len(triples) < k:
-        triples.append((TRIPLE_PAD, TRIPLE_PAD, TRIPLE_PAD))
-    return torch.tensor(triples, dtype=torch.long)
 
 
 def perceive_scene_geo(env, pipeline, kg):
@@ -98,7 +77,7 @@ def perceive_scene_geo(env, pipeline, kg):
         if not frame_maybe_has_objects(frame):
             results.append(({}, {}, {}, []))
             continue
-        boxes, embeddings = pipeline.detect(frame)
+        boxes, embeddings, _masks = pipeline.detect(frame)
         ids, sims = kg.match_batch_sims(embeddings)
         concept_boxes = union_boxes_by_concept(ids, boxes)
         concept_sims = {}
