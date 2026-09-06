@@ -1,0 +1,9 @@
+torch>=2.3,<3
+torchvision>=0.18,<1
+numpy>=1.26,<3
+mujoco>=3.2,<4
+gymnasium>=0.29,<2
+opencv-python-headless>=4.10,<5
+matplotlib>=3.8,<4
+pytest>=8,<9
+git+https://github.com/facebookresearch/segment-anything.git

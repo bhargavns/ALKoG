@@ -18,6 +18,10 @@ pydantic-settings = "^2.3"
 pyyaml          = "^6.0"
 wandb           = "^0.17"
 numpy           = "^1.26"
+matplotlib      = "^3.8"
+opencv-python-headless = "^4.10"
+mujoco          = "^3.2"
+segment-anything = { git = "https://github.com/facebookresearch/segment-anything.git" }
 rich            = "^13.7"
 typer           = "^0.12"
 websockets      = "^12.0"   # Godot bridge (Block 11)
