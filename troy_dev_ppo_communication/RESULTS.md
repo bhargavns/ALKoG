@@ -1,10 +1,11 @@
 # Phase-2 Symbol-Grounding Results
 
-**Last updated:** 2026-08-30
+**Last updated:** 2026-09-13
 **Scope:** PPO over distance-gated KG symbol triples — architecture shootout,
 value-loss normalization, a symbol-forcing conflict task, transfer to the
-real SAM perception pipeline, and swapping KG concept matching for a supervised
-category head while keeping the triple structure.
+real SAM perception pipeline, swapping KG concept matching for a supervised
+category head while keeping the triple structure, and a DIAL-style
+differentiable communication channel measured against matched controls.
 
 ---
 
@@ -37,6 +38,18 @@ category head while keeping the triple structure.
    better detection: SAM's recall is unchanged, but every detection now lands on a
    stable, correct symbol instead of a splintered node. **Single seed — not yet
    established.**
+7. **DIAL fixes the gradient and does not move the task** (§12). A differentiable
+   noisy-sigmoid channel carries real information — receiver explained variance
+   **0.080 vs 0.00005** for an architecture-matched control whose transmitter was
+   provably frozen — but food rate differs by **0.13 percentage points** between them
+   over ~4,685 episodes each, and receiver policy entropy never leaves uniform. The
+   channel transmits; the actor never steers. Gradient flow was never the binding
+   constraint.
+8. **Giving the receiver the transmitter's orientation did not help either** (§13,
+   partial). With `receiver_yaw_mode=shared`, all three DIAL variants reached
+   iteration ~276/450 before being stopped, and every task metric matches the
+   independent-yaw runs at the same iteration count: food 0.36–0.37, receiver entropy
+   still at uniform. The unobserved-yaw problem was not the binding constraint.
 
 ---
 
@@ -356,6 +369,26 @@ the batch size, so it is not comparable and should not be read as a policy ceili
   could have shown an input the policy never saw. Fixed by giving both callers one
   `TransmitterInput` built from a single factory, then verifying identical output
   from identical state rather than asserting it.
+- "DIAL means a straight-through Gumbel-softmax channel" (§10, above) —
+  **wrong method attributed**. Foerster et al. use `sigmoid(z + Gaussian noise)` in
+  training and `1[z > 0]` at execution. Gumbel-softmax was never their mechanism.
+  §12 implements the actual one.
+- "σ=2 is the wrong reference, the probe fails 2/3 seeds there" — **wrong, and it
+  was a budget artifact**. At 300 updates σ=0.5 looked dominant; at 1,000 updates
+  across 8 seeds the two sigmas tie *exactly* on hard accuracy (0.844 each). The
+  apparent margin was small-sample noise on accuracies quantized to steps of 0.25.
+  Both the original preference for σ=0.5 and the subsequent reversal to σ=2 were
+  overconfident reads of three seeds.
+- "The critic is stealing the transmitter's gradient; detaching it on the critic
+  branch should free the actor to steer" — **wrong**. `critic_detach=1` zeroed the
+  message-head value gradient exactly as designed and lowered receiver explained
+  variance as predicted (0.052 → 0.015), but produced **no control gain**. Critic
+  dominance was real and measured (6.7–15×) and was not the binding constraint.
+- "Channel saturation climbing to 0.90 is reassuring for the σ=0.5 choice" —
+  **incomplete, and stated as if it were purely good news**. It did retire the
+  analog-exploitation risk, but the same saturation predicts gradient collapse:
+  median message-head actor gradient falls 37× from the unsaturated to the
+  saturated regime (§12). Saturation was simultaneously the good news and the bad.
 
 ## 10. Current best config & open questions
 
@@ -363,12 +396,20 @@ the batch size, so it is not comparable and should not be read as a policy ceili
 `normalize_value_loss=True`, 600 iterations — **0.925 food, 0.000 loose-death held out**
 (§7). Single seed; the prior KG-matching config sits at ~0.52.
 
-**Communication phase:** RIAL is a measured dead end (§11). Next is **DIAL** — a
-straight-through Gumbel-softmax channel so the receiver's loss reaches the
-transmitter's head. One design decision to settle first: whether the two agents keep
-separate optimizers or become a single jointly-optimized model, since that determines
-whether the result reads as "two agents learned to communicate" or "one network
-learned to route information through a discrete bottleneck".
+**Communication phase:** RIAL is a measured dead end (§11) and **DIAL is now also a
+measured null on task performance** (§12), using the paper's actual noisy-sigmoid
+channel rather than the Gumbel-softmax this section previously proposed. Gradient
+flow across the channel is verified and information transfer is real; neither becomes
+control. The settled design question: one joint optimizer with named parameter groups,
+which is what `DIALPPOTrainer` uses.
+
+DIAL_PLAN §9's shared-yaw diagnostic has now also been run (§13, stopped at ~61%
+of budget): giving the receiver the transmitter's orientation changed nothing through
+276 iterations. That removes the strongest remaining explanation on the *task* side.
+With the channel, the critic's influence, and the receiver's frame all ruled out as
+single causes, the remaining candidates are the receiver itself (no recurrence, no
+previous-action input, a 4-dim transformer over messages only) and the reward
+signal's credit-assignment horizon. None has a prespecified experiment yet.
 
 **Open questions / next steps:**
 - **Seeds 1–2 for the §7 result** — the single outstanding blocker on treating 0.925
@@ -492,8 +533,313 @@ Supporting measurements from building the phase:
   that RIAL cannot work here -- only that it did not, over 450 iterations, with
   both ends initialized at random.
 
+## 12. DIAL: the gradient crosses the channel, the task does not move (2026-09-13)
+
+The channel was made differentiable, as §10 and §11 called for. It works, in the
+narrow sense that the receiver's loss now reaches the transmitter and real
+information crosses. It produced **no task improvement over an architecture-matched
+control**. Gradient flow was not the binding constraint.
+
+### What was implemented
+
+Foerster et al.'s actual DIAL channel, not the Gumbel-softmax §10 proposed (logged in
+§9). Training uses `b = sigmoid(z + sigma * noise)` on two real logits; execution uses
+`b = 1[z > 0]`, mapping `00/01/10/11` to `a/b/c/d`, so hard execution still transmits
+exactly one of the same four symbols §11 used. The receiver reads a continuous
+four-corner interpolation of its existing symbol embeddings, exact at the binary
+corners, so hard and continuous inference share one representation.
+
+The transmitter's private critic and categorical-message PPO objective are **removed**:
+its message output is an internal activation of a single composed policy, trained by
+one joint Adam with named parameter groups. Messages are never buffered as
+activations — the rollout stores observations, triples, deltas and the Gaussian noise
+sample, and every minibatch replays the full ten-message window through the *current*
+transmitter. See [DIAL.md](DIAL.md) and [DIAL_PLAN.md](DIAL_PLAN.md).
+
+### Sigma selection: the toy probe does not discriminate
+
+A four-target identification probe (production channel, receiver, window
+reconstruction and PPO update; one-step episodes) at 1,000 updates across 8 seeds:
+
+| | mean hard | mean continuous | mean gap | seeds at 1.00 hard |
+|---|---:|---:|---:|---:|
+| σ=0.5 | 0.844 | 0.995 | 0.151 | 4/8 |
+| σ=2.0 | 0.844 | 0.844 | **0.000** | 5/8 |
+
+**Identical on hard accuracy**, which is the deployment condition. Head-to-head σ=0.5
+wins 1 seed, loses 2, ties 5. The only real difference is the train/execution gap:
+σ=0.5 nearly solves the toy in continuous terms and gives 15 points back to
+thresholding, while σ=2.0 has no gap at all on any seed. Neither passes DIAL_PLAN §7's
+three-seed 95% gate. The arena below ran at **σ=0.5** with that gate knowingly open.
+
+### The arms
+
+Seed 0, 450 iterations × 2,048 steps, σ=0.5, lr 3e-4, `target_kl=0.03`, value
+normalization on, identical environment and budget. Three ran concurrently on one GPU
+at 76–87 s/iteration.
+
+| Run | Configuration | Role |
+|---|---|---|
+| `dial_s0` | `method=dial_ppo` | Treatment — full cross-agent gradient |
+| `detached_s0` | `+ detach_channel=1` | Control — same architecture, gradient severed |
+| `critic_detach_s0` | `+ critic_detach=1` | Ablation — actor-only gradient shapes the code |
+| `baseline_s0` | `method=independent_ppo` | RIAL control, **stopped at iteration 120** |
+
+### The result
+
+Full 450 iterations each, ~4,685 episodes per arm:
+
+| metric | DIAL | detached | delta |
+|---|---:|---:|---:|
+| food_rate | 0.37481 | 0.37353 | **+0.00128** |
+| mean_return | −5.22463 | −5.47177 | +0.24714 |
+| loose_death_rate | 0.32583 | 0.33129 | −0.00546 |
+| mean_length | 202.65209 | 202.71811 | −0.06602 |
+| rx_entropy | 1.36549 | 1.37019 | −0.00469 |
+| **rx_explained_var** | **0.08007** | **0.00005** | **+0.08002** |
+
+Food rate differs by **0.13 percentage points** from a control whose transmitter never
+received a single gradient. Episode length, loose-lion deaths and receiver entropy are
+equally indistinguishable. Over the final 50 iterations DIAL is *worse* on food
+(0.411 vs 0.438). Against DIAL_PLAN §8: actor gradients verified across the channel
+**yes**; improved task performance over the matched control **no**.
+
+DIAL's own trajectory, showing what did change:
+
+| window | food | return | rx_ent | rx_ev | saturation | actor_grad | value_grad |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1–50 | 0.338 | −5.79 | 1.3686 | +0.0096 | 0.103 | 0.003459 | 0.001822 |
+| 101–150 | 0.375 | −5.56 | 1.3744 | +0.0656 | 0.891 | 0.001230 | 0.008248 |
+| 201–250 | 0.344 | −5.80 | 1.3589 | +0.1221 | 0.861 | 0.001376 | 0.009152 |
+| 301–350 | 0.418 | −5.63 | 1.3697 | +0.1379 | 0.642 | 0.006429 | 0.024523 |
+| 401–450 | 0.411 | −3.70 | 1.3695 | +0.0278 | 0.564 | 0.009295 | 0.050591 |
+
+### What is genuinely established
+
+- **Information crosses the channel.** `rx_explained_var` 0.080 vs 0.00005 (peak
+  0.706 vs 0.0024) — a factor of 1,600. The receiver's critic learned to predict
+  return from the message stream, which was categorically impossible under RIAL.
+  The transmitter's node symbols moved (L2 delta 0.150–0.269).
+- **The control is airtight.** Summed transmitter gradient across all 450 detached
+  iterations is **exactly 0.0**, and its node symbols are bit-identical to
+  initialization (L2 delta 0.000, cosine +1.000). Any DIAL-vs-detached difference is
+  attributable to the channel gradient alone.
+- **Optimization was never the problem.** 0/450 KL early stops in either arm; no
+  update was ever rejected.
+- **The detached arm independently reproduced the §11 null:** mean
+  `rx_explained_var` +0.0000519, against the RIAL run's +0.00007. Two different
+  architectures, the same dead receiver.
+
+### What did not happen
+
+The receiver never committed to a policy. Its entropy finished **0.0169 nats** from
+uniform (`ln 4 = 1.3863`) — less departure than §11's acknowledged failure ever showed
+(0.0705). Information reached the critic and never reached the actor.
+
+`critic_detach=1` **disconfirmed the critic-dominance hypothesis.** The measurement
+that motivated it was real: value-side gradient at the message head ran 6.7–15× the
+actor-side gradient, exactly the §3 pathology at a new location. Detaching it worked
+mechanically — message-head value gradient exactly 0, receiver explained variance
+down 0.052 → 0.015 as predicted, since the critic can no longer shape the code toward
+its own predictability — and produced **no control gain**: food 0.370 vs DIAL's 0.360
+and the detached control's 0.364, over the 177 iterations all three shared.
+
+This arm was **stopped deliberately at iteration 405/450** (4,264 episodes) and never
+completed. Its terminal full-run means: food 0.391, return −4.90, receiver entropy
+1.3673, `rx_explained_var` +0.025 (peak 0.443). Summed message-head value gradient
+across all 405 iterations was exactly 0.0, so the flag held throughout. The
+explained variance sits between DIAL's 0.080 and the control's 0.00005, as expected
+for a code shaped by the actor alone. Food at +0.016 over the other two arms is inside
+the placebo's drift range below. Saturation reached 0.976 with actor gradient down
+to 0.00087, reproducing the vanishing-gradient pattern a third time.
+
+### The channel strangles its own gradient
+
+Not a sufficient explanation for the null, but a real mechanism worth recording. As
+noise pressure drives the logits large — which is what makes hard execution lossless —
+the sigmoid flattens and the pathwise derivative dies:
+
+| saturation band | n | median message-head actor_grad |
+|---|---:|---:|
+| 0.0–0.1 | 41 | 0.002820 |
+| 0.7–0.9 | 109 | 0.000360 |
+| 0.9–1.0 | 129 | **0.000076** |
+
+`corr(saturation, log10 actor_grad) = −0.555`, reproduced independently in the
+critic-detach arm at −0.490. Analytically, `d/dz sigmoid(z)` is 0.235 at |z|=0.5 and
+0.012 at |z|=4.4, the run's mean. **DIAL's gradient path decays as its discretization
+succeeds** — the noise that buys a clean binary code is the same noise that kills the
+derivative.
+
+It is not the whole story. Saturation *peaked* mid-run and then declined
+(0.103 → 0.891 → 0.861 → 0.642 → 0.564) and gradients recovered as it fell, yet
+`rx_explained_var` dropped over that same stretch (0.138 → 0.028) with the critic
+still dominating 5.4× at the end. Saturation-driven vanishing gradient is measured and
+real; it does not by itself account for the flat task curve.
+
+### An accidental placebo, and a caveat it converts into a measurement
+
+§11 warned that rising `food_rate` is not evidence of learning. The detached arm
+proves it. Its transmitter is provably frozen and its receiver critic provably learned
+nothing, and its food rate still drifted **0.359 → 0.438** across the run — the same
+shape §11 flagged (0.350 → 0.433). That calibrates the noise floor: DIAL's
+0.338 → 0.411 drift sits **inside** the placebo's range. Any future claim from a
+food-rate trend on this task has to clear about ±0.08 of drift in a system that cannot
+possibly be communicating.
+
+### Caveats
+
+- **Single seed (0).** As everywhere in this document. One seed cannot establish that
+  DIAL fails here, only that it did.
+- **The three-seed probe gate was open** when the arena ran, failing on one seed at
+  every sigma tested. The arena result should not be read as independent of that.
+- **σ=0.5 only.** σ=2.0 was never run in the arena, and it is the setting with no
+  train/execution gap on the toy probe.
+- **Held-out evaluation outstanding.** These are training-time numbers. The
+  prespecified measurement is `evaluate_communication.py` on frozen weights with
+  `hard`/`constant`/`random` message ablations; identical food rates across those
+  three would convert "the policy looks uniform" into "the messages provably carry no
+  control signal."
+- **`baseline_s0` was stopped at iteration 120** to free a GPU slot for the
+  critic-detach arm. Over those 120 iterations its mean `rx_explained_var` was
+  −0.0000579, reproducing §11; `transmitter_final.pt` was never written, so the
+  iteration-100 checkpoint is its newest loadable weight set.
+- **`critic_detach_s0` was stopped at iteration 405**, before completion; the
+  iteration-400 checkpoint is its newest loadable weight set.
+- **Arms are not wall-clock matched.** `critic_detach_s0` started ~3h after the others
+  and saw different GPU contention. Seeding is per-process and deterministic, so this
+  affects speed and not correctness, but a headline claim from this arm should be
+  re-run as a clean matched pair.
+
+### What this points to
+
+The information is in the channel and the receiver's critic can decode it; the actor
+never converts it into action. That pattern points away from the channel and toward
+DIAL_PLAN §9, which flagged in advance a problem differentiability cannot remove: the
+receiver's yaw is randomized every episode and observed by **neither** agent, and the
+receiver has no recurrence and no previous-action input. A four-symbol code therefore
+cannot map transmitter-frame directions onto receiver-frame moves without some
+inferred calibration history. The next experiment should be that clearly-labelled
+fixed/shared-yaw diagnostic, which separates a credit-assignment failure from an
+unobservable task — not another channel variant. *(Run in §13: it did not help.)*
+
+Sigma annealing (low for gradient, rising to force discretization) would address the
+saturation finding directly. Flagged as a **hypothesis generated by this run**, not a
+prespecified one, and it should be declared as such if pursued.
+
+## 13. Shared-yaw diagnostic: orientation was not the blocker (2026-09-13, partial)
+
+§12 pointed at DIAL_PLAN §9 as the likeliest remaining cause. The receiver's yaw was
+randomized every episode and observed by neither agent, so a transmitter-frame code
+could not map onto receiver-frame moves. This section removes that confound. **It
+changed nothing.** These runs were **stopped at 61% of budget**, and the result below is
+partial.
+
+### Setup
+
+`receiver_yaw_mode=shared` copies the transmitter's randomly sampled yaw into the
+receiver at every reset, and both stay fixed for the episode. "Forward" now means the
+same world direction for both agents. Both modes consume the same RNG draws. This
+was checked directly: food layouts over five resets are byte-identical between
+`shared` and `independent`. So these runs replay exactly the layout sequence the §12
+runs saw, with only the receiver's orientation changed. All 18 mechanism tests passed
+before launch, and a two-iteration end-to-end smoke run completed.
+
+Seed 0, σ=0.5, 450 × 2,048 planned, all other settings as §12. Three arms ran
+concurrently at 75–76 s/iteration:
+
+| Run | Flags | Gradient receiver → transmitter | Verified at iteration 3 |
+|---|---|---|---|
+| `dial_shared_s0` | *(none)* | actor and critic | actor 0.00714, value 0.00116 |
+| `critic_detach_shared_s0` | `critic_detach=1` | actor only | actor 0.00748, value **0** |
+| `detached_shared_s0` | `detach_channel=1` | neither | actor **0**, value **0** |
+
+### Why the runs are incomplete
+
+All three stopped within 40 seconds of each other at about 09:56, at iterations 280,
+276 and 276. None of the logs has a traceback. The kernel log shows no out-of-memory
+kill, and the machine did not reboot. They were launched as background tasks of an
+interactive Claude Code session, and they most likely ended when that session did.
+**This was a launch error, not a training failure.** Long runs should be started
+detached from the session (e.g. `setsid nohup`). Checkpoints exist through iteration
+275. Final weights were never written, and `init_from` restores weights only, so the
+runs cannot be resumed exactly.
+
+### The result
+
+The comparison covers the first 276 iterations. The §12 independent-yaw runs are truncated to the same
+length, and the layout sequence is identical:
+
+| arm | food | return | loose_death | length | rx_entropy | rx_ev | saturation |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| DIAL, shared | 0.361 | −5.52 | 0.323 | 204.3 | 1.3723 | +0.0605 | 0.500 |
+| critic-detach, shared | 0.373 | −5.20 | 0.321 | 202.2 | 1.3658 | +0.0143 | 0.312 |
+| detached, shared | 0.368 | −5.63 | 0.328 | 199.7 | 1.3742 | −0.0000 | 0.000 |
+| DIAL, independent | 0.357 | −5.50 | 0.321 | 205.1 | 1.3642 | +0.0701 | 0.714 |
+| critic-detach, independent | 0.383 | −5.16 | 0.334 | 200.1 | 1.3668 | +0.0208 | 0.661 |
+| detached, independent | 0.359 | −5.75 | 0.329 | 205.2 | 1.3713 | +0.0000 | 0.000 |
+
+Last 50 iterations of that window (227–276):
+
+| arm | food | return | rx_entropy | rx_ev |
+|---|---:|---:|---:|---:|
+| DIAL, shared | 0.379 | −5.60 | 1.3803 | +0.1165 |
+| critic-detach, shared | 0.380 | −4.93 | 1.3699 | +0.0320 |
+| detached, shared | 0.389 | −5.13 | 1.3825 | +0.0000 |
+| DIAL, independent | 0.326 | −7.27 | 1.3409 | +0.1215 |
+| critic-detach, independent | 0.407 | −4.88 | 1.3527 | +0.0455 |
+| detached, independent | 0.338 | −6.49 | 1.3732 | +0.0000 |
+
+- **Food rate:** all six arms fall between 0.357 and 0.383 over the matched window.
+  That range is inside the ±0.08 drift that the frozen-transmitter placebo showed in §12.
+  The shared-yaw DIAL arm is not ahead of its own detached control (0.361 vs 0.368).
+- **The receiver still never commits.** Its largest entropy drop below `ln 4` in the
+  shared-yaw arms is 0.064–0.066 nats. With independent yaw it is 0.064–0.117. Removing
+  the orientation confound did not free the policy.
+- **Information transfer is unchanged in character.** `rx_explained_var` follows the
+  same pattern as §12: DIAL highest (0.060), critic-detach lower (0.014), and the detached
+  control at exactly zero. The channel still carries what the critic can read and the
+  actor does not use.
+- **Saturation ran lower under shared yaw** (0.500 vs 0.714 for DIAL; 0.312 vs 0.661
+  for critic-detach). It is the only systematic difference between the two conditions.
+  Task behaviour shows no matching change.
+
+### What this establishes, and what it doesn't
+
+Three candidate explanations for the §11–§12 nulls have now each been tested separately:
+the non-differentiable channel (§12), the critic's influence on the code (§12
+`critic_detach`), and the receiver's unobserved orientation (here). None produced a
+receiver that steers. What remains are properties of the receiver and the task that no
+arm has changed. The receiver has no recurrence, no previous-action input, and only a
+4-dimensional transformer over messages. The credit-assignment horizon is 300 steps.
+
+### Caveats
+
+- **Partial: 276–280 of 450 iterations** (~2,900 episodes per arm, 61% of budget).
+  §12's arms showed no late departure over their final 40%, but that is not proof these
+  would not have.
+- **Single seed (0).**
+- **Training-time numbers only.** No held-out evaluation has been run on any §12 or §13
+  checkpoint.
+- **σ=0.5 only**, as in §12.
+
 ## Artifacts
 
+- DIAL (§12): `lib/CommunicationChannel.py`, `lib/DIALPPOTrainer.py`,
+  `lib/CommunicationEvaluation.py`, `DIALTransmitter` in `lib/SymbolPolicy.py`,
+  `distribution_bits`/`_bits_cls` in `lib/ReceiverPolicy.py`; scripts
+  `evaluate_communication.py`, `probe_dial.py`,
+  `train_communication.py method=dial_ppo|independent_ppo`; tests `tests/test_dial.py`;
+  design docs [DIAL.md](DIAL.md), [DIAL_PLAN.md](DIAL_PLAN.md); mechanism-validation
+  record `output/dial_validation.json`
+- §12 runs: `output/runs/comm_20260912_162455_dial_s0/` (450 it),
+  `output/runs/comm_20260912_162459_detached_s0/` (450 it, control),
+  `output/runs/comm_20260912_192358_critic_detach_s0/` (stopped at 405 it),
+  `output/runs/comm_20260912_162503_baseline_s0/` (stopped at 120 it)
+- §13 runs (`receiver_yaw_mode=shared`, all stopped at ~276 it, checkpoints through
+  275): `output/runs/comm_20260913_033319_dial_shared_s0/`,
+  `output/runs/comm_20260913_033324_critic_detach_shared_s0/`,
+  `output/runs/comm_20260913_033329_detached_shared_s0/`
 - Communication phase (§11): `lib/ReceiverPolicy.py`, `lib/CommunicationTrainer.py`
   (`TransmitterInput`, `CommunicationTrainer`), `lib/KGWorldEnv.py`
   (`CommunicationKGWorldEnv`), `lib/VideoRecorder.py`

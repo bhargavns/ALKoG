@@ -498,8 +498,9 @@ class CommunicationKGWorldEnv(KinematicKGWorldEnv):
 
     The receiving agent is the `receiver` body. It takes the Discrete(4)
     egocentric moves the single-agent env gave the transmitter, relative to a
-    yaw drawn once at reset (there is no turn action, so its facing is fixed for
-    the episode). It is blind: it never sees an observation from this env at
+    yaw fixed for the episode. With receiver_yaw_mode="independent" (default),
+    it is sampled separately; "shared" copies the transmitter's reset yaw.
+    It is blind: it never sees an observation from this env at
     all, only the symbol stream, so its yaw is a fixed action->displacement
     mapping rather than something it perceives.
 
@@ -516,7 +517,10 @@ class CommunicationKGWorldEnv(KinematicKGWorldEnv):
     with the truth. The static lion/cage/food keep coming from real perception.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, receiver_yaw_mode="independent", **kwargs):
+        if receiver_yaw_mode not in ("independent", "shared"):
+            raise ValueError("receiver_yaw_mode must be independent or shared")
+        self.receiver_yaw_mode = receiver_yaw_mode
         super().__init__(**kwargs)
         self.receiver_yaw = 0.0
         self.receiver_caught = False
@@ -525,9 +529,11 @@ class CommunicationKGWorldEnv(KinematicKGWorldEnv):
 
     def reset(self, seed=None, options=None):
         obs, info = super().reset(seed=seed, options=options)
-        # drawn after every other RNG consumer, same discipline as the receiver
-        # position itself, so a given seed reproduces the one-agent layout
-        self.receiver_yaw = float(self.rng.uniform(-np.pi, np.pi))
+        # Consume the same draw in both modes so subsequent seeded layouts
+        # stay matched; shared yaw changes only the receiver's movement frame.
+        independent_yaw = float(self.rng.uniform(-np.pi, np.pi))
+        self.receiver_yaw = (float(self.data.qpos[2])
+                             if self.receiver_yaw_mode == "shared" else independent_yaw)
         self.receiver_caught = False
         self._prev_resource_dist = self._resource_dist(self._get_info())
         return obs, self._get_info()

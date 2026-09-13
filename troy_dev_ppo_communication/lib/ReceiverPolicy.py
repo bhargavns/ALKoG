@@ -2,7 +2,7 @@
 
 The receiver never observes the world. Its entire input is the sequence of
 symbols the transmitting agent has emitted so far, which is the whole point --
-anything it learns to do correctly must have travelled through the 10-symbol
+anything it learns to do correctly must have travelled through the four-symbol
 channel.
 
 Context layout (11 tokens of SYMBOL_DIM=4, so 44 values) -- the window holds
@@ -25,6 +25,7 @@ import torch.nn as nn
 from torch.distributions import Categorical
 
 from lib.SymbolicKG import SYMBOL_DIM
+from lib.CommunicationChannel import message_weights
 
 # Emittable vocabulary. Started at 10; cut to 4 to match the receiver's 4
 # actions, so a one-to-one code exists for the pair to find. With 10 symbols
@@ -39,8 +40,8 @@ MAX_SYMBOLS = 10  # symbols retained in context
 CONTEXT_LEN = MAX_SYMBOLS + 1  # + CLS
 CONTEXT_VALUES = CONTEXT_LEN * SYMBOL_DIM  # 44
 
-CLS_ID = N_SYMBOLS  # 10
-NULL_ID = N_SYMBOLS + 1  # 11
+CLS_ID = N_SYMBOLS  # 4
+NULL_ID = N_SYMBOLS + 1  # 5
 VOCAB = N_SYMBOLS + 2
 
 
@@ -91,7 +92,7 @@ class ReceiverActorCritic(nn.Module):
     ):
         super().__init__()
         self.d_model = d_model
-        # symbols a-j, CLS, NULL -- all randomly initialized, all trained by PPO
+        # symbols a-d, CLS, NULL -- all randomly initialized, all trained by PPO
         self.token_embeddings = nn.Embedding(VOCAB, d_model)
         self.pos_embeddings = nn.Parameter(torch.randn(CONTEXT_LEN, d_model))
         nn.init.normal_(self.token_embeddings.weight, std=0.5)
@@ -119,6 +120,29 @@ class ReceiverActorCritic(nn.Module):
 
     def dist(self, context):
         return Categorical(logits=self.actor(self._cls(context)))
+
+    def _bits_cls(self, bits, valid):
+        """bits [B,10,2], valid [B,10]; 00 is a message, not padding."""
+        if bits.shape[1:] != (MAX_SYMBOLS, 2) or valid.shape != bits.shape[:2]:
+            raise ValueError("Expected [B,10,2] bits and [B,10] validity")
+        messages = message_weights(bits) @ self.token_embeddings.weight[:N_SYMBOLS]
+        null = self.token_embeddings.weight[NULL_ID]
+        messages = torch.where(valid.unsqueeze(-1), messages, null)
+        cls = self.token_embeddings.weight[CLS_ID].expand(bits.shape[0], 1, -1)
+        x = torch.cat((cls, messages), dim=1) + self.pos_embeddings
+        pad = torch.cat((torch.zeros_like(valid[:, :1]), ~valid), dim=1)
+        return self.encoder(x, src_key_padding_mask=pad)[:, 0]
+
+    def distribution_bits(self, bits, valid, critic_detach=False):
+        cls = self._bits_cls(bits, valid)
+        critic_cls = self._bits_cls(bits.detach(), valid) if critic_detach else cls
+        return Categorical(logits=self.actor(cls)), self.critic(critic_cls).squeeze(-1)
+
+    @torch.no_grad()
+    def act_bits(self, bits, valid, greedy=False):
+        dist, value = self.distribution_bits(bits, valid)
+        action = dist.probs.argmax(-1) if greedy else dist.sample()
+        return action, dist.log_prob(action), value
 
     def value(self, context):
         return self.critic(self._cls(context)).squeeze(-1)

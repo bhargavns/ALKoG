@@ -1,7 +1,6 @@
 import sys,os
 
-sys.path.append(os.environ['CORE'])
-from lib.python.Logger import Logger
+from lib.Logger import Logger
 
 g_Logger = Logger(__name__)
 print = g_Logger.print

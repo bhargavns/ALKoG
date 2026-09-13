@@ -135,3 +135,20 @@ def _mlp(in_dim, out_dim, hidden):
         nn.Tanh(),
         nn.Linear(hidden, out_dim),
     )
+
+
+class DIALTransmitter(nn.Module):
+    """Perceptual transmitter with two real message logits and no private critic."""
+
+    def __init__(self, kg, obs_dim=4, k_triples=7, hidden=38):
+        super().__init__()
+        self.symbol_table = SymbolTable(kg)
+        self.slot_attn = SlotAttention(k_triples, N_TRIPLE_SLOTS * SYMBOL_DIM)
+        self.message_head = _mlp(obs_dim + k_triples * 12, 2, hidden)
+        nn.init.normal_(self.message_head[-1].weight, std=0.01)
+        nn.init.zeros_(self.message_head[-1].bias)
+
+    def forward(self, obs, triples, deltas):
+        enc, valid = self.symbol_table(triples, deltas)
+        features = torch.cat((obs, self.slot_attn(enc, valid)), dim=-1)
+        return self.message_head(features)

@@ -389,12 +389,35 @@ def save_training_curves(rows, plot_dir):
     for ax, (key, title, color) in zip(axes.flat, panels):
         if key in rows[0]:
             ax.plot(it, [r[key] for r in rows], color=color)
+        else:
+            for prefix in ("tx", "rx"):
+                prefixed = f"{prefix}_{key}"
+                if prefixed in rows[0]:
+                    ax.plot(it, [r[prefixed] for r in rows], label=prefix)
+            if ax.lines:
+                ax.legend()
         ax.set_title(title)
         ax.set_xlabel("iteration")
     path = os.path.join(plot_dir, "training_losses.png")
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
     written.append(path)
+    if "tx_actor_grad_norm" in rows[0]:
+        fig, axes = plt.subplots(1, 3, figsize=(12, 3.5))
+        for key in ("tx_actor_grad_norm", "tx_value_grad_norm"):
+            axes[0].plot(it, [r[key] for r in rows], label=key)
+        axes[0].legend(fontsize=7)
+        axes[0].set_title("Message-head gradient norms")
+        axes[1].plot(it, [r["channel_saturation"] for r in rows])
+        axes[1].set_title("Bits below .05 or above .95")
+        axes[2].plot(it, [r["channel_logit_abs"] for r in rows])
+        axes[2].set_title("Mean absolute message logit")
+        for ax in axes:
+            ax.set_xlabel("iteration")
+        path = os.path.join(plot_dir, "communication_channel.png")
+        fig.savefig(path, dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        written.append(path)
     return written
 
 

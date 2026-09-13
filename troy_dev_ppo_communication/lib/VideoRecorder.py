@@ -181,13 +181,14 @@ def record_policy_episode(path, env, model, pipeline, kg, k_triples, perceive_ev
 @torch.no_grad()
 def record_communication_episode(
     path, env, transmitter, receiver, kg, make_tx_input, perceive_passes,
-    device, tag="", fps=6, greedy=False,
+    device, tag="", fps=6, greedy=False, method="independent_ppo",
+    sigma=2.0, channel_mode="hard",
 ):
     """Roll out one two-agent episode and write the transmitter's-eye video.
 
     The cameras belong to the transmitter, which never moves, so the panorama is
     a fixed viewpoint watching the receiver travel. The HUD carries the emitted
-    symbol, the receiver's move, both critics' values, and the running context
+    symbol, the receiver's move and value, and the running context
     window, which is what makes it possible to eyeball whether a symbol means
     anything consistent.
 
@@ -196,14 +197,15 @@ def record_communication_episode(
     stripping, slot count, receiver slot, and per-step anchor refresh included.
     Returns (outcome, episode_return).
     """
-    from lib.ReceiverPolicy import SYMBOL_NAMES, build_context, format_context
+    from lib.ReceiverPolicy import SYMBOL_NAMES
+    from lib.CommunicationEvaluation import CommunicationActor, episode_outcome
 
     rec = PanoramaRecorder(path, frame_size=env.render_size, fps=fps)
     obs, _ = env.reset()
 
     tx_input = make_tx_input()
     boxes, rels = tx_input.refresh(obs)
-    symbols = []
+    actor = CommunicationActor(transmitter, receiver, device, method, sigma, channel_mode, greedy)
     ep_return = 0.0
     outcome = "timeout"
     rec.add(env.render_panorama(), boxes, rels, hud_lines=[
@@ -211,20 +213,9 @@ def record_communication_episode(
         f"triples: {format_triples(kg, tx_input.triples)}",
     ])
     for step in range(1, env.max_steps + 1):
-        obs_t = torch.as_tensor(obs, dtype=torch.float32, device=device).unsqueeze(0)
-        step_deltas = tx_input.deltas(obs, env)
-
-        symbol, _, s_val = transmitter.act(
-            obs_t,
-            tx_input.triples.to(device).unsqueeze(0),
-            step_deltas.to(device).unsqueeze(0),
-        )
-        sym = int(symbol.item())
-        symbols.append(sym)
-        context = build_context(symbols, device=device).unsqueeze(0)
-        action, _, a_val = receiver.act(context, greedy=greedy)
-
-        obs, reward, terminated, truncated, info = env.step(int(action.item()))
+        action, sym, a_val, context_text = actor.act(
+            obs, tx_input.triples, tx_input.deltas(obs, env))
+        obs, reward, terminated, truncated, info = env.step(action)
         ep_return += reward
         done = terminated or truncated
         # same cadence as the trainer: SAM only on the opening steps
@@ -233,8 +224,7 @@ def record_communication_episode(
             boxes, rels = tx_input.refresh(obs)
         status = f"lion_caged={env.lion_caged}"
         if done:
-            outcome = ("food" if info.get("food_reached")
-                       else "death" if info.get("lion_caught") else "timeout")
+            outcome = episode_outcome(info, truncated)
             status += f"  OUTCOME: {outcome}"
         rec.add(
             env.render_panorama(),
@@ -243,9 +233,9 @@ def record_communication_episode(
             hud_lines=[
                 f"{tag}  step {step}  TX={SYMBOL_NAMES[sym]}  "
                 f"RX={ACTION_NAMES[int(action)]}  "
-                f"Vtx={float(s_val):+.2f} Vrx={float(a_val):+.2f}  "
+                f"Vrx={a_val:+.2f} channel={channel_mode}  "
                 f"return={ep_return:+.2f}",
-                f"RX context: {format_context(context[0])}",
+                f"RX context: {context_text}",
                 f"triples: {format_triples(kg, tx_input.triples)}",
                 status,
             ],
