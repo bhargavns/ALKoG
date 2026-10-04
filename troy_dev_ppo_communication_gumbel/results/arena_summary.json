@@ -1,0 +1,909 @@
+{
+  "scope": "Saved Gumbel evaluations, one training seed per condition; not visual-perception validation.",
+  "experiments": {
+    "gumbel16_separate_pair_20260925_120010": {
+      "comm_20260925_120059_no_entropy_s0": {
+        "config": {
+          "method": "st_gumbel_ppo",
+          "receiver_arch": "current_mlp",
+          "perception": "oracle_state",
+          "iterations": "800",
+          "horizon": "2048",
+          "seed": "0",
+          "n_symbols": "16",
+          "channel_temperature": 1.2,
+          "sender_entropy_beta": "0.0",
+          "sender_entropy_schedule": "annealed",
+          "colocated": "0",
+          "receiver_yaw_mode": "shared"
+        },
+        "summaries": {
+          "hard": {
+            "food_rate": {
+              "mean": 0.676,
+              "ci95": [
+                0.6337715143893493,
+                0.7155447177681845
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 3.3901972936305382,
+              "ci95": [
+                1.7697861188616297,
+                4.8796677508139545
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 137.162,
+              "ci95": [
+                127.692,
+                147.09625
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.172,
+              "ci95": [
+                0.13027472439385213,
+                0.22365272007515946
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "sampled": {
+            "food_rate": {
+              "mean": 0.688,
+              "ci95": [
+                0.6460861967117412,
+                0.727047051274715
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 3.494617336837577,
+              "ci95": [
+                1.9425313714249275,
+                4.9937867541694665
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 134.47,
+              "ci95": [
+                124.56685,
+                144.49955
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.172,
+              "ci95": [
+                0.13027472439385213,
+                0.22365272007515946
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "constant": {
+            "food_rate": {
+              "mean": 0.402,
+              "ci95": [
+                0.359928740326145,
+                0.44556563040431935
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -5.0929675310441676,
+              "ci95": [
+                -6.942404932805943,
+                -3.3088722563865427
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 191.018,
+              "ci95": [
+                181.27185,
+                201.6721
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.328,
+              "ci95": [
+                0.2727894639149596,
+                0.3884163911114733
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "random": {
+            "food_rate": {
+              "mean": 0.436,
+              "ci95": [
+                0.39318560312305606,
+                0.47979031245602277
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -4.412578733003607,
+              "ci95": [
+                -6.324461802610751,
+                -2.5130052931411
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 188.63,
+              "ci95": [
+                179.01345,
+                197.94754999999998
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.324,
+              "ci95": [
+                0.2690297048761813,
+                0.3842972165462152
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          }
+        },
+        "scene_seed": 200000,
+        "policy_seed": 300000,
+        "evaluation_sha256": "2c52b12687bc8ad48b8e3df660cc5c72857674b12e74d513ae74b6c11cdcef25",
+        "checkpoint_sha256": {
+          "transmitter_final.pt": "b4687ff9e8d3d15bccf2b3cb3d8b4bc391a79dc8b7ff3cd57ef4a81027ced0fb",
+          "receiver_final.pt": "4b2bb456f4d4507d57ad96b356aebb2d28945b64a1ff5149049e5df88a75b2de"
+        }
+      },
+      "comm_20260925_120059_scheduled_s0": {
+        "config": {
+          "method": "st_gumbel_ppo",
+          "receiver_arch": "current_mlp",
+          "perception": "oracle_state",
+          "iterations": "800",
+          "horizon": "2048",
+          "seed": "0",
+          "n_symbols": "16",
+          "channel_temperature": 1.2,
+          "sender_entropy_beta": "0.1",
+          "sender_entropy_schedule": "annealed",
+          "colocated": "0",
+          "receiver_yaw_mode": "shared"
+        },
+        "summaries": {
+          "hard": {
+            "food_rate": {
+              "mean": 0.816,
+              "ci95": [
+                0.7796708962064596,
+                0.8475105206218394
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 6.5773660318379354,
+              "ci95": [
+                5.245040165328998,
+                7.888588513705783
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 103.064,
+              "ci95": [
+                94.23195,
+                111.7156
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.128,
+              "ci95": [
+                0.09214693307442182,
+                0.17511224175018894
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "sampled": {
+            "food_rate": {
+              "mean": 0.806,
+              "ci95": [
+                0.7690603702807669,
+                0.8382735333567634
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 6.334310044043037,
+              "ci95": [
+                4.9183176320332755,
+                7.6994551910128886
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 98.634,
+              "ci95": [
+                90.3177,
+                107.35024999999999
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.136,
+              "ci95": [
+                0.09898127060322204,
+                0.18403577142946165
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "constant": {
+            "food_rate": {
+              "mean": 0.174,
+              "ci95": [
+                0.14328947208106416,
+                0.20968159789986787
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -6.271386752407659,
+              "ci95": [
+                -7.714350885666726,
+                -4.90582890741541
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 234.668,
+              "ci95": [
+                224.68789999999998,
+                244.66064999999998
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.208,
+              "ci95": [
+                0.16229381886263317,
+                0.26254402804270643
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "random": {
+            "food_rate": {
+              "mean": 0.39,
+              "ci95": [
+                0.3482413304011046,
+                0.43343602450043706
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -4.727693174078584,
+              "ci95": [
+                -6.538872915720927,
+                -2.870586902959911
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 194.95,
+              "ci95": [
+                185.26895000000002,
+                204.9484
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.296,
+              "ci95": [
+                0.24284603162900242,
+                0.3553283545651389
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          }
+        },
+        "scene_seed": 200000,
+        "policy_seed": 300000,
+        "evaluation_sha256": "dd1af2fee239c32b63df699f486cadecb6e1a147e6d0e0d042169700632016a7",
+        "checkpoint_sha256": {
+          "transmitter_final.pt": "5e1b6d5ca4a99c139eeb198ae9ead231f09a0589be98ce767fc2a7f236660216",
+          "receiver_final.pt": "37fde0434cee47704e1c39c96853a9b36d825b1ad3da37d7f442f61593007e6d"
+        }
+      }
+    },
+    "gumbel16_separate_pair_20260925_193347": {
+      "comm_20260925_193444_no_entropy_s0": {
+        "config": {
+          "method": "st_gumbel_ppo",
+          "receiver_arch": "current_mlp",
+          "perception": "oracle_state",
+          "iterations": "3200",
+          "horizon": "2048",
+          "seed": "0",
+          "n_symbols": "16",
+          "channel_temperature": 1.2,
+          "sender_entropy_beta": "0.0",
+          "sender_entropy_schedule": "annealed",
+          "colocated": "0",
+          "receiver_yaw_mode": "shared"
+        },
+        "summaries": {
+          "hard": {
+            "food_rate": {
+              "mean": 0.844,
+              "ci95": [
+                0.809585245166297,
+                0.8731692085961551
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 7.663742523912204,
+              "ci95": [
+                6.390740034849081,
+                8.81234064956015
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 96.67,
+              "ci95": [
+                88.1094,
+                105.10369999999999
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.104,
+              "ci95": [
+                0.07196523249243102,
+                0.14802034070796105
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "sampled": {
+            "food_rate": {
+              "mean": 0.822,
+              "ci95": [
+                0.7860548114500956,
+                0.8530351132926648
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 6.796146132022017,
+              "ci95": [
+                5.388848697603287,
+                8.136994194210361
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 92.146,
+              "ci95": [
+                83.82785,
+                100.80905
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.128,
+              "ci95": [
+                0.09214693307442182,
+                0.17511224175018894
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "constant": {
+            "food_rate": {
+              "mean": 0.228,
+              "ci95": [
+                0.19338176911500068,
+                0.26676587209608377
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -4.855639504518013,
+              "ci95": [
+                -6.242581727421246,
+                -3.487473365504195
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 226.816,
+              "ci95": [
+                216.77055000000001,
+                237.0247
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.192,
+              "ci95": [
+                0.14798411102572986,
+                0.245338001463464
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "random": {
+            "food_rate": {
+              "mean": 0.398,
+              "ci95": [
+                0.35602997790389446,
+                0.4415253875502624
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -4.523994823496419,
+              "ci95": [
+                -6.333968510715654,
+                -2.6778542582766747
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 198.868,
+              "ci95": [
+                189.8218,
+                208.52495
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.292,
+              "ci95": [
+                0.23912535589430275,
+                0.3511700966958021
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          }
+        },
+        "scene_seed": 200000,
+        "policy_seed": 300000,
+        "evaluation_sha256": "6c88824b9186c8e9729496dfff6b2577be0a3205711c1a06ece63af95e32f7b6",
+        "checkpoint_sha256": {
+          "transmitter_final.pt": "62b12d4240cc2a062e2b5216e0be0bde3f6c38654a3026423526905c2cb9b8dc",
+          "receiver_final.pt": "cca20f9121d5513ea02080725573a076703e4e076cbb72d7e82f539627f85974"
+        }
+      },
+      "comm_20260925_193444_scheduled_s0": {
+        "config": {
+          "method": "st_gumbel_ppo",
+          "receiver_arch": "current_mlp",
+          "perception": "oracle_state",
+          "iterations": "3200",
+          "horizon": "2048",
+          "seed": "0",
+          "n_symbols": "16",
+          "channel_temperature": 1.2,
+          "sender_entropy_beta": "0.1",
+          "sender_entropy_schedule": "annealed",
+          "colocated": "0",
+          "receiver_yaw_mode": "shared"
+        },
+        "summaries": {
+          "hard": {
+            "food_rate": {
+              "mean": 0.982,
+              "ci95": [
+                0.9661483290912607,
+                0.990501806703803
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 12.036450998575255,
+              "ci95": [
+                11.28323708727494,
+                12.706735114471815
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 12.676,
+              "ci95": [
+                11.2879,
+                14.282299999999998
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.036,
+              "ci95": [
+                0.019053279530003277,
+                0.06699042240176928
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "sampled": {
+            "food_rate": {
+              "mean": 0.982,
+              "ci95": [
+                0.9661483290912607,
+                0.990501806703803
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": 12.045602112816862,
+              "ci95": [
+                11.290449991376303,
+                12.703355942726201
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 12.306,
+              "ci95": [
+                11.7779,
+                12.8641
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.036,
+              "ci95": [
+                0.019053279530003277,
+                0.06699042240176928
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "constant": {
+            "food_rate": {
+              "mean": 0.052,
+              "ci95": [
+                0.035730265115705276,
+                0.07510114393784553
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -4.074520452708511,
+              "ci95": [
+                -4.661516982706124,
+                -3.541497806399514
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 282.074,
+              "ci95": [
+                275.74564999999996,
+                287.8782
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.02,
+              "ci95": [
+                0.008572324384058198,
+                0.045955643131568594
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          },
+          "random": {
+            "food_rate": {
+              "mean": 0.402,
+              "ci95": [
+                0.359928740326145,
+                0.44556563040431935
+              ],
+              "episodes": 500
+            },
+            "mean_return": {
+              "mean": -7.352204196292314,
+              "ci95": [
+                -9.28217632564722,
+                -5.336397688638454
+              ],
+              "episodes": 500
+            },
+            "mean_length": {
+              "mean": 185.178,
+              "ci95": [
+                176.18815,
+                194.5521
+              ],
+              "episodes": 500
+            },
+            "loose_death_rate": {
+              "mean": 0.424,
+              "ci95": [
+                0.3643452153621208,
+                0.4859550461611866
+              ],
+              "episodes": 250
+            },
+            "water_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            },
+            "poison_rate": {
+              "mean": 0.0,
+              "ci95": [
+                4.336808689942018e-19,
+                0.007624340461552241
+              ],
+              "episodes": 500
+            }
+          }
+        },
+        "scene_seed": 200000,
+        "policy_seed": 300000,
+        "evaluation_sha256": "18c3d6947bc1edb253ac35f048739a6daa40edbcbb6d3b42e89119d45290c2af",
+        "checkpoint_sha256": {
+          "transmitter_final.pt": "95dc68c045559b2284b3397b262ae2611dc016d2ea8a47400d74e9780d190860",
+          "receiver_final.pt": "aa769bacfe69f2d047bce76c8188b1486935415e8754cbf02eade68dbd8f0a44"
+        }
+      }
+    }
+  }
+}
