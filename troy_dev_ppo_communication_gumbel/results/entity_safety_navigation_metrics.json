@@ -1,0 +1,55 @@
+{
+  "note": "First clear-path oracle transfer; not perception, language composition or dynamic locomotion",
+  "runs": {
+    "0": {
+      "catches": 0,
+      "communication_weights_unchanged": true,
+      "episodes": 600,
+      "safety_response_errors": 0,
+      "success_rate": 0.7283333333333334,
+      "successes": 437,
+      "timeouts": 163,
+      "training_seconds": 16.023632042109966
+    },
+    "1": {
+      "catches": 1,
+      "communication_weights_unchanged": true,
+      "episodes": 600,
+      "safety_response_errors": 0,
+      "success_rate": 0.9833333333333333,
+      "successes": 590,
+      "timeouts": 9,
+      "training_seconds": 11.964201250113547
+    },
+    "2": {
+      "catches": 0,
+      "communication_weights_unchanged": true,
+      "episodes": 600,
+      "safety_response_errors": 0,
+      "success_rate": 0.665,
+      "successes": 399,
+      "timeouts": 201,
+      "training_seconds": 11.776829374954104
+    },
+    "3": {
+      "catches": 0,
+      "communication_weights_unchanged": true,
+      "episodes": 600,
+      "safety_response_errors": 0,
+      "success_rate": 1.0,
+      "successes": 600,
+      "timeouts": 0,
+      "training_seconds": 11.906386374961585
+    },
+    "4": {
+      "catches": 2,
+      "communication_weights_unchanged": true,
+      "episodes": 600,
+      "safety_response_errors": 0,
+      "success_rate": 0.675,
+      "successes": 405,
+      "timeouts": 193,
+      "training_seconds": 12.153017583303154
+    }
+  }
+}

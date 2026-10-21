@@ -1,0 +1,882 @@
+{
+  "accepted": true,
+  "audit_seed": 3001,
+  "criterion": "target safety response; identification reported separately",
+  "deployment": "deterministic argmax tokens and joint-action response",
+  "layouts": 100,
+  "runs": {
+    "0": {
+      "accepted": true,
+      "checkpoint": "output/entity_safety3_exact/L2_seed0/checkpoint.pt",
+      "checkpoint_sha256": "4b1081237dd190ae9dbe550e5db5a7fe0f0ffb8481e0832abac1118f38f79805",
+      "evaluations": {
+        "constant": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "no_message": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "normal": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 1.0,
+          "safety_errors": 0,
+          "target_identification_accuracy": 1.0,
+          "unsafe_approaches": 0
+        }
+      },
+      "response_bounds": [
+        {
+          "caged": false,
+          "conservative_margin": 13.320250267999533,
+          "entity": "lion",
+          "expected_response": "WARN",
+          "message": [
+            5,
+            0
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 19.744553688800515,
+          "entity": "lion",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            5
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 12.407393054368255,
+          "entity": "tiger",
+          "expected_response": "WARN",
+          "message": [
+            5,
+            2
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 15.381801527190685,
+          "entity": "tiger",
+          "expected_response": "APPROACH",
+          "message": [
+            4,
+            2
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 8.036674678819114,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            2,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 8.036674678819114,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            2,
+            1
+          ],
+          "passes": true
+        }
+      ]
+    },
+    "1": {
+      "accepted": true,
+      "checkpoint": "output/entity_safety3_exact/L2_seed1/checkpoint.pt",
+      "checkpoint_sha256": "2c76b5c7536a64b0ffec4792b27ef93f8cbe108bd8615493975feb32eeb1bda0",
+      "evaluations": {
+        "constant": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "no_message": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "normal": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 1.0,
+          "safety_errors": 0,
+          "target_identification_accuracy": 1.0,
+          "unsafe_approaches": 0
+        }
+      },
+      "response_bounds": [
+        {
+          "caged": false,
+          "conservative_margin": 13.538108700127346,
+          "entity": "lion",
+          "expected_response": "WARN",
+          "message": [
+            1,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 11.74870513235269,
+          "entity": "lion",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 14.396607153846539,
+          "entity": "tiger",
+          "expected_response": "WARN",
+          "message": [
+            1,
+            0
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 7.925755292536717,
+          "entity": "tiger",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            0
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 15.022459801705498,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            4,
+            3
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 15.022459801705498,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            4,
+            3
+          ],
+          "passes": true
+        }
+      ]
+    },
+    "2": {
+      "accepted": true,
+      "checkpoint": "output/entity_safety3_exact/L2_seed2/checkpoint.pt",
+      "checkpoint_sha256": "4ccc61a559225c4030e660cdbe61302f5b0cefc2b676c9bd58eb70abd9c53f07",
+      "evaluations": {
+        "constant": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "no_message": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2344
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 56
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2344
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2344
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2344
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 56
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.34111112356185913,
+          "safety_errors": 9488,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 112
+        },
+        "normal": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 1.0,
+          "safety_errors": 0,
+          "target_identification_accuracy": 0.6666666865348816,
+          "unsafe_approaches": 0
+        }
+      },
+      "response_bounds": [
+        {
+          "caged": false,
+          "conservative_margin": 5.422642361361068,
+          "entity": "lion",
+          "expected_response": "WARN",
+          "message": [
+            0,
+            0
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 19.550778881448434,
+          "entity": "lion",
+          "expected_response": "APPROACH",
+          "message": [
+            1,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 5.422642361361068,
+          "entity": "tiger",
+          "expected_response": "WARN",
+          "message": [
+            0,
+            0
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 19.550778881448434,
+          "entity": "tiger",
+          "expected_response": "APPROACH",
+          "message": [
+            1,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 6.518783179045564,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            5
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 6.518783179045564,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            5
+          ],
+          "passes": true
+        }
+      ]
+    },
+    "3": {
+      "accepted": true,
+      "checkpoint": "output/entity_safety3_exact/L2_seed3/checkpoint.pt",
+      "checkpoint_sha256": "3efb9c3a2dd5a940f06c74d5cc815198649d16f3f79a95b0a3a66fcaa8680233",
+      "evaluations": {
+        "constant": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "no_message": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.3333333432674408,
+          "safety_errors": 9600,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 0
+        },
+        "normal": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 1.0,
+          "safety_errors": 0,
+          "target_identification_accuracy": 1.0,
+          "unsafe_approaches": 0
+        }
+      },
+      "response_bounds": [
+        {
+          "caged": false,
+          "conservative_margin": 14.853872672849219,
+          "entity": "lion",
+          "expected_response": "WARN",
+          "message": [
+            0,
+            4
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 15.347760914215803,
+          "entity": "lion",
+          "expected_response": "APPROACH",
+          "message": [
+            1,
+            4
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 17.326336936462546,
+          "entity": "tiger",
+          "expected_response": "WARN",
+          "message": [
+            0,
+            5
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 21.21061943813716,
+          "entity": "tiger",
+          "expected_response": "APPROACH",
+          "message": [
+            1,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 12.752411316212271,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            3,
+            3
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 12.752411316212271,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            3,
+            3
+          ],
+          "passes": true
+        }
+      ]
+    },
+    "4": {
+      "accepted": true,
+      "checkpoint": "output/entity_safety3_exact/L2_seed4/checkpoint.pt",
+      "checkpoint_sha256": "0eb83f86f9a0256d68f3ae795e3637f0ad2e095a0096480d8a22708baad99064",
+      "evaluations": {
+        "constant": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 2400
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.6666666865348816,
+          "safety_errors": 4800,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 4800
+        },
+        "no_message": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 2400
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 2400
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 0.6666666865348816,
+          "safety_errors": 4800,
+          "target_identification_accuracy": 0.3333333432674408,
+          "unsafe_approaches": 4800
+        },
+        "normal": {
+          "by_case": {
+            "lion/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "lion/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "sheep/loose": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/caged": {
+              "count": 2400,
+              "errors": 0
+            },
+            "tiger/loose": {
+              "count": 2400,
+              "errors": 0
+            }
+          },
+          "count": 14400,
+          "safety_accuracy": 1.0,
+          "safety_errors": 0,
+          "target_identification_accuracy": 0.6666666865348816,
+          "unsafe_approaches": 0
+        }
+      },
+      "response_bounds": [
+        {
+          "caged": false,
+          "conservative_margin": 6.54414180789537,
+          "entity": "lion",
+          "expected_response": "WARN",
+          "message": [
+            3,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 20.3163335652549,
+          "entity": "lion",
+          "expected_response": "APPROACH",
+          "message": [
+            1,
+            5
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 6.54414180789537,
+          "entity": "tiger",
+          "expected_response": "WARN",
+          "message": [
+            3,
+            1
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 20.3163335652549,
+          "entity": "tiger",
+          "expected_response": "APPROACH",
+          "message": [
+            1,
+            5
+          ],
+          "passes": true
+        },
+        {
+          "caged": false,
+          "conservative_margin": 6.403954564616904,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            0
+          ],
+          "passes": true
+        },
+        {
+          "caged": true,
+          "conservative_margin": 6.403954564616904,
+          "entity": "sheep",
+          "expected_response": "APPROACH",
+          "message": [
+            5,
+            0
+          ],
+          "passes": true
+        }
+      ]
+    }
+  },
+  "scope": "three oracle categories, one candidate each, coordinates in [-1,1]",
+  "training_objective": "unchanged joint entity/response reward in existing checkpoints",
+  "warning": "does not certify physical navigation, perception, safety inference or composition"
+}

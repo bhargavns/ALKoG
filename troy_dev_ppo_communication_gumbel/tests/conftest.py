@@ -14,4 +14,5 @@ torch.set_num_threads(1)
 
 def pytest_configure(config):
     if config.option.basetemp is None:
+        (ROOT / 'output').mkdir(parents=True, exist_ok=True)
         config.option.basetemp = str(ROOT / 'output' / 'pytest_tmp')

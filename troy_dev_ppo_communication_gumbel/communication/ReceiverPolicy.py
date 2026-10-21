@@ -48,3 +48,33 @@ def _mlp(input_dimension, output_dimension, hidden_dimension):
         nn.Tanh(),
         nn.Linear(hidden_dimension, output_dimension),
     )
+
+
+class SelectionMessageReceiver(nn.Module):
+    """Ordered utterance + public candidates -> joint entity/response.
+
+    Shared scoring is equivariant to candidate permutation. Rows contain category
+    indicators and two coordinates, with no cue, cage, safety or instance
+    ID. Action 2*i is APPROACH i; 2*i+1 is WARN i. Shared token embeddings are
+    concatenated in order, with no prescribed semantic slots.
+    """
+
+    def __init__(self, message_length=2, n_symbols=6, embedding_dimension=8,
+                 candidate_dimension=5, hidden_dimension=64):
+        super().__init__()
+        self.message_length, self.n_symbols = message_length, n_symbols
+        self.candidate_dimension = candidate_dimension
+        self.token_embeddings = nn.Embedding(n_symbols, embedding_dimension)
+        width = message_length * embedding_dimension + candidate_dimension
+        self.actor = _mlp(width, 2, hidden_dimension)
+        self.critic = _mlp(width, 1, hidden_dimension)
+
+    def distribution_messages(self, messages, candidates):
+        if messages.ndim != 3 or messages.shape[1:] != (self.message_length, self.n_symbols):
+            raise ValueError('Expected complete ordered messages [B,L,V]')
+        if candidates.ndim != 3 or candidates.shape[-1] != self.candidate_dimension:
+            raise ValueError('Expected public candidates [B,N,D]')
+        encoded = (messages @ self.token_embeddings.weight).flatten(1)
+        features = torch.cat((encoded[:, None, :].expand(-1, candidates.shape[1], -1), candidates), -1)
+        return (Categorical(logits=self.actor(features).flatten(1)),
+                self.critic(features).mean(1).squeeze(-1))

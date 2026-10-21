@@ -71,6 +71,15 @@ an episode and clear at reset.
 
 ## Evaluation and experiments
 
+[Entity–safety Experiment 1](experiments/entity_safety/README.md) adds an oracle
+selection diagnostic with complete one- and two-token utterances, a six-token
+vocabulary, matched communication controls, and a sequential five-seed runner.
+It has its own task, policies, checkpoints, and logs alongside this navigation
+baseline. It requires torch and numpy, with no rendering or visual checkpoints.
+The [functional acceptance](results/entity_safety_functional_acceptance.md) and
+[first oracle MuJoCo transfer](results/entity_safety_navigation.md) report safety
+classification and multi-step movement separately.
+
 ```bash
 python evaluation/evaluate_communication.py --run-dir output/runs/REPLACE_WITH_RUN \
   --episodes 500 --modes hard sampled constant random shuffle --device cpu

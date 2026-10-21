@@ -142,3 +142,21 @@ class GumbelTransmitter(nn.Module):
         triple_encodings, valid_triples = self.symbol_table(triples, object_offsets)
         scene_features = torch.cat((observation, self.slot_attn(triple_encodings, valid_triples)), dim=-1)
         return self.message_head(scene_features)
+
+
+class OracleSequenceTransmitter(nn.Module):
+    """Private oracle evidence -> unrestricted ordered logits [B,L,V].
+
+    Concept features and public tokens have independent dimensions. No message
+    position is assigned an entity, cage, or safety meaning.
+    """
+
+    def __init__(self, input_dimension=5, message_length=2, n_symbols=6, hidden_dimension=64):
+        super().__init__()
+        if message_length < 1 or n_symbols < 2:
+            raise ValueError('Positive message length and vocabulary >= 2 required')
+        self.message_length, self.n_symbols = message_length, n_symbols
+        self.message_head = _mlp(input_dimension, message_length * n_symbols, hidden_dimension)
+
+    def forward(self, evidence):
+        return self.message_head(evidence).reshape(-1, self.message_length, self.n_symbols)
