@@ -1,0 +1,492 @@
+[
+  {
+    "task": "private_goal",
+    "seed": 0,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.75,
+      "utility": 0.9624999761581421
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.7483999729156494,
+      "utility": 0.9625798463821411
+    }
+  },
+  {
+    "task": "private_goal",
+    "seed": 1,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.75,
+      "utility": 0.9624999761581421
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.7501000165939331,
+      "utility": 0.9624949097633362
+    }
+  },
+  {
+    "task": "private_goal",
+    "seed": 2,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.75,
+      "utility": 0.9624999761581421
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.7501800060272217,
+      "utility": 0.9624909162521362
+    }
+  },
+  {
+    "task": "private_goal",
+    "seed": 3,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.75,
+      "utility": 0.9624999761581421
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.7470200061798096,
+      "utility": 0.9626489281654358
+    }
+  },
+  {
+    "task": "private_goal",
+    "seed": 4,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.75,
+      "utility": 0.9624999761581421
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.7516599893569946,
+      "utility": 0.9624168872833252
+    }
+  },
+  {
+    "task": "route_safety",
+    "seed": 0,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0000001192092896,
+      "packets": 1.3847424983978271,
+      "utility": 0.9723052978515625,
+      "gate_packets": 1.2829184532165527,
+      "travel_packets": 0.10182400047779083
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 1.3857799768447876,
+      "utility": 0.9722843766212463
+    }
+  },
+  {
+    "task": "route_safety",
+    "seed": 1,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0000001192092896,
+      "packets": 1.4165964126586914,
+      "utility": 0.9716681838035583,
+      "gate_packets": 0.916596531867981,
+      "travel_packets": 0.5
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 1.417680025100708,
+      "utility": 0.9716463088989258
+    }
+  },
+  {
+    "task": "route_safety",
+    "seed": 2,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0000001192092896,
+      "packets": 1.4240152835845947,
+      "utility": 0.9715198278427124,
+      "gate_packets": 0.9240154027938843,
+      "travel_packets": 0.5
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 1.4276800155639648,
+      "utility": 0.9714462757110596
+    }
+  },
+  {
+    "task": "route_safety",
+    "seed": 3,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.000000238418579,
+      "packets": 1.376596450805664,
+      "utility": 0.9724683165550232,
+      "gate_packets": 1.376596450805664,
+      "travel_packets": 0.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 1.3730800151824951,
+      "utility": 0.9725383520126343
+    }
+  },
+  {
+    "task": "route_safety",
+    "seed": 4,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.000000238418579,
+      "packets": 1.3588405847549438,
+      "utility": 0.972823441028595,
+      "gate_packets": 0.9843727350234985,
+      "travel_packets": 0.3744679093360901
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 1.360360026359558,
+      "utility": 0.9727926850318909
+    }
+  },
+  {
+    "task": "scouting",
+    "seed": 0,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.6666666865348816,
+      "utility": 0.9700000286102295,
+      "asks": 0.3333333432674408,
+      "scouts": 0.1666666716337204,
+      "context_0_success": 1.0,
+      "context_0_ask": 0.0,
+      "context_0_scout": 1.0,
+      "context_0_utility": 0.9800000190734863,
+      "context_1_success": 1.0,
+      "context_1_ask": 0.0,
+      "context_1_scout": 0.0,
+      "context_1_utility": 1.0,
+      "context_2_success": 1.0,
+      "context_2_ask": 1.0,
+      "context_2_scout": 0.0,
+      "context_2_utility": 0.9200000166893005,
+      "context_3_success": 1.0,
+      "context_3_ask": 0.0,
+      "context_3_scout": 0.0,
+      "context_3_utility": 1.0,
+      "context_4_success": 1.0,
+      "context_4_ask": 1.0,
+      "context_4_scout": 0.0,
+      "context_4_utility": 0.9200000166893005,
+      "context_5_success": 1.0,
+      "context_5_ask": 0.0,
+      "context_5_scout": 0.0,
+      "context_5_utility": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.6611999869346619,
+      "utility": 0.9702200293540955
+    }
+  },
+  {
+    "task": "scouting",
+    "seed": 1,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.6666666865348816,
+      "utility": 0.9700000286102295,
+      "asks": 0.3333333432674408,
+      "scouts": 0.1666666716337204,
+      "context_0_success": 1.0,
+      "context_0_ask": 0.0,
+      "context_0_scout": 1.0,
+      "context_0_utility": 0.9800000190734863,
+      "context_1_success": 1.0,
+      "context_1_ask": 0.0,
+      "context_1_scout": 0.0,
+      "context_1_utility": 1.0,
+      "context_2_success": 1.0,
+      "context_2_ask": 1.0,
+      "context_2_scout": 0.0,
+      "context_2_utility": 0.9200000166893005,
+      "context_3_success": 1.0,
+      "context_3_ask": 0.0,
+      "context_3_scout": 0.0,
+      "context_3_utility": 1.0,
+      "context_4_success": 1.0,
+      "context_4_ask": 1.0,
+      "context_4_scout": 0.0,
+      "context_4_utility": 0.9200000166893005,
+      "context_5_success": 1.0,
+      "context_5_ask": 0.0,
+      "context_5_scout": 0.0,
+      "context_5_utility": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.6687600016593933,
+      "utility": 0.969948410987854
+    }
+  },
+  {
+    "task": "scouting",
+    "seed": 2,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.6666666865348816,
+      "utility": 0.9700000286102295,
+      "asks": 0.3333333432674408,
+      "scouts": 0.1666666716337204,
+      "context_0_success": 1.0,
+      "context_0_ask": 0.0,
+      "context_0_scout": 1.0,
+      "context_0_utility": 0.9800000190734863,
+      "context_1_success": 1.0,
+      "context_1_ask": 0.0,
+      "context_1_scout": 0.0,
+      "context_1_utility": 1.0,
+      "context_2_success": 1.0,
+      "context_2_ask": 1.0,
+      "context_2_scout": 0.0,
+      "context_2_utility": 0.9200000166893005,
+      "context_3_success": 1.0,
+      "context_3_ask": 0.0,
+      "context_3_scout": 0.0,
+      "context_3_utility": 1.0,
+      "context_4_success": 1.0,
+      "context_4_ask": 1.0,
+      "context_4_scout": 0.0,
+      "context_4_utility": 0.9200000166893005,
+      "context_5_success": 1.0,
+      "context_5_ask": 0.0,
+      "context_5_scout": 0.0,
+      "context_5_utility": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.6668800115585327,
+      "utility": 0.9700131416320801
+    }
+  },
+  {
+    "task": "scouting",
+    "seed": 3,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.6666666865348816,
+      "utility": 0.9700000286102295,
+      "asks": 0.3333333432674408,
+      "scouts": 0.1666666716337204,
+      "context_0_success": 1.0,
+      "context_0_ask": 0.0,
+      "context_0_scout": 1.0,
+      "context_0_utility": 0.9800000190734863,
+      "context_1_success": 1.0,
+      "context_1_ask": 0.0,
+      "context_1_scout": 0.0,
+      "context_1_utility": 1.0,
+      "context_2_success": 1.0,
+      "context_2_ask": 1.0,
+      "context_2_scout": 0.0,
+      "context_2_utility": 0.9200000166893005,
+      "context_3_success": 1.0,
+      "context_3_ask": 0.0,
+      "context_3_scout": 0.0,
+      "context_3_utility": 1.0,
+      "context_4_success": 1.0,
+      "context_4_ask": 1.0,
+      "context_4_scout": 0.0,
+      "context_4_utility": 0.9200000166893005,
+      "context_5_success": 1.0,
+      "context_5_ask": 0.0,
+      "context_5_scout": 0.0,
+      "context_5_utility": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.6564000248908997,
+      "utility": 0.9704127907752991
+    }
+  },
+  {
+    "task": "scouting",
+    "seed": 4,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 0.6666666865348816,
+      "utility": 0.9700000286102295,
+      "asks": 0.3333333432674408,
+      "scouts": 0.1666666716337204,
+      "context_0_success": 1.0,
+      "context_0_ask": 0.0,
+      "context_0_scout": 1.0,
+      "context_0_utility": 0.9800000190734863,
+      "context_1_success": 1.0,
+      "context_1_ask": 0.0,
+      "context_1_scout": 0.0,
+      "context_1_utility": 1.0,
+      "context_2_success": 1.0,
+      "context_2_ask": 1.0,
+      "context_2_scout": 0.0,
+      "context_2_utility": 0.9200000166893005,
+      "context_3_success": 1.0,
+      "context_3_ask": 0.0,
+      "context_3_scout": 0.0,
+      "context_3_utility": 1.0,
+      "context_4_success": 1.0,
+      "context_4_ask": 1.0,
+      "context_4_scout": 0.0,
+      "context_4_utility": 0.9200000166893005,
+      "context_5_success": 1.0,
+      "context_5_ask": 0.0,
+      "context_5_scout": 0.0,
+      "context_5_utility": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 0.6690000295639038,
+      "utility": 0.9699695110321045
+    }
+  },
+  {
+    "task": "complementary",
+    "seed": 0,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 0.9375,
+      "packets": 1.75,
+      "bits": 4.5,
+      "utility": 0.8475000262260437,
+      "asks": 0.875
+    },
+    "sampled": {
+      "success": 0.9384999871253967,
+      "packets": 1.7524000406265259,
+      "utility": 0.8484039306640625
+    }
+  },
+  {
+    "task": "complementary",
+    "seed": 1,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 0.875,
+      "packets": 1.5,
+      "bits": 4.0,
+      "utility": 0.7950000166893005,
+      "asks": 0.75
+    },
+    "sampled": {
+      "success": 0.8738600015640259,
+      "packets": 1.50108003616333,
+      "utility": 0.7938168048858643
+    }
+  },
+  {
+    "task": "complementary",
+    "seed": 2,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 2.0,
+      "bits": 5.0,
+      "utility": 0.8999999761581421,
+      "asks": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 2.0,
+      "utility": 0.8999996781349182
+    }
+  },
+  {
+    "task": "complementary",
+    "seed": 3,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 1.0,
+      "packets": 2.0,
+      "bits": 5.0,
+      "utility": 0.8999999761581421,
+      "asks": 1.0
+    },
+    "sampled": {
+      "success": 1.0,
+      "packets": 2.0,
+      "utility": 0.8999996781349182
+    }
+  },
+  {
+    "task": "complementary",
+    "seed": 4,
+    "episodes": 50000,
+    "exact": {
+      "deployment": "argmax",
+      "intervention": "normal",
+      "success": 0.9375,
+      "packets": 1.75,
+      "bits": 4.5,
+      "utility": 0.8475000262260437,
+      "asks": 0.875
+    },
+    "sampled": {
+      "success": 0.9375,
+      "packets": 1.75108003616333,
+      "utility": 0.8474566340446472
+    }
+  }
+]

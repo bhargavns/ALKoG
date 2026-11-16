@@ -1,0 +1,46 @@
+{
+  "device": "cpu",
+  "steps": 1500,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "tasks": [
+    "private_goal",
+    "route_safety",
+    "scouting",
+    "complementary"
+  ],
+  "methods": null,
+  "development": false,
+  "python": "3.11.9",
+  "torch": "2.14.1+cu130",
+  "gpu": "NVIDIA GeForce RTX 4060 Ti",
+  "sources": {
+    "models.py": "a1ffb8f683721108793a75910a7a5482ba0b91465ef3eaf57c457e596b5ba5f3",
+    "navigation.py": "c09722c201ed0368131ac79ae8cfbfdfd3184975df7117441624e3f0c61ec9fa",
+    "report.py": "e4a4169c29829330ecfecbf6cec4e2dd712e3728aa8d018ef34205f9a1a075a0",
+    "run.py": "3e544f3c710cf7e8df078c706aaa06cf53f53a3e935c6dcae95f1bb96315f224",
+    "validate.py": "8d1f992af433ccd8e58f2441a2328832285494d921896ae9218fc701a2c8afe9",
+    "__init__.py": "5e0aa2f7a0e0a54f57b813d5fbb8fe34b80a468b7a6b306bd3e4d818b7548c18"
+  },
+  "optimizer": "Adam lr .04",
+  "word_costs": {
+    "goal": 0.05,
+    "route": 0.02,
+    "scouting_request": 0.02,
+    "scouting_reply": 0.06,
+    "dialogue_bit": 0.02
+  },
+  "evaluation": "Exact enumeration over finite logical states; argmax primary, sampled secondary.",
+  "silent_bounds": {
+    "private_goal": 0.25,
+    "route_safety": 0.2804523263885312,
+    "scouting_utility": 0.91,
+    "complementary_accuracy": 0.5
+  },
+  "one_way_5bit_accuracy_upper_bound": 0.927550207773851
+}

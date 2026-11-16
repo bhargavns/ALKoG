@@ -1,0 +1,79 @@
+{
+  "runs": [
+    {
+      "run": "context_seed0",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831559,
+      "actor_decisions": 9113
+    },
+    {
+      "run": "context_seed1",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831620,
+      "actor_decisions": 9110
+    },
+    {
+      "run": "context_seed2",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831664,
+      "actor_decisions": 9112
+    },
+    {
+      "run": "context_seed3",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 832143,
+      "actor_decisions": 9107
+    },
+    {
+      "run": "context_seed4",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831727,
+      "actor_decisions": 9114
+    },
+    {
+      "run": "food_pair_seed0",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831559,
+      "actor_decisions": 9113
+    },
+    {
+      "run": "food_pair_seed1",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831620,
+      "actor_decisions": 9110
+    },
+    {
+      "run": "food_pair_seed2",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831664,
+      "actor_decisions": 9112
+    },
+    {
+      "run": "food_pair_seed3",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 832143,
+      "actor_decisions": 9107
+    },
+    {
+      "run": "food_pair_seed4",
+      "passed": true,
+      "episodes": 12288,
+      "movement_steps": 831727,
+      "actor_decisions": 9114
+    }
+  ],
+  "complete": true,
+  "all_passed": true,
+  "episodes": 122880,
+  "movement_steps": 8317426,
+  "actor_decisions": 91112
+}

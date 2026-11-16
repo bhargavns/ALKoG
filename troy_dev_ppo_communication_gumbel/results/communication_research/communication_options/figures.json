@@ -1,0 +1,46 @@
+[
+  {
+    "file": "information-flow.png",
+    "sha256": "33ca162eef2ab5487abbe2fe260eafa9335f84623da900b87a30ea11880d7b36"
+  },
+  {
+    "file": "grid-layouts.png",
+    "sha256": "c0dfc57077bc0a91a7d5cb8ed98b370c747de1ebe85c2ce50c73c5b9ed9e6f60"
+  },
+  {
+    "file": "task-overview.png",
+    "sha256": "ac4e2dd0c8fb8189d253762d1821a2b043e6e4205abd259d924f548070fac26f"
+  },
+  {
+    "file": "private-goal-code.png",
+    "sha256": "b91a3bf772f62d8e10f27a9954edbb91fc63d52f88498081ff990d610a55aaee"
+  },
+  {
+    "file": "route-memory-timeline.png",
+    "sha256": "e596812acd358d9fd80e52f5c23d36d2452b6c0c410c38ad03dd89ca1b5a8b5b"
+  },
+  {
+    "file": "scouting-decision.png",
+    "sha256": "49abffc410d5e385457fb3d4b0c8e795e1c7ee4488006e019dd0a17d86c34fd8"
+  },
+  {
+    "file": "dialogue-information-flow.png",
+    "sha256": "3f68f2747f3caa75b2da4556137fffadd8f6d6d2b4f9959b56a7bc24fd085420"
+  },
+  {
+    "file": "entropy-bound.png",
+    "sha256": "3131575eb138148dd5c60afc0629edf65db2175168c16acf15f09a9760d70ccc"
+  },
+  {
+    "file": "results.png",
+    "sha256": "3df990674609910dc0d382480b9c687ea7c6460be93255004210d449c3f76b95"
+  },
+  {
+    "file": "message-interventions.png",
+    "sha256": "1043e60d844df81f0c53d27a61ed0825be8c45bc0558565330f7fe6a648a53e4"
+  },
+  {
+    "file": "dialogue-seed-reliability.png",
+    "sha256": "5e962697a34b5beb3f75770152c7fa4e04aa90431016bb032015af8b4cbb0100"
+  }
+]

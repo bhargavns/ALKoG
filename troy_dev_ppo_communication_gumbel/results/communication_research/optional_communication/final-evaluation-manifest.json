@@ -1,0 +1,9 @@
+{
+  "scene_seed": 1900001,
+  "device": "cpu",
+  "episodes_per_condition": 1024,
+  "main_runs": 42,
+  "followup_runs": 9,
+  "note": "900001 was used in development and is not the final untouched split.",
+  "source_sha256": "5a3429f84cb09a0b9b95581ed6b24c805a01fafda9453c4ca632cd125ef20d8c"
+}

@@ -1,0 +1,6 @@
+# Research artifacts must retain exact bytes, including ASCII-encoded PDFs.
+*.pdf binary
+*.pt binary
+*.png binary
+*.gif binary
+*.pptx binary

@@ -1,0 +1,11 @@
+{
+  "evaluation_jobs": 10,
+  "episodes": 286720,
+  "environment_steps": 21260828,
+  "protocol_checkpoints_unchanged": true,
+  "navigation_training_seconds": [],
+  "navigation_steps": 0,
+  "navigation_reused": true,
+  "gpu": "NVIDIA GeForce RTX 4060 Ti",
+  "study_wall_seconds": 1661.0855695999926
+}

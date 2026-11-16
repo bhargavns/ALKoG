@@ -148,3 +148,19 @@ original layouts; new snapshots use the stage directories above.
 Scene vocabulary checkpoints are named `scene_vocabulary_init.pt` and
 `scene_vocabulary_trained.pt`. Evaluation also accepts existing runs with
 `kg_init.pt`; transmitter and receiver weight formats are unchanged.
+
+## Optional temporal communication
+
+The [event communication study](experiments/event_communication/README.md) adds learned send/silent gates, recurrent and fact-cache memory, temporal PPO, message interventions, and paired simulator-fork gate learning. It is an isolated oracle-grid experiment; existing accepted safety and MuJoCo baselines remain available.
+
+## Four communication options
+
+The [four-option study](experiments/communication_options/README.md) tests private goals, changing route safety, asking versus scouting, and complementary information. It includes exact mathematical baselines, learned finite communication protocols, independent execution validation, and report generation.
+
+## Neural communication and MuJoCo transfer
+
+The [neural food study](experiments/grammar_food/README.md) compares learned
+symbolic protocols and held-out composition. The [MuJoCo transfer](experiments/grammar_arena/README.md)
+executes the fixed-slot protocol in the existing kinematic arena with a CUDA PPO
+movement controller. [Reports and validated checkpoints](results/communication_research/README.md)
+preserve both the unfiltered failures and the training-only admission follow-up.

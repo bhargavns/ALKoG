@@ -1,0 +1,12 @@
+{
+  "title":"Training-only protocol admission after the frozen zero-shot transfer",
+  "status":"fixed after observing the context seed1 source lexical failure; zero-shot results retained separately",
+  "architecture_change":false,
+  "new_grammar_induction_method":false,
+  "admission":"Exact decoding of all four facts on all 48 TRAINING meanings must equal 1.0. The 16 heldout meanings are not passed through the model during selection.",
+  "rationale":"Fixed local encoder and decoder roles plus coverage of every primitive value make a correct training lexicon a necessary deployment sanity check. This is an engineered acceptance filter, not evidence for unrestricted grammar.",
+  "procedure":"Keep an already admissible original checkpoint. Otherwise retrain the same modular_curriculum using the original 1800-update protocol, on CUDA, at seeds 1000*(attempt+1)+base_seed, for at most three attempts. Accept the first training-admissible checkpoint; retain every failed attempt and count its cost. If none passes, report failure. No architecture, reward, signalling coefficient or curriculum change.",
+  "budget":{"updates":1800,"warmup":600,"batch_size":512,"width":64,"epochs":2,"slot_coefficient":5,"device":"cuda","max_retraining_attempts":3},
+  "pairing":"Original independent silent protocol and original trained navigation controller for the base pipeline seed remain unchanged. Deployment config preserves pipeline seed and separately records actual PPO initialization seed.",
+  "evaluation":"After admission, freeze the checkpoint and run the same full MuJoCo split/family/control evaluation at fresh scene seed 94000019. Use the original reliability and execution criteria. Do not replace or pool with the zero-shot experiment."
+}
