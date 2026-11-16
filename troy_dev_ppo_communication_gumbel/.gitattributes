@@ -4,3 +4,4 @@
 *.png binary
 *.gif binary
 *.pptx binary
+experiments/spontaneous_grammar/*.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
