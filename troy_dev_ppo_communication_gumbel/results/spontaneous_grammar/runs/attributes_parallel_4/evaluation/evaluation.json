@@ -1,0 +1,415 @@
+{
+  "config": {
+    "method": "parallel",
+    "seed": 4,
+    "domain": "attributes",
+    "shift": 1,
+    "updates": 6000,
+    "batch_size": 256,
+    "width": 96,
+    "vocab": 8,
+    "max_length": 8,
+    "device": "cpu",
+    "gpu": null,
+    "python": "3.11.9",
+    "torch": "2.14.1+cu130",
+    "game_episodes": 1536000,
+    "imitation_examples": 0,
+    "population": 1,
+    "generations": 1,
+    "length_coefficient": 0.02,
+    "training_seconds": 38.67897150001954,
+    "learning": "straight-through discrete Gumbel referential cross-entropy",
+    "semantic_word_roles": "none",
+    "semantic_decoder_heads": false,
+    "teacher_word_labels": "none",
+    "parameters": 218954,
+    "role_augmentation_episodes": 0,
+    "single_object_episodes": 0,
+    "perceptual_anchoring": true,
+    "candidate_representation": "fixed random isometry of public semantic/grid percepts",
+    "contextual_sender": true,
+    "position_embeddings": true,
+    "attention_sender": false,
+    "parallel_channel": true,
+    "scene_reconstruction": true,
+    "architecture_version": 3,
+    "eos_warmup": 800
+  },
+  "train": {
+    "mean": {
+      "normal": 1.0,
+      "blocked": 0.25,
+      "shuffle": 0.25146484375,
+      "sort": 0.369140625,
+      "reverse": 0.28759765625,
+      "permute_vocabulary": 0.180908203125
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 1.0,
+        "blocked": 0.25,
+        "shuffle": 0.25146484375,
+        "sort": 0.369140625,
+        "reverse": 0.28759765625,
+        "permute_vocabulary": 0.180908203125
+      }
+    },
+    "episodes": 4096
+  },
+  "test": {
+    "mean": {
+      "normal": 0.93603515625,
+      "blocked": 0.25,
+      "shuffle": 0.25830078125,
+      "sort": 0.397216796875,
+      "reverse": 0.26123046875,
+      "permute_vocabulary": 0.234130859375
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.93603515625,
+        "blocked": 0.25,
+        "shuffle": 0.25830078125,
+        "sort": 0.397216796875,
+        "reverse": 0.26123046875,
+        "permute_vocabulary": 0.234130859375
+      }
+    },
+    "episodes": 4096
+  },
+  "code": {
+    "unique": 950,
+    "meaning_count": 1024,
+    "mean_payload": 8.0,
+    "code_entropy_bits": 9.854731555173668,
+    "topographic_spearman": 0.5010484793080624,
+    "position_fact_mutual_information_bits": [
+      [
+        0.6309337969039903,
+        1.551693248252043,
+        0.001964282033882493,
+        0.1255544245323903,
+        0.005730157325247981
+      ],
+      [
+        0.3757112850798005,
+        0.5682861299244253,
+        0.0753922520016278,
+        0.019926980771378486,
+        1.0
+      ],
+      [
+        0.6013948151327791,
+        0.6205029905667099,
+        0.8116443058823685,
+        0.1387367099796915,
+        0.00019708188247440474
+      ],
+      [
+        0.32121448162101807,
+        1.9875474150804078,
+        0.0006446941016774001,
+        0.002203741454532164,
+        0.0003696052847399424
+      ],
+      [
+        0.7565465855714556,
+        0.7998059789063149,
+        0.00026669522688214237,
+        0.2708833251783596,
+        0.0001480235654960939
+      ],
+      [
+        0.3866515717486113,
+        0.0017673165434368818,
+        1.5,
+        0.36916165386849564,
+        3.585947791827837e-05
+      ],
+      [
+        0.9358902322071758,
+        0.5229132413974237,
+        0.09734466445756992,
+        1.0,
+        4.893333818837154e-05
+      ],
+      [
+        0.9167934200797407,
+        1.0287093664769893,
+        0.007177304840177231,
+        0.32073266702504394,
+        0.0007002084531724045
+      ]
+    ]
+  },
+  "local_rewrites": {
+    "rules": 60,
+    "rule_selection": "training-only, modal changed contiguous span <=3 symbols, support >=3",
+    "heldout_pairs": 1792,
+    "applicable": 878,
+    "coverage": 0.48995535714285715,
+    "original_correct": 867,
+    "causal_switches": 543,
+    "conditional_causal_switch": 0.6184510250569476,
+    "overall_causal_switch": 0.30301339285714285,
+    "examples": [
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 1,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 19
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 2,
+        "old_symbols": [
+          7,
+          1
+        ],
+        "new_symbols": [
+          4,
+          7
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 4,
+        "old_symbols": [
+          3
+        ],
+        "new_symbols": [
+          2
+        ],
+        "train_support": 14
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 5,
+        "old_symbols": [
+          3
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 16
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 0,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 19
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 2,
+        "old_symbols": [
+          3
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 16
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 4,
+        "old_symbols": [
+          4,
+          6
+        ],
+        "new_symbols": [
+          7,
+          7
+        ],
+        "train_support": 8
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 5,
+        "old_symbols": [
+          4,
+          3
+        ],
+        "new_symbols": [
+          7,
+          7
+        ],
+        "train_support": 9
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 7,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 10
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 0,
+        "old_symbols": [
+          4,
+          7
+        ],
+        "new_symbols": [
+          7,
+          1
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 1,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 16
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 5,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 9
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 7,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 12
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 4,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 8
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 6,
+        "old_symbols": [
+          2
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 29
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 0,
+        "old_symbols": [
+          2
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 14
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 1,
+        "old_symbols": [
+          7,
+          7
+        ],
+        "new_symbols": [
+          4,
+          6
+        ],
+        "train_support": 8
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 3,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 8
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 5,
+        "old_symbols": [
+          2
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 30
+      },
+      {
+        "fact": 0,
+        "old_value": 5,
+        "new_value": 0,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 16
+      }
+    ]
+  },
+  "fresh_listener": {
+    "train_meanings": 128,
+    "updates": 300,
+    "heldout_success": 0.79345703125,
+    "blocked_success": 0.25
+  }
+}

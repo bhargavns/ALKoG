@@ -164,3 +164,13 @@ symbolic protocols and held-out composition. The [MuJoCo transfer](experiments/g
 executes the fixed-slot protocol in the existing kinematic arena with a CUDA PPO
 movement controller. [Reports and validated checkpoints](results/communication_research/README.md)
 preserve both the unfiltered failures and the training-only admission follow-up.
+
+## Unassigned symbols and emergent order
+
+The [new grammar study](experiments/spontaneous_grammar/README.md) removes
+assigned semantic word positions and fact-specific listener heads. It compares
+sampled PPO, recurrent differentiable games, curriculum, iterated learning,
+populations and unassigned neural symbol slots, with a separate inventory-
+invariance bias for spatial binding. The [report and all-seed evidence](results/spontaneous_grammar/README.md)
+distinguish useful communication, finite order-sensitive codes, productivity
+limits and frozen transfer into the existing MuJoCo arena.

@@ -1,0 +1,532 @@
+{
+  "config": {
+    "method": "ppo",
+    "seed": 0,
+    "domain": "binding",
+    "shift": 1,
+    "updates": 6000,
+    "batch_size": 256,
+    "width": 96,
+    "vocab": 8,
+    "max_length": 8,
+    "device": "cpu",
+    "gpu": null,
+    "python": "3.11.9",
+    "torch": "2.14.1+cu130",
+    "game_episodes": 1536000,
+    "imitation_examples": 0,
+    "population": 1,
+    "generations": 1,
+    "length_coefficient": 0.02,
+    "training_seconds": 514.021247000026,
+    "learning": "sampled joint PPO",
+    "semantic_word_roles": "none",
+    "semantic_decoder_heads": false,
+    "teacher_word_labels": "none",
+    "parameters": 206218,
+    "role_augmentation_episodes": 0,
+    "single_object_episodes": 315904,
+    "perceptual_anchoring": false,
+    "candidate_representation": "learned global scene encoder",
+    "contextual_sender": true,
+    "position_embeddings": true,
+    "attention_sender": false,
+    "parallel_channel": false,
+    "scene_reconstruction": false,
+    "architecture_version": 3,
+    "eos_warmup": 800
+  },
+  "train": {
+    "mean": {
+      "normal": 0.951171875,
+      "blocked": 0.25,
+      "shuffle": 0.259033203125,
+      "sort": 0.4853515625,
+      "reverse": 0.383544921875,
+      "permute_vocabulary": 0.22705078125
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.951171875,
+        "blocked": 0.25,
+        "shuffle": 0.259033203125,
+        "sort": 0.4853515625,
+        "reverse": 0.383544921875,
+        "permute_vocabulary": 0.22705078125
+      }
+    },
+    "episodes": 4096
+  },
+  "test": {
+    "mean": {
+      "normal": 0.953369140625,
+      "blocked": 0.25,
+      "shuffle": 0.251708984375,
+      "sort": 0.478759765625,
+      "reverse": 0.39697265625,
+      "permute_vocabulary": 0.23583984375
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.953369140625,
+        "blocked": 0.25,
+        "shuffle": 0.251708984375,
+        "sort": 0.478759765625,
+        "reverse": 0.39697265625,
+        "permute_vocabulary": 0.23583984375
+      }
+    },
+    "episodes": 4096
+  },
+  "code": {
+    "unique": 209,
+    "meaning_count": 4512,
+    "mean_payload": 8.0,
+    "code_entropy_bits": 6.867913702223662,
+    "topographic_spearman": 0.11486687157655198,
+    "position_fact_mutual_information_bits": [
+      [
+        0.12379391662933711,
+        0.06894941864397167,
+        0.03596648617623361,
+        0.14418475277932383,
+        0.07735149534930466,
+        0.04614668424315169,
+        0.03416099345919462
+      ],
+      [
+        0.15151949514658253,
+        0.08091269653822658,
+        0.037545113255764734,
+        0.18334375566002178,
+        0.09979950410523947,
+        0.055766215671136696,
+        0.03996968283772882
+      ],
+      [
+        0.14996569710484836,
+        0.07613881650078823,
+        0.0442677027365374,
+        0.18411246029631667,
+        0.0973080362107532,
+        0.05759593571099424,
+        0.03774039050583998
+      ],
+      [
+        0.1327096045049934,
+        0.07647656562264224,
+        0.0339256539914748,
+        0.1640067529993457,
+        0.08870304671388671,
+        0.05518246856636431,
+        0.034488340331617684
+      ],
+      [
+        0.1312763816367506,
+        0.06778975652958494,
+        0.03603521300966375,
+        0.148979405730603,
+        0.0832596498541762,
+        0.04564902014537141,
+        0.032959692233759774
+      ],
+      [
+        0.12383685935202796,
+        0.06943899056015726,
+        0.03072056550957033,
+        0.1566474105243196,
+        0.08850205540752355,
+        0.04517700470574517,
+        0.034007397764918366
+      ],
+      [
+        0.13963728126185254,
+        0.06224061779217107,
+        0.04077396430631353,
+        0.15272315821765678,
+        0.08273738570136761,
+        0.04993711595719803,
+        0.030711066125295648
+      ],
+      [
+        0.1127241620194373,
+        0.06430805257312,
+        0.03157738803413516,
+        0.14170850356918777,
+        0.07689437705622607,
+        0.05145881609453443,
+        0.03508281296500808
+      ]
+    ]
+  },
+  "local_rewrites": {
+    "rules": 54,
+    "rule_selection": "training-only, modal changed contiguous span <=3 symbols, support >=3",
+    "heldout_pairs": 4096,
+    "applicable": 469,
+    "coverage": 0.114501953125,
+    "original_correct": 467,
+    "causal_switches": 364,
+    "conditional_causal_switch": 0.7761194029850746,
+    "overall_causal_switch": 0.0888671875,
+    "examples": [
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 2,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 13
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 4,
+        "old_symbols": [
+          1,
+          6,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 8
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 2,
+        "old_symbols": [
+          1,
+          6,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 22
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 4,
+        "old_symbols": [
+          6,
+          6,
+          6
+        ],
+        "new_symbols": [
+          2,
+          4,
+          7
+        ],
+        "train_support": 5
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 5,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 23
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 0,
+        "old_symbols": [
+          1,
+          6,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 13
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 1,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 22
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 5,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1,
+          1
+        ],
+        "train_support": 5
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 4,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 0,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 8
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 1,
+        "old_symbols": [
+          2,
+          4,
+          7
+        ],
+        "new_symbols": [
+          6,
+          6,
+          6
+        ],
+        "train_support": 5
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 3,
+        "old_symbols": [
+          1,
+          6,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 0,
+        "old_value": 5,
+        "new_value": 1,
+        "old_symbols": [
+          1,
+          6,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 23
+      },
+      {
+        "fact": 0,
+        "old_value": 5,
+        "new_value": 2,
+        "old_symbols": [
+          1,
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 5
+      },
+      {
+        "fact": 1,
+        "old_value": 0,
+        "new_value": 1,
+        "old_symbols": [
+          5
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 1,
+        "old_value": 0,
+        "new_value": 2,
+        "old_symbols": [
+          1,
+          6,
+          1
+        ],
+        "new_symbols": [
+          6,
+          1,
+          6
+        ],
+        "train_support": 11
+      },
+      {
+        "fact": 1,
+        "old_value": 0,
+        "new_value": 3,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 19
+      },
+      {
+        "fact": 1,
+        "old_value": 1,
+        "new_value": 0,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          5
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 1,
+        "old_value": 1,
+        "new_value": 2,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 12
+      },
+      {
+        "fact": 1,
+        "old_value": 2,
+        "new_value": 0,
+        "old_symbols": [
+          6,
+          1,
+          6
+        ],
+        "new_symbols": [
+          1,
+          6,
+          1
+        ],
+        "train_support": 11
+      }
+    ]
+  },
+  "binding": {
+    "pairs": 1152,
+    "accuracy": {
+      "normal": 0.7990451455116272,
+      "blocked": 0.5,
+      "sort": 0.5768229365348816,
+      "reverse": 0.5633680820465088
+    },
+    "both_correct": {
+      "normal": 0.6119791865348816,
+      "blocked": 0.0,
+      "sort": 0.1875,
+      "reverse": 0.1805555522441864
+    },
+    "same_bag_different_order_pairs": 80,
+    "same_bag_both_correct": 29,
+    "same_bag_both_correct_after_sort": 0
+  },
+  "three_objects": {
+    "mean": {
+      "normal": 0.794921875,
+      "blocked": 0.25,
+      "shuffle": 0.25634765625,
+      "sort": 0.5166015625,
+      "reverse": 0.4111328125,
+      "permute_vocabulary": 0.251953125
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.794921875,
+        "blocked": 0.25,
+        "shuffle": 0.25634765625,
+        "sort": 0.5166015625,
+        "reverse": 0.4111328125,
+        "permute_vocabulary": 0.251953125
+      }
+    },
+    "episodes": 2048
+  },
+  "fresh_listener": {
+    "train_meanings": 128,
+    "updates": 300,
+    "heldout_success": 0.3203125,
+    "blocked_success": 0.25
+  }
+}

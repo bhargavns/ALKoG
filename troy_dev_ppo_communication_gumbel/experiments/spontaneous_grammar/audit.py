@@ -10,7 +10,7 @@ def run(study,protocol,transfer,output):
     root=Path(study);out=Path(output);out.mkdir(parents=True,exist_ok=False);spec=json.loads(Path(protocol).read_text());checks=[];examples=[]
     expected={(d,m,s) for d in ('attributes','binding') for m in spec['methods'] for s in spec['seeds']}|{('binding','invariance',s) for s in spec['seeds']}
     found=set();torch.set_num_threads(1)
-    for folder in sorted(root.glob('*_*_*')):
+    for folder in sorted(p for p in root.glob('*_*_*') if p.is_dir()):
         c=json.loads((folder/'config.json').read_text());identity=c['domain'],c['method'],c['seed'];found.add(identity)
         assert c['updates']==6000 and c['game_episodes']==1536000 and c['shift']==1
         for file,sha in spec['frozen_source_sha256'].items():assert hashlib.sha256((folder/'source'/file).read_bytes()).hexdigest()==sha

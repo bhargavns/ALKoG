@@ -1,0 +1,449 @@
+{
+  "config": {
+    "method": "ppo",
+    "seed": 4,
+    "domain": "attributes",
+    "shift": 1,
+    "updates": 6000,
+    "batch_size": 256,
+    "width": 96,
+    "vocab": 8,
+    "max_length": 8,
+    "device": "cpu",
+    "gpu": null,
+    "python": "3.11.9",
+    "torch": "2.14.1+cu130",
+    "game_episodes": 1536000,
+    "imitation_examples": 0,
+    "population": 1,
+    "generations": 1,
+    "length_coefficient": 0.02,
+    "training_seconds": 444.6522842000122,
+    "learning": "sampled joint PPO",
+    "semantic_word_roles": "none",
+    "semantic_decoder_heads": false,
+    "teacher_word_labels": "none",
+    "parameters": 209098,
+    "role_augmentation_episodes": 0,
+    "single_object_episodes": 0,
+    "perceptual_anchoring": false,
+    "candidate_representation": "learned global scene encoder",
+    "contextual_sender": true,
+    "position_embeddings": true,
+    "attention_sender": false,
+    "parallel_channel": false,
+    "scene_reconstruction": false,
+    "architecture_version": 3,
+    "eos_warmup": 800
+  },
+  "train": {
+    "mean": {
+      "normal": 0.955078125,
+      "blocked": 0.25,
+      "shuffle": 0.24658203125,
+      "sort": 0.49609375,
+      "reverse": 0.5615234375,
+      "permute_vocabulary": 0.2138671875
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.955078125,
+        "blocked": 0.25,
+        "shuffle": 0.24658203125,
+        "sort": 0.49609375,
+        "reverse": 0.5615234375,
+        "permute_vocabulary": 0.2138671875
+      }
+    },
+    "episodes": 4096
+  },
+  "test": {
+    "mean": {
+      "normal": 0.93212890625,
+      "blocked": 0.25,
+      "shuffle": 0.23828125,
+      "sort": 0.47412109375,
+      "reverse": 0.5595703125,
+      "permute_vocabulary": 0.226806640625
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.93212890625,
+        "blocked": 0.25,
+        "shuffle": 0.23828125,
+        "sort": 0.47412109375,
+        "reverse": 0.5595703125,
+        "permute_vocabulary": 0.226806640625
+      }
+    },
+    "episodes": 4096
+  },
+  "code": {
+    "unique": 130,
+    "meaning_count": 1024,
+    "mean_payload": 8.0,
+    "code_entropy_bits": 6.355327898930179,
+    "topographic_spearman": 0.10143670845544853,
+    "position_fact_mutual_information_bits": [
+      [
+        0.23573840515961136,
+        0.2367897479954165,
+        0.09056870421818283,
+        0.021561786744178604,
+        0.04982808275264423
+      ],
+      [
+        0.20955673254096488,
+        0.21213731148843712,
+        0.09482084966815915,
+        0.016622108215170947,
+        0.05023886714498213
+      ],
+      [
+        0.20767960178899966,
+        0.23009075050283503,
+        0.08539625166237828,
+        0.016062114539153863,
+        0.04686456935599807
+      ],
+      [
+        0.2339384696042644,
+        0.23180598279820125,
+        0.09619876982775027,
+        0.023810442005681793,
+        0.051897143750792296
+      ],
+      [
+        0.2244874659572078,
+        0.23760025897919773,
+        0.0998065986956871,
+        0.021639304292562535,
+        0.04933806573536364
+      ],
+      [
+        0.22901389494422014,
+        0.2060273014032277,
+        0.10079949628240521,
+        0.020411858409783712,
+        0.04985538649784399
+      ],
+      [
+        0.21255527772203708,
+        0.23064022845561738,
+        0.089271317025706,
+        0.013140079483826735,
+        0.04400935421236828
+      ],
+      [
+        0.22775437854224154,
+        0.2100273058986661,
+        0.09858978066954913,
+        0.020816577218503607,
+        0.04251996460645659
+      ]
+    ]
+  },
+  "local_rewrites": {
+    "rules": 24,
+    "rule_selection": "training-only, modal changed contiguous span <=3 symbols, support >=3",
+    "heldout_pairs": 1792,
+    "applicable": 517,
+    "coverage": 0.2885044642857143,
+    "original_correct": 515,
+    "causal_switches": 256,
+    "conditional_causal_switch": 0.4951644100580271,
+    "overall_causal_switch": 0.14285714285714285,
+    "examples": [
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 7,
+        "old_symbols": [
+          6,
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1,
+          1
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 3,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 2,
+        "old_symbols": [
+          1
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 7,
+        "old_symbols": [
+          1,
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6,
+          6
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 0,
+        "old_value": 7,
+        "new_value": 0,
+        "old_symbols": [
+          1,
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6,
+          6
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 0,
+        "old_value": 7,
+        "new_value": 3,
+        "old_symbols": [
+          6,
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1,
+          1
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 1,
+        "old_value": 0,
+        "new_value": 5,
+        "old_symbols": [
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 1,
+        "old_value": 0,
+        "new_value": 7,
+        "old_symbols": [
+          1,
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6,
+          6
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 1,
+        "old_value": 1,
+        "new_value": 4,
+        "old_symbols": [
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6
+        ],
+        "train_support": 6
+      },
+      {
+        "fact": 1,
+        "old_value": 1,
+        "new_value": 7,
+        "old_symbols": [
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 1,
+        "old_value": 4,
+        "new_value": 1,
+        "old_symbols": [
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1
+        ],
+        "train_support": 6
+      },
+      {
+        "fact": 1,
+        "old_value": 5,
+        "new_value": 0,
+        "old_symbols": [
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 1,
+        "old_value": 7,
+        "new_value": 0,
+        "old_symbols": [
+          6,
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1,
+          1
+        ],
+        "train_support": 4
+      },
+      {
+        "fact": 1,
+        "old_value": 7,
+        "new_value": 1,
+        "old_symbols": [
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 2,
+        "old_value": 0,
+        "new_value": 1,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          5
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 2,
+        "old_value": 0,
+        "new_value": 3,
+        "old_symbols": [
+          6,
+          6,
+          6
+        ],
+        "new_symbols": [
+          1,
+          1,
+          1
+        ],
+        "train_support": 7
+      },
+      {
+        "fact": 2,
+        "old_value": 1,
+        "new_value": 0,
+        "old_symbols": [
+          5
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 3
+      },
+      {
+        "fact": 2,
+        "old_value": 2,
+        "new_value": 3,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 5
+      },
+      {
+        "fact": 2,
+        "old_value": 3,
+        "new_value": 0,
+        "old_symbols": [
+          1,
+          1,
+          1
+        ],
+        "new_symbols": [
+          6,
+          6,
+          6
+        ],
+        "train_support": 7
+      },
+      {
+        "fact": 2,
+        "old_value": 3,
+        "new_value": 2,
+        "old_symbols": [
+          1
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 5
+      }
+    ]
+  },
+  "fresh_listener": {
+    "train_meanings": 128,
+    "updates": 300,
+    "heldout_success": 0.361328125,
+    "blocked_success": 0.25
+  }
+}

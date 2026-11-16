@@ -1,0 +1,474 @@
+{
+  "config": {
+    "method": "parallel",
+    "seed": 0,
+    "domain": "binding",
+    "shift": 1,
+    "updates": 6000,
+    "batch_size": 256,
+    "width": 96,
+    "vocab": 8,
+    "max_length": 8,
+    "device": "cpu",
+    "gpu": null,
+    "python": "3.11.9",
+    "torch": "2.14.1+cu130",
+    "game_episodes": 1536000,
+    "imitation_examples": 0,
+    "population": 1,
+    "generations": 1,
+    "length_coefficient": 0.02,
+    "training_seconds": 45.53139600000577,
+    "learning": "straight-through discrete Gumbel referential cross-entropy",
+    "semantic_word_roles": "none",
+    "semantic_decoder_heads": false,
+    "teacher_word_labels": "none",
+    "parameters": 217034,
+    "role_augmentation_episodes": 0,
+    "single_object_episodes": 315904,
+    "perceptual_anchoring": true,
+    "candidate_representation": "fixed random isometry of public semantic/grid percepts",
+    "contextual_sender": true,
+    "position_embeddings": true,
+    "attention_sender": false,
+    "parallel_channel": true,
+    "scene_reconstruction": true,
+    "architecture_version": 3,
+    "eos_warmup": 800
+  },
+  "train": {
+    "mean": {
+      "normal": 0.89794921875,
+      "blocked": 0.25,
+      "shuffle": 0.255859375,
+      "sort": 0.32177734375,
+      "reverse": 0.25341796875,
+      "permute_vocabulary": 0.18408203125
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.89794921875,
+        "blocked": 0.25,
+        "shuffle": 0.255859375,
+        "sort": 0.32177734375,
+        "reverse": 0.25341796875,
+        "permute_vocabulary": 0.18408203125
+      }
+    },
+    "episodes": 4096
+  },
+  "test": {
+    "mean": {
+      "normal": 0.978515625,
+      "blocked": 0.25,
+      "shuffle": 0.24951171875,
+      "sort": 0.327880859375,
+      "reverse": 0.247314453125,
+      "permute_vocabulary": 0.166748046875
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.978515625,
+        "blocked": 0.25,
+        "shuffle": 0.24951171875,
+        "sort": 0.327880859375,
+        "reverse": 0.247314453125,
+        "permute_vocabulary": 0.166748046875
+      }
+    },
+    "episodes": 4096
+  },
+  "code": {
+    "unique": 1265,
+    "meaning_count": 4512,
+    "mean_payload": 8.0,
+    "code_entropy_bits": 10.050293810559499,
+    "topographic_spearman": 0.5131468882456738,
+    "position_fact_mutual_information_bits": [
+      [
+        0.7040067697012216,
+        0.01561768643678035,
+        0.29267536935278804,
+        0.08226495396962073,
+        0.1964817877905898,
+        0.0033631341311994296,
+        0.7821196918265945
+      ],
+      [
+        0.5524535506966798,
+        0.0980997693871763,
+        0.2703276281800456,
+        0.39471232302606096,
+        0.17126680904504588,
+        0.011486020393135055,
+        0.7162324421337056
+      ],
+      [
+        0.4722447154274485,
+        0.0013421310219257371,
+        6.0318851599308586e-06,
+        0.5088027607306118,
+        0.25682718061185367,
+        0.0006127350447852393,
+        0.9999999999999999
+      ],
+      [
+        0.30571145349603174,
+        0.7493180229010741,
+        0.0003560049024562105,
+        0.03162195725042322,
+        0.23557974953017363,
+        0.0002935254411199572,
+        1.0
+      ],
+      [
+        0.011328208172365583,
+        0.10317547675389903,
+        0.0031344366376345554,
+        0.9930438411695841,
+        0.051070334078347476,
+        0.0031530859206357893,
+        0.9138713280458544
+      ],
+      [
+        0.09076464215552713,
+        0.000977842501391479,
+        0.0009471608073776043,
+        0.5111655844200553,
+        0.005407296715175879,
+        0.627339301510662,
+        0.9901951244199958
+      ],
+      [
+        0.6897032066404185,
+        0.02881329610369445,
+        0.00021318866244450204,
+        0.003188931664769226,
+        0.32476492449377853,
+        0.446686372968964,
+        0.8529711677488203
+      ],
+      [
+        0.3638759942825369,
+        0.0005455581517063411,
+        0.5048642874134718,
+        0.5881039710791539,
+        0.00023603373972120177,
+        0.00507230937356897,
+        1.0
+      ]
+    ]
+  },
+  "local_rewrites": {
+    "rules": 82,
+    "rule_selection": "training-only, modal changed contiguous span <=3 symbols, support >=3",
+    "heldout_pairs": 4096,
+    "applicable": 2222,
+    "coverage": 0.54248046875,
+    "original_correct": 2200,
+    "causal_switches": 938,
+    "conditional_causal_switch": 0.4221422142214221,
+    "overall_causal_switch": 0.22900390625,
+    "examples": [
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 1,
+        "old_symbols": [
+          3
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 80
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 2,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 198
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 3,
+        "old_symbols": [
+          3
+        ],
+        "new_symbols": [
+          6
+        ],
+        "train_support": 250
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 4,
+        "old_symbols": [
+          6
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 154
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 5,
+        "old_symbols": [
+          6
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 169
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 0,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 80
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 2,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 23
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 4,
+        "old_symbols": [
+          2
+        ],
+        "new_symbols": [
+          5
+        ],
+        "train_support": 75
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 0,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 198
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 1,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 23
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 3,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 87
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 4,
+        "old_symbols": [
+          7,
+          2,
+          6
+        ],
+        "new_symbols": [
+          1,
+          5,
+          3
+        ],
+        "train_support": 17
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 5,
+        "old_symbols": [
+          7,
+          1,
+          6
+        ],
+        "new_symbols": [
+          3,
+          5,
+          3
+        ],
+        "train_support": 74
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 0,
+        "old_symbols": [
+          6
+        ],
+        "new_symbols": [
+          3
+        ],
+        "train_support": 250
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 2,
+        "old_symbols": [
+          3
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 87
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 4,
+        "old_symbols": [
+          2,
+          6
+        ],
+        "new_symbols": [
+          5,
+          3
+        ],
+        "train_support": 25
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 5,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          0
+        ],
+        "train_support": 132
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 0,
+        "old_symbols": [
+          0
+        ],
+        "new_symbols": [
+          6
+        ],
+        "train_support": 154
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 1,
+        "old_symbols": [
+          5
+        ],
+        "new_symbols": [
+          2
+        ],
+        "train_support": 75
+      },
+      {
+        "fact": 0,
+        "old_value": 4,
+        "new_value": 2,
+        "old_symbols": [
+          1,
+          5,
+          3
+        ],
+        "new_symbols": [
+          7,
+          2,
+          6
+        ],
+        "train_support": 17
+      }
+    ]
+  },
+  "binding": {
+    "pairs": 1152,
+    "accuracy": {
+      "normal": 0.984375,
+      "blocked": 0.5,
+      "sort": 0.5651041865348816,
+      "reverse": 0.4835069477558136
+    },
+    "both_correct": {
+      "normal": 0.96875,
+      "blocked": 0.0,
+      "sort": 0.2387152761220932,
+      "reverse": 0.1953125
+    },
+    "same_bag_different_order_pairs": 7,
+    "same_bag_both_correct": 7,
+    "same_bag_both_correct_after_sort": 0
+  },
+  "three_objects": {
+    "mean": {
+      "normal": 0.56005859375,
+      "blocked": 0.25,
+      "shuffle": 0.2314453125,
+      "sort": 0.30078125,
+      "reverse": 0.27685546875,
+      "permute_vocabulary": 0.20703125
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.56005859375,
+        "blocked": 0.25,
+        "shuffle": 0.2314453125,
+        "sort": 0.30078125,
+        "reverse": 0.27685546875,
+        "permute_vocabulary": 0.20703125
+      }
+    },
+    "episodes": 2048
+  },
+  "fresh_listener": {
+    "train_meanings": 128,
+    "updates": 300,
+    "heldout_success": 0.852294921875,
+    "blocked_success": 0.25
+  }
+}

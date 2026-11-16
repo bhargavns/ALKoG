@@ -1,0 +1,474 @@
+{
+  "config": {
+    "method": "parallel",
+    "seed": 4,
+    "domain": "binding",
+    "shift": 1,
+    "updates": 6000,
+    "batch_size": 256,
+    "width": 96,
+    "vocab": 8,
+    "max_length": 8,
+    "device": "cpu",
+    "gpu": null,
+    "python": "3.11.9",
+    "torch": "2.14.1+cu130",
+    "game_episodes": 1536000,
+    "imitation_examples": 0,
+    "population": 1,
+    "generations": 1,
+    "length_coefficient": 0.02,
+    "training_seconds": 45.17972290003672,
+    "learning": "straight-through discrete Gumbel referential cross-entropy",
+    "semantic_word_roles": "none",
+    "semantic_decoder_heads": false,
+    "teacher_word_labels": "none",
+    "parameters": 217034,
+    "role_augmentation_episodes": 0,
+    "single_object_episodes": 314624,
+    "perceptual_anchoring": true,
+    "candidate_representation": "fixed random isometry of public semantic/grid percepts",
+    "contextual_sender": true,
+    "position_embeddings": true,
+    "attention_sender": false,
+    "parallel_channel": true,
+    "scene_reconstruction": true,
+    "architecture_version": 3,
+    "eos_warmup": 800
+  },
+  "train": {
+    "mean": {
+      "normal": 0.845458984375,
+      "blocked": 0.25,
+      "shuffle": 0.248291015625,
+      "sort": 0.359619140625,
+      "reverse": 0.26025390625,
+      "permute_vocabulary": 0.1962890625
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.845458984375,
+        "blocked": 0.25,
+        "shuffle": 0.248291015625,
+        "sort": 0.359619140625,
+        "reverse": 0.26025390625,
+        "permute_vocabulary": 0.1962890625
+      }
+    },
+    "episodes": 4096
+  },
+  "test": {
+    "mean": {
+      "normal": 0.98583984375,
+      "blocked": 0.25,
+      "shuffle": 0.242431640625,
+      "sort": 0.375,
+      "reverse": 0.256103515625,
+      "permute_vocabulary": 0.191650390625
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.98583984375,
+        "blocked": 0.25,
+        "shuffle": 0.242431640625,
+        "sort": 0.375,
+        "reverse": 0.256103515625,
+        "permute_vocabulary": 0.191650390625
+      }
+    },
+    "episodes": 4096
+  },
+  "code": {
+    "unique": 737,
+    "meaning_count": 4512,
+    "mean_payload": 8.0,
+    "code_entropy_bits": 9.225229236897798,
+    "topographic_spearman": 0.47512423987610536,
+    "position_fact_mutual_information_bits": [
+      [
+        0.5345618768958624,
+        0.017019061765148412,
+        0.014452264001351196,
+        0.4751387595089833,
+        0.15598056721590206,
+        2.183579189694385e-05,
+        0.6305943751092905
+      ],
+      [
+        3.2034265038149176e-16,
+        0.0,
+        0.5,
+        3.2034265038149176e-16,
+        0.0,
+        0.00016328699755422706,
+        1.0
+      ],
+      [
+        0.6713554291615669,
+        1.5207805637874926e-05,
+        3.55306091206532e-07,
+        0.5764997532426052,
+        2.5102574408847084e-05,
+        8.794525373279533e-06,
+        1.0
+      ],
+      [
+        0.4777461449269895,
+        0.0600811954164681,
+        0.0003066735743568593,
+        0.29564807082026345,
+        0.001300574687176179,
+        0.379811152195212,
+        0.6020906097560562
+      ],
+      [
+        0.010620748655470991,
+        0.1791857732393598,
+        0.6574742920301442,
+        0.121722184240628,
+        0.0853713253079173,
+        0.3050284109105286,
+        1.0
+      ],
+      [
+        0.6368774712179457,
+        0.09488621046827064,
+        0.0,
+        0.690743392318415,
+        4.8988196238720395e-05,
+        0.0,
+        0.8557241855326917
+      ],
+      [
+        0.28902609179480776,
+        0.10222068267600577,
+        1.9407650959034817e-05,
+        1.0239692920852792,
+        0.00041002162126505025,
+        2.0832083980481457e-05,
+        0.7370786497874253
+      ],
+      [
+        0.39737757848134914,
+        0.03951643310416323,
+        0.11179099647037188,
+        0.03248815488814652,
+        0.16848993684202382,
+        0.42748777504347574,
+        0.5891997548308903
+      ]
+    ]
+  },
+  "local_rewrites": {
+    "rules": 82,
+    "rule_selection": "training-only, modal changed contiguous span <=3 symbols, support >=3",
+    "heldout_pairs": 4096,
+    "applicable": 2487,
+    "coverage": 0.607177734375,
+    "original_correct": 2470,
+    "causal_switches": 1147,
+    "conditional_causal_switch": 0.4611982308001608,
+    "overall_causal_switch": 0.280029296875,
+    "examples": [
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 1,
+        "old_symbols": [
+          4,
+          7
+        ],
+        "new_symbols": [
+          6,
+          1
+        ],
+        "train_support": 220
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 2,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          6
+        ],
+        "train_support": 220
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 3,
+        "old_symbols": [
+          4,
+          7
+        ],
+        "new_symbols": [
+          6,
+          4
+        ],
+        "train_support": 104
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 4,
+        "old_symbols": [
+          4,
+          7
+        ],
+        "new_symbols": [
+          6,
+          1
+        ],
+        "train_support": 222
+      },
+      {
+        "fact": 0,
+        "old_value": 0,
+        "new_value": 5,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 222
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 0,
+        "old_symbols": [
+          6,
+          1
+        ],
+        "new_symbols": [
+          4,
+          7
+        ],
+        "train_support": 220
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 2,
+        "old_symbols": [
+          1
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 216
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 3,
+        "old_symbols": [
+          1
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 109
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 4,
+        "old_symbols": [
+          5
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 152
+      },
+      {
+        "fact": 0,
+        "old_value": 1,
+        "new_value": 5,
+        "old_symbols": [
+          6,
+          1
+        ],
+        "new_symbols": [
+          1,
+          7
+        ],
+        "train_support": 218
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 0,
+        "old_symbols": [
+          6
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 220
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 1,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 216
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 3,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          4
+        ],
+        "train_support": 113
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 4,
+        "old_symbols": [
+          7
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 218
+      },
+      {
+        "fact": 0,
+        "old_value": 2,
+        "new_value": 5,
+        "old_symbols": [
+          6
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 222
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 0,
+        "old_symbols": [
+          6,
+          4
+        ],
+        "new_symbols": [
+          4,
+          7
+        ],
+        "train_support": 104
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 1,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 109
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 2,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          7
+        ],
+        "train_support": 113
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 4,
+        "old_symbols": [
+          4
+        ],
+        "new_symbols": [
+          1
+        ],
+        "train_support": 102
+      },
+      {
+        "fact": 0,
+        "old_value": 3,
+        "new_value": 5,
+        "old_symbols": [
+          6,
+          4
+        ],
+        "new_symbols": [
+          1,
+          7
+        ],
+        "train_support": 108
+      }
+    ]
+  },
+  "binding": {
+    "pairs": 1152,
+    "accuracy": {
+      "normal": 0.9748263955116272,
+      "blocked": 0.5,
+      "sort": 0.6349826455116272,
+      "reverse": 0.4344618022441864
+    },
+    "both_correct": {
+      "normal": 0.9496527910232544,
+      "blocked": 0.0,
+      "sort": 0.3402777910232544,
+      "reverse": 0.1197916641831398
+    },
+    "same_bag_different_order_pairs": 6,
+    "same_bag_both_correct": 6,
+    "same_bag_both_correct_after_sort": 0
+  },
+  "three_objects": {
+    "mean": {
+      "normal": 0.51904296875,
+      "blocked": 0.25,
+      "shuffle": 0.25244140625,
+      "sort": 0.3203125,
+      "reverse": 0.25927734375,
+      "permute_vocabulary": 0.19775390625
+    },
+    "pairs": {
+      "0:0": {
+        "normal": 0.51904296875,
+        "blocked": 0.25,
+        "shuffle": 0.25244140625,
+        "sort": 0.3203125,
+        "reverse": 0.25927734375,
+        "permute_vocabulary": 0.19775390625
+      }
+    },
+    "episodes": 2048
+  },
+  "fresh_listener": {
+    "train_meanings": 128,
+    "updates": 300,
+    "heldout_success": 0.845703125,
+    "blocked_success": 0.25
+  }
+}

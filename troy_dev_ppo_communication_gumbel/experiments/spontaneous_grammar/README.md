@@ -21,7 +21,7 @@ Final comparison: five seeds, two tasks, 6,000 updates x 256 episodes per model.
 Methods: sampled PPO, recurrent Gumbel, curriculum, iterated learning, population
 learning and a parallel unassigned-slot neural channel. A seventh method uses
 training-only spatial role reversals and inventory invariance, on binding only.
-Total: 65 final models. Pilot anchoring, reconstruction and attention experiments
+Total: 65 final training runs. Pilot anchoring, reconstruction and attention experiments
 are retained separately and are not pooled with final seeds.
 
 The parallel/invariance channels have **eight fixed positions**. Every position

@@ -1,0 +1,92 @@
+[
+  {
+    "update": 1,
+    "generation": 0,
+    "seconds": 0.39942139998311177,
+    "loss": 1.5658936500549316,
+    "sampled_success": 0.26171875,
+    "greedy_train_success": 0.23828125,
+    "greedy_length": 8.0,
+    "sampled_length": 5.13671875
+  },
+  {
+    "update": 100,
+    "generation": 0,
+    "seconds": 2.798970800009556,
+    "loss": 1.3863105773925781,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 200,
+    "generation": 0,
+    "seconds": 5.301333400013391,
+    "loss": 1.386299729347229,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 300,
+    "generation": 0,
+    "seconds": 7.833864699990954,
+    "loss": 1.3862968683242798,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 400,
+    "generation": 0,
+    "seconds": 10.296129400026985,
+    "loss": 1.386296272277832,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 500,
+    "generation": 0,
+    "seconds": 12.545443399983924,
+    "loss": 1.3862950801849365,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 600,
+    "generation": 0,
+    "seconds": 14.787937299988698,
+    "loss": 1.3862965106964111,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 700,
+    "generation": 0,
+    "seconds": 17.02529640001012,
+    "loss": 1.3862953186035156,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  },
+  {
+    "update": 800,
+    "generation": 0,
+    "seconds": 19.435687899996992,
+    "loss": 1.3862959146499634,
+    "sampled_success": 0.25,
+    "greedy_train_success": 0.25,
+    "greedy_length": 0.0,
+    "sampled_length": 0.0
+  }
+]

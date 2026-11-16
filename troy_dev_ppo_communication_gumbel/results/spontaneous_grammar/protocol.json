@@ -1,0 +1,76 @@
+{
+  "study": "Unassigned neural symbols for food/hazard scenes",
+  "baseline_commit": "8152d916323ac62e4ec9a31f1b8ae392ee77cb5f",
+  "branch": "experiment-spontaneous-grammar",
+  "frozen_at_utc": "2026-11-16T22:21:27.071885+00:00",
+  "development_seed": 97,
+  "development_shift": 2,
+  "final_shift": 1,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "methods": [
+    "parallel",
+    "gumbel",
+    "curriculum",
+    "iterated",
+    "population",
+    "ppo"
+  ],
+  "extra_binding_method": "invariance",
+  "updates": 6000,
+  "batch_size": 256,
+  "evaluation_blocks": 1024,
+  "width": 96,
+  "vocab": 8,
+  "max_length": 8,
+  "selection": "No seed retries, checkpoint admission, early stopping or test-based selection. Evaluate update 6000 only. Every run retained.",
+  "transfer_method": "parallel selected on development seed97 before final training",
+  "transfer_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "transfer_conditions": [
+    "normal",
+    "blocked",
+    "shuffle",
+    "sort",
+    "oracle"
+  ],
+  "transfer_repeats": 4,
+  "transfer_families": [
+    "standard",
+    "transformed"
+  ],
+  "transfer_interface": "Four foods x two animal identities x two states =16 full-scene hypotheses; retrieve with whole-message listener. Size fixed0; existing CUDA navigator frozen. No retraining, symbol mapping or semantic word heads.",
+  "criteria": {
+    "useful_communication": "Heldout five-seed mean >=0.80, minimum >=0.65, mean normal-blocked >=0.30 and normal-shuffle >=0.30",
+    "strong_combination_generalization": "Heldout mean >=0.95 and minimum >=0.90",
+    "local_productivity": "Training-induced rewrite overall causal switch >=0.80 (coverage included)",
+    "order_binding": "Each seed: >=50 same-bag/different-order heldout role pairs; >=90% both correct normally, <=55% both correct after sorting",
+    "new_cardinality": "Three-object mean >=0.80 and minimum >=0.65"
+  },
+  "qualifications": [
+    "No claim of human language, recursion, morphology, pragmatic conversation, learned perception or learned path planning.",
+    "Parallel and invariance use eight fixed unassigned slots and a whole-scene reconstruction objective; no learned brevity claim.",
+    "Invariance explicitly biases role reversal to preserve token histograms, with extra TRAIN/TRAIN examples; this is an inductive bias, not unbiased emergence.",
+    "PPO is reward-driven RL; straight-through Gumbel games use target-room cross-entropy with a biased differentiable channel.",
+    "Population averages all9 sender/listener combinations; member0 fixed for code diagnostics.",
+    "Confidence intervals treat five training seeds as units; paired episodes within a seed are not independent training repetitions."
+  ],
+  "frozen_source_sha256": {
+    "evaluate.py": "467219356743c1430284d9c7500f23a42806263062921403b3191b56df539c70",
+    "models.py": "4a53272edbea5ee2e187e525003eb64406007726cff86c04cd56f1b7d30800c8",
+    "study.py": "b9dc87c2947a6717bf8aafb86148d9baec9dc12d8005c09d9d97ad5083e85d9b",
+    "task.py": "73bd64783fa967d13797e9eaffc028b10867ad971b38c25c16c8ace9c9e47932",
+    "train.py": "425f15ec2bb3d5cf91bbac9d486d12902e5433333e37a0802489ad1214aaf82c",
+    "__init__.py": "b3251491c6e416ff0c1379d98e52d461f3a19a44e88d5a8967c1af07ed882c9d"
+  }
+}
