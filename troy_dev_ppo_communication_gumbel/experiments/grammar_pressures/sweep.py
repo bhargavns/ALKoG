@@ -17,7 +17,17 @@ CONDITIONS = {
     'context_calm':      '',
     'context_urgent':    '--cost 0.01 --hazard 0.03',
     'context_emergency': '--cost 0.01 --hazard 0.3 --curriculum',
+    # follow-up 1: is the partial lexicon of context_emergency_2 repeatable?  (10 seeds, 20,000 updates)
+    'lead_h10': '--cost 0.01 --hazard 0.1 --curriculum --entropy 0.1 --entropy-until 0.9',
+    'lead_h20': '--cost 0.01 --hazard 0.2 --curriculum --entropy 0.1 --entropy-until 0.9',
+    'lead_h30': '--cost 0.01 --hazard 0.3 --curriculum --entropy 0.1 --entropy-until 0.9',
+    # follow-up 2: near and wild misses, misheard symbols, payoff graded by similarity (and its three controls)
+    'mixed_plain':        '--cands 8 --far 3 --sets 32 --cost 0.005 --hazard 0.03',
+    'mixed_graded':       '--cands 8 --far 3 --sets 32 --cost 0.005 --hazard 0.03 --graded',
+    'mixed_noise':        '--cands 8 --far 3 --sets 32 --cost 0.005 --hazard 0.03 --noise 0.1',
+    'mixed_graded_noise': '--cands 8 --far 3 --sets 32 --cost 0.005 --hazard 0.03 --graded --noise 0.1',
 }
+FIRST = ('blind_calm', 'blind_urgent', 'context_calm', 'context_urgent', 'context_emergency')
 
 
 def one(root, name, seed, updates):
@@ -47,7 +57,7 @@ def row(r):
 def summarise(root):
     root = Path(root); table = {}
     for name in CONDITIONS:
-        rows = [row(json.loads(p.read_text())) for p in sorted(root.glob(f'{name}_*/analysis.json'))]
+        rows = [row(json.loads(p.read_text())) for p in sorted(root.glob(f'{name}_[0-9]*/analysis.json'))]
         if rows: table[name] = dict(seeds=len(rows), **{k: [float(np.mean([x[k] for x in rows])), float(np.min([x[k] for x in rows])), float(np.max([x[k] for x in rows]))] for k in rows[0]})
     (root / 'summary.json').write_text(json.dumps(table, indent=1))
     keys = list(next(iter(table.values())).keys())[1:] if table else []
@@ -60,7 +70,7 @@ def summarise(root):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(); p.add_argument('--output', type=Path, required=True)
     p.add_argument('--seeds', type=int, nargs='+', default=[0, 1, 2]); p.add_argument('--updates', type=int, default=6000)
-    p.add_argument('--workers', type=int, default=2); p.add_argument('--conditions', nargs='+', default=list(CONDITIONS))
+    p.add_argument('--workers', type=int, default=2); p.add_argument('--conditions', nargs='+', default=list(FIRST))
     p.add_argument('--summarise-only', action='store_true'); a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=True)
     if not a.summarise_only:

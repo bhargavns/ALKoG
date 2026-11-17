@@ -211,7 +211,7 @@ def entanglement(inf, events):
 @torch.no_grad()
 def accuracy(inf, partition, sets=256, seed=0, mode='normal'):
     w, c = inf.w, inf.c; g = torch.Generator(device=w.device).manual_seed(900 + seed)
-    b = w.sample(sets, partition, g, c['n_cand'], tuple(c['focus']))
+    b = w.sample(sets, partition, g, c['n_cand'], tuple(c['focus']), c.get('far', 0))
     tok = inf.s(b['private'], b['candidates'] if c['context'] else None)['tokens']
     if mode == 'shuffle': tok = tok[torch.randperm(len(tok), generator=g, device=tok.device)]
     if mode == 'blocked': tok = torch.full_like(tok, inf.s.eos)
@@ -224,7 +224,7 @@ def newcomer(inf, budgets=(50, 150, 500), seed=0):
     listener = Listener(c['vocab'], c['width']).to(w.device); opt = torch.optim.Adam(listener.parameters(), lr=c['lr']); out = {}
     probe = Informant(inf.s, listener, w, c)
     for step in range(max(budgets)):
-        b = w.sample(c['sets'], 'train', g, c['n_cand'], tuple(c['focus']))
+        b = w.sample(c['sets'], 'train', g, c['n_cand'], tuple(c['focus']), c.get('far', 0))
         with torch.no_grad(): tok = inf.s(b['private'], b['candidates'] if c['context'] else None)['tokens']
         loss = F.cross_entropy(listener(b['candidates'], tok), b['target']); opt.zero_grad(); loss.backward(); opt.step()
         if step + 1 in budgets:

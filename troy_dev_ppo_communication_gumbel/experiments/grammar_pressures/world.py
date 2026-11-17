@@ -94,6 +94,7 @@ class World:
         self.nslot_t = torch.tensor(self.neighbour_slot, device=device)
         self.part_t = torch.tensor(self.partition, device=device)
         self.val_t = torch.tensor(self.events[:, 0], device=device)
+        self.similarity = self._similarity().to(device)
 
     # ------------------------------------------------------------------ percepts
     def _features(self):
@@ -104,6 +105,16 @@ class World:
                 if e < 0: continue
                 f[i, slot, e // NC] = 1; f[i, slot, NT + e % NC] = 1; f[i, slot, NT + NC + role] = 1
         return f
+
+    def _similarity(self):
+        """Share of semantic slots two events have in common (0 across valencies).
+        Used only by the graded-payoff condition: a near miss is worth more than a wild one."""
+        ev = torch.tensor(self.events); v, p, a, b = ev.T
+        eq = lambda x: (x[:, None] == x[None, :]).float()
+        same = eq(p) + eq(a // NC) + eq(a % NC)
+        two = (v == 2).float()
+        same = same + two[:, None] * two[None, :] * (eq(b // NC) + eq(b % NC))
+        return same / (3 + 2 * two)[:, None] * eq(v)
 
     # ------------------------------------------------------- minimal-edit graph
     def slots(self, i):
@@ -152,14 +163,16 @@ class World:
         return table, swap
 
     # ------------------------------------------------------------ episode sampler
-    def sample(self, sets, partition='train', generator=None, n_cand=4, focus=(1, 2, 3)):
+    def sample(self, sets, partition='train', generator=None, n_cand=4, focus=(1, 2, 3), far=0):
         """Balanced reference episodes.  Each set is an anchor event plus
         single-edit neighbours from the same partition.  `focus` lists how many
         different slots the distractors may contrast with the anchor (drawn
         uniformly per set): with focus 1 all rooms differ in the same respect
         (say, only the agent's colour), with 3 they differ in up to three.  The
         role-reversed event counts as a slot.  Every member of a set is used
-        once as the private target, so ignoring the message scores 1/n_cand."""
+        once as the private target, so ignoring the message scores 1/n_cand.
+        `far` of the distractors are unrelated same-valency events instead of
+        neighbours, so a room can be a near miss or a wild miss."""
         dev = self.device; pool = self.pools[partition]; k = PARTITIONS.index(partition)
         anchor = pool[torch.randint(len(pool), (sets,), generator=generator, device=dev)]
         neigh = torch.cat((self.neigh_t[anchor], self.swap_t[anchor][:, None]), 1); slot = self.nslot_t[anchor]
@@ -172,7 +185,9 @@ class World:
         score = torch.where(ok, torch.rand(neigh.shape, generator=generator, device=dev), torch.full(neigh.shape, -1., device=dev))
         top = score.topk(n_cand - 1, dim=1)
         ids = torch.cat((anchor[:, None], neigh.gather(1, top.indices)), 1)
-        fill = torch.cat((torch.zeros(sets, 1, dtype=torch.bool, device=dev), top.values < 0), 1); need = fill.clone()
+        fill = torch.cat((torch.zeros(sets, 1, dtype=torch.bool, device=dev), top.values < 0), 1)
+        if far: fill[:, n_cand - far:] = True
+        need = fill.clone()
         while need.any():       # too few such neighbours: fill with unrelated same-valency events
             ids[need] = pool[torch.randint(len(pool), (int(need.sum()),), generator=generator, device=dev)]
             bad = self.val_t[ids] != self.val_t[ids[:, :1]]

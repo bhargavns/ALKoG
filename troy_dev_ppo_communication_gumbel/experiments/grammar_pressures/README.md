@@ -240,3 +240,22 @@ the GPU. The sweep in `results/` was run on a 2-core Linux sandbox with torch
 Galke, Ram and Raviv (2022), Emergent communication for understanding human language evolution: what's missing? https://arxiv.org/abs/2204.10590
 Li and Bowling (2019), Ease-of-teaching and language structure from emergent communication. https://arxiv.org/abs/1906.02403
 Lian, Bisazza and Verhoef (2023), Communication drives the emergence of language universals in neural agents. https://arxiv.org/abs/2301.13083
+
+## Follow-up runs (prepared, launch with `run_followups.bat`)
+
+Two questions, with the pass line fixed before any of these runs exist.
+
+1. **Was `context_emergency_2` luck?** `lead_h10`, `lead_h20`, `lead_h30`: the
+   emergency condition at interruption risk 0.1, 0.2, 0.3, exploration kept on
+   for 90% of training, 10 seeds, 20,000 updates. Pass: in at least 7 of 10
+   seeds of some risk level, word consistency >= 0.8 with at least 15 distinct
+   one-contrast forms and training accuracy >= 0.85.
+2. **Does a world with near and wild misses favour parts?** Eight rooms, three
+   of them unrelated events. `mixed_graded_noise` pays by how much of the chosen
+   room matches the target and mishears 10% of symbols; `mixed_plain`,
+   `mixed_graded` and `mixed_noise` are its controls. 5 seeds, 12,000 updates.
+   Pass: `concatenative` >= 0.5 and `synthesis_understood` >= 0.8 on held-out
+   events, and clearly above all three controls.
+
+Results land in `results/grammar_pressures/lead` and `.../mixed`
+(`summary.md` in each). These are CPU jobs; six run at once.
