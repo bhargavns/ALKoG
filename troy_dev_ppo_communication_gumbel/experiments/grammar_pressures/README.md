@@ -289,6 +289,12 @@ earlier turnover pilots.
    condition, the last generation's `part2` or `concatenative` >= 0.3 in at
    least 2 of 3 seeds at training accuracy >= 0.85, and above the loose
    condition.
+   **Result: fail.**  Concatenation 0.00 in all 12 runs, `part2` <= 0.13 in
+   every generation.  Languages now survive all 10 generations at stable
+   accuracy (0.86 glimpsed rooms, 0.93 urgent), so the earlier collapse was the
+   imitation bug.  The tight bottleneck lowered word consistency (0.15 vs 0.62
+   loose, glimpsed rooms) instead of regularising; topsim drifted up in one
+   seed only (0.19 to 0.29-0.38).
 8. **Sound before meaning** (`bab_*`): 3,000 updates of babbling first.  The
    speaker produces sequences from a random inner mood that refers to nothing;
    a song-listener learns to predict them; the speaker is paid for babbles that
@@ -296,6 +302,9 @@ earlier turnover pilots.
    governed song).  Then the task as usual.  Pass: `part2` or `concatenative`
    >= 0.3 in at least 2 of 3 seeds at training accuracy >= 0.85, and above its
    control without babbling (`k_h03`, `inv24`).
+   **Result: fail.**  Concatenation <= 0.07 and `part2` <= 0.15 in all 9 runs;
+   word consistency equal to the controls (0.49 vs 0.50 for `inv24`, 0.51 vs
+   0.42 for `k_h03`).  The song habits were not recruited for meaning.
 9. **Wanting versus reporting** (`persp*`, `perspective.py`): the speaker has
    an inner state.  It has either seen an event (the collector should look at
    that room) or wants something with a property (the collector should fetch
@@ -307,6 +316,20 @@ earlier turnover pilots.
    same in both moods for >= 70% of properties; and a message built from the
    marker plus the report word for a never-wanted property is understood
    (room and deed) >= 70% of the time.
+
+   **Result: fail on the pass line, with one clear partial success.**
+   All 6 runs (vocab 12 and 24) win 1.00 on training.  The *mood* is fully
+   productive: for properties never wanted in training, the collector picks the
+   right deed (fetch) 100% of the time in 6/6 runs.  This is not a bias: on
+   random strings it says fetch only 6-63%.  And it follows the speaker's felt
+   state, not the percept: give the speaker a wish percept but switch its inner
+   mood to 'report' and the collector chooses look 99-100% of the time.  One
+   run (`persp12_0`) has a clean prefix marker: symbol 0, first, in 100% of
+   wanting and 0% of reporting utterances ('tiger' seen = `7`, wanted = `0 7`).
+   The *content* does not transfer: the room is right for only 0-6% of never-
+   wanted properties, and the word for a property differs between moods
+   (same in both <= 0.33).  So the speaker's state is marked separably and
+   generalises; what it wants is not expressed with the words for what it sees.
 
 This is the first step toward speakers talking about their own states: a
 marker for the speaker's mood that is separable from the words for the world,
