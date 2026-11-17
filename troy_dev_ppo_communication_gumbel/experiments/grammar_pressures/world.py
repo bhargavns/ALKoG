@@ -93,7 +93,7 @@ class World:
         self.swap_t = torch.tensor(self.swap, device=device)
         self.nslot_t = torch.tensor(self.neighbour_slot, device=device)
         self.part_t = torch.tensor(self.partition, device=device)
-        self.val_t = torch.tensor(self.events[:, 0], device=device)
+        self.val_t = torch.tensor(self.events[:, 0], device=device); self.events_t = torch.tensor(self.events, device=device)
         self.similarity = self._similarity().to(device)
 
     # ------------------------------------------------------------------ percepts
@@ -163,7 +163,7 @@ class World:
         return table, swap
 
     # ------------------------------------------------------------ episode sampler
-    def sample(self, sets, partition='train', generator=None, n_cand=4, focus=(1, 2, 3), far=0):
+    def sample(self, sets, partition='train', generator=None, n_cand=4, focus=(1, 2, 3), far=0, displaced=False, keyhole=None):
         """Balanced reference episodes.  Each set is an anchor event plus
         single-edit neighbours from the same partition.  `focus` lists how many
         different slots the distractors may contrast with the anchor (drawn
@@ -172,7 +172,11 @@ class World:
         role-reversed event counts as a slot.  Every member of a set is used
         once as the private target, so ignoring the message scores 1/n_cand.
         `far` of the distractors are unrelated same-valency events instead of
-        neighbours, so a room can be a near miss or a wild miss."""
+        neighbours, so a room can be a near miss or a wild miss.
+        `displaced`: the speaker's view of the rooms ('speaker_view') is a second,
+        independent draw of rooms that contrast the same respects, so it knows
+        what is at stake but not the exact alternatives the collector faces.
+        `keyhole`: rooms are only glimpsed (see `view`)."""
         dev = self.device; pool = self.pools[partition]; k = PARTITIONS.index(partition)
         anchor = pool[torch.randint(len(pool), (sets,), generator=generator, device=dev)]
         neigh = torch.cat((self.neigh_t[anchor], self.swap_t[anchor][:, None]), 1); slot = self.nslot_t[anchor]
@@ -182,20 +186,50 @@ class World:
         rank = (torch.rand(sets, 6, generator=generator, device=dev) + avail.float()).argsort(1, descending=True).argsort(1)
         chosen = (rank < want[:, None]) & avail                      # the slots this context contrasts
         ok = ok & chosen.gather(1, slot.clamp_min(0))
-        score = torch.where(ok, torch.rand(neigh.shape, generator=generator, device=dev), torch.full(neigh.shape, -1., device=dev))
-        top = score.topk(n_cand - 1, dim=1)
-        ids = torch.cat((anchor[:, None], neigh.gather(1, top.indices)), 1)
-        fill = torch.cat((torch.zeros(sets, 1, dtype=torch.bool, device=dev), top.values < 0), 1)
-        if far: fill[:, n_cand - far:] = True
-        need = fill.clone()
-        while need.any():       # too few such neighbours: fill with unrelated same-valency events
-            ids[need] = pool[torch.randint(len(pool), (int(need.sum()),), generator=generator, device=dev)]
-            bad = self.val_t[ids] != self.val_t[ids[:, :1]]
-            for c in range(1, ids.shape[1]):
-                bad[:, c] |= (ids[:, c:c + 1] == ids[:, :c]).any(1) | (ids[:, c:c + 1] == ids[:, c + 1:]).any(1)
-            need = fill & bad
+        def draw():
+            score = torch.where(ok, torch.rand(neigh.shape, generator=generator, device=dev), torch.full(neigh.shape, -1., device=dev))
+            top = score.topk(n_cand - 1, dim=1)
+            ids = torch.cat((anchor[:, None], neigh.gather(1, top.indices)), 1)
+            fill = torch.cat((torch.zeros(sets, 1, dtype=torch.bool, device=dev), top.values < 0), 1)
+            if far: fill[:, n_cand - far:] = True
+            need = fill.clone()
+            while need.any():       # too few such neighbours: fill with unrelated same-valency events
+                ids[need] = pool[torch.randint(len(pool), (int(need.sum()),), generator=generator, device=dev)]
+                bad = self.val_t[ids] != self.val_t[ids[:, :1]]
+                for c in range(1, ids.shape[1]):
+                    bad[:, c] |= (ids[:, c:c + 1] == ids[:, :c]).any(1) | (ids[:, c:c + 1] == ids[:, c + 1:]).any(1)
+                need = fill & bad
+            return ids
+        ids = draw(); other = draw() if displaced else None
         order = torch.rand(ids.shape, generator=generator, device=dev).argsort(1)
-        return self.episodes(ids.gather(1, order))
+        batch = self.episodes(ids.gather(1, order))
+        if displaced:       # episode (set, t): the other draw, with the room in t's original column replaced by the target
+            view = other.repeat_interleave(n_cand, 0)
+            view[torch.arange(len(view), device=dev), order.flatten()] = batch['goal']
+            batch['speaker_view'] = self.features[view]
+        else: view = batch['cand_ids']
+        if keyhole is not None:
+            batch['candidates'] = self.view(batch['cand_ids'], keyhole, generator)
+            batch['speaker_view'] = self.view(view, keyhole, generator)
+        else: batch['speaker_view'] = self.features[view]
+        return batch
+
+    def view(self, ids, extra=0., generator=None):
+        """Rooms glimpsed through a keyhole.  ids [n, rooms] -> percepts in which a
+        property (predicate; first participant's type, colour; second
+        participant's type, colour) is visible only if the rooms differ in it,
+        or by chance with probability `extra`.  Whatever is the same in every
+        room is not seen at all, so a signal can only be matched against the
+        properties themselves, never against the whole event."""
+        ev = self.events_t[ids]; a, b = ev[..., 2], ev[..., 3]
+        vals = torch.stack((ev[..., 1], a // NC, a % NC, b // NC, b % NC), -1)
+        vis = (vals != vals[:, :1]).any(1)
+        if extra > 0: vis = vis | (torch.rand(vis.shape, generator=generator, device=vis.device) < extra)
+        m = torch.zeros(len(ids), 3, ELEMENT_DIM, device=ids.device)
+        m[:, 0] = vis[:, 0:1]
+        for el, (t, c) in ((1, (1, 2)), (2, (3, 4))):
+            m[:, el, :NT] = vis[:, t:t + 1]; m[:, el, NT:NT + NC] = vis[:, c:c + 1]; m[:, el, NT + NC:NT + NC + 3] = (vis[:, t] | vis[:, c])[:, None]
+        return self.features[ids] * m[:, None]
 
     def episodes(self, ids):
         """ids: [sets, c] candidate event ids -> balanced batch of c*sets episodes."""

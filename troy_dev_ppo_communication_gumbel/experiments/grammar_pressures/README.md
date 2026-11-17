@@ -259,3 +259,63 @@ Two questions, with the pass line fixed before any of these runs exist.
 
 Results land in `results/grammar_pressures/lead` and `.../mixed`
 (`summary.md` in each). These are CPU jobs; six run at once.
+
+## Second round (2026-11-17)
+
+Results of the two follow-ups: neither passed.  `lead_*`: 1 of 30 runs met the
+lexicon line (the original lead was luck).  `mixed_*`: concatenation 0.00 in
+all 20 runs; noise lengthened messages to the maximum (repetition, not parts).
+
+Searched since, 3 seeds each (`report.py` and `structure.py` give per-run
+tables; `structure.py --lineage RUN` follows a run across generations):
+
+| folder | what changed | outcome |
+|---|---|---|
+| `inventory` | 12 / 24 / 40 signals instead of 6 | words did not get more consistent; concatenation fell to 0.02 |
+| `pressures24` | speaker sees other rooms of the same kind (`--displaced`), collectors replaced every 1,000 updates, community of 3, 8 rooms | displaced and 8 rooms: accurate holistic codes, consistency 0.06-0.11. Turnover: consistency 0.71 at lower accuracy |
+| `keyhole` | rooms are glimpsed: only what differs between them is seen (`--keyhole`) | most consistent words so far (0.80, predicate words 0.97); with `--displaced`, hand-built two-word messages understood 0.79; speaker still does not combine |
+| `kgrid` | variations on keyhole + displaced, 20,000 updates | without urgency messages lengthen to the maximum; graded structure rises (topsim ~0.3) but no concatenation |
+
+Fixed along the way: a newcomer speaker in the generational runs used to
+imitate its predecessor without the rooms in view, though it spoke with them
+in view, and the final checkpoint saved the founder.  Both affected the
+earlier turnover pilots.
+
+### Prepared next, pass lines fixed before the runs
+
+7. **Iterated learning** (`il_*`): founder trained 6,000 updates, then 10
+   generations of 1,500; each new speaker first imitates 200 (tight) or 3,000
+   (loose) of the old speaker's utterances, in context.  Pass: in the tight
+   condition, the last generation's `part2` or `concatenative` >= 0.3 in at
+   least 2 of 3 seeds at training accuracy >= 0.85, and above the loose
+   condition.
+8. **Sound before meaning** (`bab_*`): 3,000 updates of babbling first.  The
+   speaker produces sequences from a random inner mood that refers to nothing;
+   a song-listener learns to predict them; the speaker is paid for babbles that
+   are easy to predict yet unlike the rest of the batch (diverse but rule-
+   governed song).  Then the task as usual.  Pass: `part2` or `concatenative`
+   >= 0.3 in at least 2 of 3 seeds at training accuracy >= 0.85, and above its
+   control without babbling (`k_h03`, `inv24`).
+9. **Wanting versus reporting** (`persp*`, `perspective.py`): the speaker has
+   an inner state.  It has either seen an event (the collector should look at
+   that room) or wants something with a property (the collector should fetch
+   the one room that has it).  The collector chooses room and deed; the team is
+   paid only if both are right.  Four properties (blue, tiger, 'hides', 'gone')
+   are never wanted in training, only seen.  Pass, per run: a want marker in
+   >= 90% of wanting utterances and <= 10% of reports; at least 80% of
+   properties have their own non-empty report word; the property word is the
+   same in both moods for >= 70% of properties; and a message built from the
+   marker plus the report word for a never-wanted property is understood
+   (room and deed) >= 70% of the time.
+
+This is the first step toward speakers talking about their own states: a
+marker for the speaker's mood that is separable from the words for the world,
+and that extends to wants it has never expressed.
+
+```
+python -m experiments.grammar_pressures.sweep --output results/grammar_pressures/iterated --seeds 0 1 2 --updates 6000 --workers 12 --conditions il_k_tight il_k_loose il_l_tight il_l_loose
+python -m experiments.grammar_pressures.sweep --output results/grammar_pressures/babble --seeds 0 1 2 --updates 12000 --workers 12 --conditions bab_l bab_l_nov
+python -m experiments.grammar_pressures.sweep --output results/grammar_pressures/babble --seeds 0 1 2 --updates 20000 --workers 12 --conditions bab_k
+python -m experiments.grammar_pressures.sweep --output results/grammar_pressures/perspective --seeds 0 1 2 --updates 12000 --workers 12 --conditions persp24 persp12
+python -m experiments.grammar_pressures.perspective --summarise results/grammar_pressures/perspective
+```

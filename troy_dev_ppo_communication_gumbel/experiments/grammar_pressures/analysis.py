@@ -57,19 +57,23 @@ class Informant:
     def __init__(self, speaker, listener, world, config):
         self.s, self.l, self.w, self.c = speaker, listener, world, config
 
+    def rooms(self, ids):
+        k = self.c.get('keyhole')
+        return self.w.features[ids] if k is None else self.w.view(ids)
+
     @torch.no_grad()
     def say(self, contexts):
         ids = torch.tensor(contexts, device=self.w.device); out = []
         for chunk in ids.split(1024):
-            cand = self.w.features[chunk]
-            out += strip(self.s(cand[:, 0], cand if self.c['context'] else None)['tokens'], self.s.eos)
+            cand = self.rooms(chunk)
+            out += strip(self.s(self.w.features[chunk[:, 0]], cand if self.c['context'] else None)['tokens'], self.s.eos)
         return out
 
     @torch.no_grad()
     def choose(self, contexts, messages):
         ids = torch.tensor(contexts, device=self.w.device)
         tok = pack(messages, self.l.eos, self.c['max_len'], self.w.device)
-        return self.l(self.w.features[ids], tok).argmax(-1).tolist()
+        return self.l(self.rooms(ids), tok).argmax(-1).tolist()
 
     def understand(self, contexts, messages):
         """True where the listener picks the target (index 0) for the given strings."""
@@ -211,8 +215,8 @@ def entanglement(inf, events):
 @torch.no_grad()
 def accuracy(inf, partition, sets=256, seed=0, mode='normal'):
     w, c = inf.w, inf.c; g = torch.Generator(device=w.device).manual_seed(900 + seed)
-    b = w.sample(sets, partition, g, c['n_cand'], tuple(c['focus']), c.get('far', 0))
-    tok = inf.s(b['private'], b['candidates'] if c['context'] else None)['tokens']
+    b = w.sample(sets, partition, g, c['n_cand'], tuple(c['focus']), c.get('far', 0), c.get('displaced', False), c.get('keyhole'))
+    tok = inf.s(b['private'], b['speaker_view'] if c['context'] else None)['tokens']
     if mode == 'shuffle': tok = tok[torch.randperm(len(tok), generator=g, device=tok.device)]
     if mode == 'blocked': tok = torch.full_like(tok, inf.s.eos)
     return float((inf.l(b['candidates'], tok).argmax(-1) == b['target']).float().mean())
@@ -224,8 +228,8 @@ def newcomer(inf, budgets=(50, 150, 500), seed=0):
     listener = Listener(c['vocab'], c['width']).to(w.device); opt = torch.optim.Adam(listener.parameters(), lr=c['lr']); out = {}
     probe = Informant(inf.s, listener, w, c)
     for step in range(max(budgets)):
-        b = w.sample(c['sets'], 'train', g, c['n_cand'], tuple(c['focus']), c.get('far', 0))
-        with torch.no_grad(): tok = inf.s(b['private'], b['candidates'] if c['context'] else None)['tokens']
+        b = w.sample(c['sets'], 'train', g, c['n_cand'], tuple(c['focus']), c.get('far', 0), c.get('displaced', False), c.get('keyhole'))
+        with torch.no_grad(): tok = inf.s(b['private'], b['speaker_view'] if c['context'] else None)['tokens']
         loss = F.cross_entropy(listener(b['candidates'], tok), b['target']); opt.zero_grad(); loss.backward(); opt.step()
         if step + 1 in budgets:
             out[str(step + 1)] = dict(train=accuracy(probe, 'train', 128, seed), heldout=mean(accuracy(probe, p, 128, seed) for p in TEST_PARTITIONS))

@@ -25,10 +25,12 @@ class SceneEncoder(nn.Module):
 
 
 class Speaker(nn.Module):
-    def __init__(self, vocab=6, max_len=6, width=64, emb=32):
+    def __init__(self, vocab=6, max_len=6, width=64, emb=32, inner=0):
         super().__init__()
         self.vocab, self.eos, self.max_len = vocab, vocab, max_len      # symbols 0..vocab-1, EOS = vocab
         self.encoder = SceneEncoder(width)
+        # optional internal state (e.g. whether the speaker wants something or saw it); not perceived, felt
+        self.inner = nn.Linear(inner, width) if inner else None
         # shared context: how the private target differs from each public room (generic, permutation-invariant)
         self.contrast = nn.Sequential(nn.Linear(2 * ELEMENT_DIM, width), nn.ReLU(), nn.Linear(width, width), nn.ReLU())
         self.mix = nn.Sequential(nn.Linear(2 * width, width), nn.Tanh())
@@ -52,10 +54,11 @@ class Speaker(nn.Module):
             prev = sym @ self.embedding.weight[:self.vocab + 1]
         return torch.stack(wire, 1), torch.stack(alives, 1)
 
-    def imitate(self, scene, tokens):
+    def imitate(self, scene, tokens, candidates=None):
         """Teacher-forced negative log-likelihood of observed utterances
-        (a child hearing adults describe scenes it can also see)."""
-        ctx = self.perceive(scene); h = ctx; n = len(scene)
+        (a child hearing adults describe scenes it can also see, in the
+        context of the rooms the adult saw, if speakers see rooms)."""
+        ctx = self.perceive(scene, candidates); h = ctx; n = len(scene)
         prev = torch.full((n,), self.vocab + 1, device=scene.device, dtype=torch.long)
         alive = torch.ones(n, device=scene.device); nll = torch.zeros(n, device=scene.device)
         for t in range(self.max_len):
@@ -64,21 +67,27 @@ class Speaker(nn.Module):
             alive = alive * (tokens[:, t] != self.eos).float(); prev = tokens[:, t]
         return nll.mean()
 
-    def perceive(self, scene, candidates=None):
+    def perceive(self, scene, candidates=None, inner=None):
         """Target percept, optionally together with the public rooms.  Without
-        `candidates` the speaker is blind to the context it is speaking in."""
+        `candidates` the speaker is blind to the context it is speaking in.
+        `inner` is the speaker's own state, if it has one."""
         target = self.encoder(scene)
-        if candidates is None: return self.mix(torch.cat((target, torch.zeros_like(target)), -1))
-        pairs = torch.cat((scene[:, None].expand_as(candidates), candidates), -1)       # [n, rooms, elements, 2*dim]
-        return self.mix(torch.cat((target, self.contrast(pairs).sum((1, 2))), -1))
+        if candidates is None: room = torch.zeros_like(target)
+        else:
+            pairs = torch.cat((scene[:, None].expand_as(candidates), candidates), -1)       # [n, rooms, elements, 2*dim]
+            room = self.contrast(pairs).sum((1, 2))
+        if self.inner is not None and inner is not None: target = target + self.inner(inner)
+        return self.mix(torch.cat((target, room), -1))
 
-    def forward(self, scene, candidates=None, mode='greedy', forced=None):
+    def forward(self, scene, candidates=None, mode='greedy', forced=None, inner=None, ctx=None):
         """Returns tokens [n, max_len] (EOS-padded), log-prob, entropy, length.
-        `forced` replays stored tokens to recompute their log-probability."""
-        ctx = self.perceive(scene, candidates); h = ctx; n = len(scene)
-        prev = torch.full((n,), self.vocab + 1, device=scene.device, dtype=torch.long)
-        alive = torch.ones(n, device=scene.device)
-        logp = torch.zeros(n, device=scene.device); ent = torch.zeros_like(logp); length = torch.zeros_like(logp); steps = torch.zeros_like(logp)
+        `forced` replays stored tokens to recompute their log-probability.
+        `ctx` replaces the percept altogether (babbling: nothing is being talked about)."""
+        if ctx is None: ctx = self.perceive(scene, candidates, inner)
+        h = ctx; n = len(ctx); dev = ctx.device
+        prev = torch.full((n,), self.vocab + 1, device=dev, dtype=torch.long)
+        alive = torch.ones(n, device=dev)
+        logp = torch.zeros(n, device=dev); ent = torch.zeros_like(logp); length = torch.zeros_like(logp); steps = torch.zeros_like(logp)
         toks = []
         for t in range(self.max_len):
             h = self.cell(torch.cat((self.embedding(prev), ctx), -1), h)
@@ -126,6 +135,38 @@ class Listener(nn.Module):
         out, _ = self.gru(self.embedding(tokens))
         m = self.proj(out); c = self.scenes(candidates)
         return torch.einsum('nld,ncd->nlc', m, c) / m.shape[-1] ** 0.5, mask
+
+
+class Actor(Listener):
+    """A collector that also decides what to do with the room it picks
+    (e.g. bring it to the speaker, or go and look).  The deed is read from the
+    message alone; the room is chosen as before."""
+    def __init__(self, vocab=10, width=64, emb=32, deeds=2):
+        super().__init__(vocab, width, emb)
+        self.deed = nn.Linear(width, deeds)
+
+    def forward(self, candidates, tokens):
+        m = self.message(tokens); c = self.scenes(candidates)
+        return torch.einsum('nd,ncd->nc', m, c) / m.shape[-1] ** 0.5, self.deed(m)
+
+
+class Song(nn.Module):
+    """Listens to babbling and predicts the next sound.  Its surprise is how
+    hard a babble is to pick up; nothing it hears refers to anything."""
+    def __init__(self, vocab, width=64, emb=32):
+        super().__init__()
+        self.vocab = vocab
+        self.embedding = nn.Embedding(vocab + 2, emb); self.gru = nn.GRU(emb, width, batch_first=True); self.out = nn.Linear(width, vocab + 1)
+
+    def surprise(self, tokens):
+        """Per-utterance surprise in nats, over the symbols and the final EOS."""
+        n, L = tokens.shape
+        bos = torch.full((n, 1), self.vocab + 1, dtype=torch.long, device=tokens.device)
+        out, _ = self.gru(self.embedding(torch.cat((bos, tokens[:, :-1]), 1)))
+        nll = F.cross_entropy(self.out(out).flatten(0, 1), tokens.flatten(), reduction='none').reshape(n, L)
+        # count symbols up to and including the first EOS
+        alive = torch.cat((torch.ones(n, 1, device=tokens.device), (tokens[:, :-1] != self.vocab).float().cumprod(1)), 1)
+        return (nll * alive).sum(1), alive.sum(1)
 
 
 def strip(tokens, eos):
