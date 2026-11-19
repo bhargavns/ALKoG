@@ -1,0 +1,23 @@
+{"update": 1000, "win": 0.65625, "length": 5.4453125, "seconds": 57.04285039997194}
+{"update": 2000, "win": 0.96875, "length": 5.37109375, "seconds": 115.92229969997425}
+{"update": 3000, "win": 0.98046875, "length": 5.5703125, "seconds": 175.8314826999558}
+{"update": 4000, "win": 0.99609375, "length": 5.515625, "seconds": 233.7631194999558}
+{"update": 5000, "win": 1.0, "length": 5.6328125, "seconds": 291.722728099965}
+{"update": 6000, "win": 0.9921875, "length": 5.55859375, "seconds": 349.79348759999266}
+{"update": 7000, "win": 1.0, "length": 5.2265625, "seconds": 406.0513399000047}
+{"update": 8000, "win": 1.0, "length": 5.43359375, "seconds": 461.7791456999839}
+{"update": 9000, "win": 1.0, "length": 5.203125, "seconds": 517.874560199969}
+{"update": 10000, "win": 1.0, "length": 4.73046875, "seconds": 561.4509038999677}
+{"update": 11000, "win": 1.0, "length": 4.578125, "seconds": 598.9168624999584}
+{"update": 12000, "win": 1.0, "length": 4.578125, "seconds": 636.136502999987}
+win 1.00 (room 1.00 deed 1.00) | want-marker 4 in want 1.00 / report 0.44, pos {'first': 2539, 'inside': 117, 'last': 344} | len want 6.00 report 2.88 | same-word 0.00 cons 0.91 distinct 0.17 pairs-identical 0.27 | HELD own 0.00 (deed 1.00) built 0.00 uses-marker 1.00
+  near(blue tiger, green grain)        about A_type    tiger     seen: 4 4 4 4 9 4  wanted: 7 4 4 4 4 4
+  guards(blue lion, green berry)       about P_type    berry     seen:              wanted: 4 4 4 4 4 4
+  near(green grain, yellow berry)      about pred      near      seen: 4 4 7 7 7 4  wanted: 4 4 4 4 4 7
+  chases(green grain, green mushroom)  about pred      chases    seen: 11           wanted: 4 4 4 4 11 11
+  chases(green mushroom, yellow tiger) about P_type    tiger     seen: 4 4 4 4 9 4  wanted: 7 4 4 4 4 4
+  guards(red lion, yellow grain)       about A_type    lion      seen: 4 4 4 4 9 4  wanted: 4 7 4 4 4 6
+  near(red grain, yellow berry)        about A_type    grain     seen: 4 4 7 7 7 4  wanted: 4 4 4 4 7 7
+  near(green mushroom, yellow berry)   about P_type    berry     seen:              wanted: 4 4 4 4 4 4
+  chases(green apple, green mushroom)  about P_type    mushroom  seen: 11           wanted: 4 4 4 4 11 11
+  near(red grain, red berry)           about pred      near      seen: 4 4 7 7 7 4  wanted: 4 4 4 4 4 7

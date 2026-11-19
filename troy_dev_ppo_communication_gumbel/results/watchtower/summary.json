@@ -1,0 +1,1322 @@
+{
+ "s1_0": {
+  "verdict": {
+   "1_useful": true,
+   "2_lion_tiger": false,
+   "3_structure": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": 0.021818865090608597,
+    "wanted": 0.29541015625,
+    "rotten": 0.20654296875,
+    "lion": 0.001953125,
+    "tiger": 0.00537109375,
+    "delivered": 0.0,
+    "starved": 0.0986328125
+   },
+   "blocked": {
+    "ret": -1.1578052043914795,
+    "wanted": 0.1494140625,
+    "rotten": 0.2138671875,
+    "lion": 0.16357421875,
+    "tiger": 0.2626953125,
+    "delivered": 0.0,
+    "starved": 0.4443359375
+   },
+   "shuffled": {
+    "ret": -1.2997264862060547,
+    "wanted": 0.123046875,
+    "rotten": 0.20361328125,
+    "lion": 0.1640625,
+    "tiger": 0.26318359375,
+    "delivered": 0.0,
+    "starved": 0.517578125
+   },
+   "silent_control": {
+    "ret": -1.0937693119049072,
+    "wanted": 0.09619140625,
+    "rotten": 0.03466796875,
+    "lion": 0.03955078125,
+    "tiger": 0.05859375,
+    "delivered": 0.0,
+    "starved": 0.74365234375
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.6336898395721925,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.11220472440944881,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.09659863945578231,
+    "n": 735
+   },
+   "ripe_to_rotten": {
+    "changed": 0.2968127490039841,
+    "n": 2008
+   }
+  },
+  "structure": {
+   "topsim": 0.15351839971089543,
+   "distinct": 47,
+   "mean_length": 6.458333333333333,
+   "silent_share": 0.1886574074074074,
+   "markers": {
+    "glade": {
+     "gap": 0.5617283950617283,
+     "symbol": 1,
+     "value": "1"
+    },
+    "food": {
+     "gap": 0.03993055555555555,
+     "symbol": 10,
+     "value": "0"
+    },
+    "ripeness": {
+     "gap": 0.18518518518518523,
+     "symbol": 1,
+     "value": "True"
+    },
+    "predator": {
+     "gap": 0.18489583333333337,
+     "symbol": 6,
+     "value": "-1"
+    },
+    "state": {
+     "gap": 0.3020833333333333,
+     "symbol": 1,
+     "value": "1"
+    }
+   }
+  },
+  "hunger_marker": null,
+  "shared": null
+ },
+ "s1_1": {
+  "verdict": {
+   "1_useful": true,
+   "2_lion_tiger": false,
+   "3_structure": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": 0.03583986312150955,
+    "wanted": 0.29833984375,
+    "rotten": 0.201171875,
+    "lion": 0.00048828125,
+    "tiger": 0.005859375,
+    "delivered": 0.0,
+    "starved": 0.10693359375
+   },
+   "blocked": {
+    "ret": -1.176911473274231,
+    "wanted": 0.158203125,
+    "rotten": 0.21533203125,
+    "lion": 0.1572265625,
+    "tiger": 0.28466796875,
+    "delivered": 0.0,
+    "starved": 0.45068359375
+   },
+   "shuffled": {
+    "ret": -1.2103418111801147,
+    "wanted": 0.138671875,
+    "rotten": 0.19384765625,
+    "lion": 0.142578125,
+    "tiger": 0.25830078125,
+    "delivered": 0.0,
+    "starved": 0.50537109375
+   },
+   "silent_control": {
+    "ret": -1.1586228609085083,
+    "wanted": 0.08544921875,
+    "rotten": 0.0224609375,
+    "lion": 0.0380859375,
+    "tiger": 0.0625,
+    "delivered": 0.0,
+    "starved": 0.779296875
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.4625668449197861,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.10039370078740158,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.07346938775510205,
+    "n": 735
+   },
+   "ripe_to_rotten": {
+    "changed": 0.16633466135458166,
+    "n": 2008
+   }
+  },
+  "structure": {
+   "topsim": 0.04651103878052507,
+   "distinct": 23,
+   "mean_length": 2.462962962962963,
+   "silent_share": 0.6921296296296297,
+   "markers": {
+    "glade": {
+     "gap": 0.42129629629629634,
+     "symbol": 9,
+     "value": "2"
+    },
+    "food": {
+     "gap": 0.03125000000000001,
+     "symbol": 12,
+     "value": "2"
+    },
+    "ripeness": {
+     "gap": 0.048611111111111105,
+     "symbol": 9,
+     "value": "True"
+    },
+    "predator": {
+     "gap": 0.10286458333333333,
+     "symbol": 2,
+     "value": "-1"
+    },
+    "state": {
+     "gap": 0.13020833333333331,
+     "symbol": 2,
+     "value": "1"
+    }
+   }
+  },
+  "hunger_marker": null,
+  "shared": null
+ },
+ "s1_2": {
+  "verdict": {
+   "1_useful": true,
+   "2_lion_tiger": false,
+   "3_structure": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -0.1533593386411667,
+    "wanted": 0.24072265625,
+    "rotten": 0.23876953125,
+    "lion": 0.0009765625,
+    "tiger": 0.00146484375,
+    "delivered": 0.0,
+    "starved": 0.197265625
+   },
+   "blocked": {
+    "ret": -1.432004451751709,
+    "wanted": 0.00048828125,
+    "rotten": 0.0,
+    "lion": 0.00048828125,
+    "tiger": 0.0009765625,
+    "delivered": 0.0,
+    "starved": 0.99951171875
+   },
+   "shuffled": {
+    "ret": -1.173090934753418,
+    "wanted": 0.13623046875,
+    "rotten": 0.177734375,
+    "lion": 0.13330078125,
+    "tiger": 0.2216796875,
+    "delivered": 0.0,
+    "starved": 0.53955078125
+   },
+   "silent_control": {
+    "ret": -1.1771042346954346,
+    "wanted": 0.08642578125,
+    "rotten": 0.0234375,
+    "lion": 0.04296875,
+    "tiger": 0.0634765625,
+    "delivered": 0.0,
+    "starved": 0.7841796875
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.5628342245989305,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.023622047244094488,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.04625850340136054,
+    "n": 735
+   },
+   "ripe_to_rotten": {
+    "changed": 0.28087649402390436,
+    "n": 2008
+   }
+  },
+  "structure": {
+   "topsim": 0.043398619396929405,
+   "distinct": 6,
+   "mean_length": 1.3634259259259258,
+   "silent_share": 0.0,
+   "markers": {
+    "glade": {
+     "gap": 0.4814814814814815,
+     "symbol": 4,
+     "value": "0"
+    },
+    "food": {
+     "gap": 0.003472222222222321,
+     "symbol": 10,
+     "value": "2"
+    },
+    "ripeness": {
+     "gap": 0.12037037037037035,
+     "symbol": 10,
+     "value": "False"
+    },
+    "predator": {
+     "gap": 0.08854166666666663,
+     "symbol": 10,
+     "value": "-1"
+    },
+    "state": {
+     "gap": 0.11805555555555558,
+     "symbol": 10,
+     "value": "1"
+    }
+   }
+  },
+  "hunger_marker": null,
+  "shared": null
+ },
+ "s2_0": {
+  "verdict": {
+   "1_useful": true,
+   "2_marker": false,
+   "3_reuse": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -0.7063281536102295,
+    "wanted": 0.15087890625,
+    "rotten": 0.20703125,
+    "lion": 0.00244140625,
+    "tiger": 0.0,
+    "delivered": 0.271484375,
+    "starved": 0.4609375,
+    "ret_forager_hungry": -0.6983514428138733,
+    "ret_scout_hungry": -0.7142739295959473
+   },
+   "blocked": {
+    "ret": -1.6077929735183716,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0009765625,
+    "tiger": 0.00048828125,
+    "delivered": 0.0,
+    "starved": 1.0,
+    "ret_forager_hungry": -1.609290599822998,
+    "ret_scout_hungry": -1.6063010692596436
+   },
+   "shuffled": {
+    "ret": -1.373925805091858,
+    "wanted": 0.076171875,
+    "rotten": 0.11181640625,
+    "lion": 0.09228515625,
+    "tiger": 0.15185546875,
+    "delivered": 0.1455078125,
+    "starved": 0.7021484375,
+    "ret_forager_hungry": -1.355562686920166,
+    "ret_scout_hungry": -1.3922173976898193
+   },
+   "silent_control": {
+    "ret": -1.406523585319519,
+    "wanted": 0.04736328125,
+    "rotten": 0.0234375,
+    "lion": 0.025390625,
+    "tiger": 0.0361328125,
+    "delivered": 0.07080078125,
+    "starved": 0.8544921875,
+    "ret_forager_hungry": -1.4057241678237915,
+    "ret_scout_hungry": -1.4073197841644287
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.3783422459893048,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.07677165354330709,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.08299319727891157,
+    "n": 735
+   },
+   "ripe_to_rotten": {
+    "changed": 0.1409362549800797,
+    "n": 2008
+   }
+  },
+  "structure": {
+   "topsim": 0.061981293330729444,
+   "distinct": 9,
+   "mean_length": 1.0543981481481481,
+   "silent_share": 0.14583333333333334,
+   "markers": {
+    "glade": {
+     "gap": 0.19444444444444442,
+     "symbol": 10,
+     "value": "2"
+    },
+    "food": {
+     "gap": 0.026041666666666668,
+     "symbol": 5,
+     "value": "0"
+    },
+    "ripeness": {
+     "gap": 0.03009259259259259,
+     "symbol": 14,
+     "value": "True"
+    },
+    "predator": {
+     "gap": 0.1640625,
+     "symbol": 10,
+     "value": "-1"
+    },
+    "state": {
+     "gap": 0.21875,
+     "symbol": 10,
+     "value": "1"
+    }
+   }
+  },
+  "hunger_marker": {
+   "symbol": 0,
+   "in_scout_hungry": 0.0,
+   "in_forager_hungry": 0.0,
+   "jaccard_without_marker": 0.49698893229166663,
+   "identical": 0.88720703125,
+   "food_symbols": {
+    "apple": {
+     "symbol": 6,
+     "gap": 0.0014588441642570619
+    },
+    "berry": {
+     "symbol": 10,
+     "gap": 0.024760341283049492
+    },
+    "mushroom": {
+     "symbol": 6,
+     "gap": 0.0006470782436447681
+    }
+   },
+   "examples": [
+    {
+     "scout_hungry": "10",
+     "forager_hungry": "10"
+    },
+    {
+     "scout_hungry": "10",
+     "forager_hungry": "10"
+    },
+    {
+     "scout_hungry": "10 10",
+     "forager_hungry": "10 10"
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "10 10",
+     "forager_hungry": "10 10 5"
+    }
+   ]
+  },
+  "shared": null
+ },
+ "s2_1": {
+  "verdict": {
+   "1_useful": true,
+   "2_marker": false,
+   "3_reuse": true,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -0.017812490463256836,
+    "wanted": 0.29638671875,
+    "rotten": 0.19482421875,
+    "lion": 0.00439453125,
+    "tiger": 0.005859375,
+    "delivered": 0.44580078125,
+    "starved": 0.11376953125,
+    "ret_forager_hungry": -0.015958892181515694,
+    "ret_scout_hungry": -0.01965886726975441
+   },
+   "blocked": {
+    "ret": -1.59320068359375,
+    "wanted": 0.01953125,
+    "rotten": 0.00244140625,
+    "lion": 0.013671875,
+    "tiger": 0.02978515625,
+    "delivered": 0.02197265625,
+    "starved": 0.951171875,
+    "ret_forager_hungry": -1.5883756875991821,
+    "ret_scout_hungry": -1.5980067253112793
+   },
+   "shuffled": {
+    "ret": -1.2674120664596558,
+    "wanted": 0.1318359375,
+    "rotten": 0.1826171875,
+    "lion": 0.15478515625,
+    "tiger": 0.26025390625,
+    "delivered": 0.22998046875,
+    "starved": 0.51806640625,
+    "ret_forager_hungry": -1.2045352458953857,
+    "ret_scout_hungry": -1.3300437927246094
+   },
+   "silent_control": {
+    "ret": -1.5200488567352295,
+    "wanted": 0.017578125,
+    "rotten": 0.009765625,
+    "lion": 0.01123046875,
+    "tiger": 0.009765625,
+    "delivered": 0.0224609375,
+    "starved": 0.94189453125,
+    "ret_forager_hungry": -1.5001567602157593,
+    "ret_scout_hungry": -1.5398637056350708
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.606951871657754,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.07283464566929133,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.09115646258503401,
+    "n": 735
+   },
+   "ripe_to_rotten": {
+    "changed": 0.35408366533864544,
+    "n": 2008
+   }
+  },
+  "structure": {
+   "topsim": 0.052906918268365105,
+   "distinct": 40,
+   "mean_length": 3.6006944444444446,
+   "silent_share": 0.0,
+   "markers": {
+    "glade": {
+     "gap": 0.5061728395061729,
+     "symbol": 3,
+     "value": "2"
+    },
+    "food": {
+     "gap": 0.04340277777777779,
+     "symbol": 3,
+     "value": "1"
+    },
+    "ripeness": {
+     "gap": 0.08796296296296297,
+     "symbol": 0,
+     "value": "True"
+    },
+    "predator": {
+     "gap": 0.06145833333333334,
+     "symbol": 7,
+     "value": "1"
+    },
+    "state": {
+     "gap": 0.09895833333333334,
+     "symbol": 2,
+     "value": "3"
+    }
+   }
+  },
+  "hunger_marker": {
+   "symbol": 13,
+   "in_scout_hungry": 0.16064453125,
+   "in_forager_hungry": 0.1455078125,
+   "jaccard_without_marker": 0.8739176432291667,
+   "identical": 0.8916015625,
+   "food_symbols": {
+    "apple": {
+     "symbol": 3,
+     "gap": 0.011342147096282673
+    },
+    "berry": {
+     "symbol": 3,
+     "gap": 0.04262488018408889
+    },
+    "mushroom": {
+     "symbol": 7,
+     "gap": 0.026503796632552007
+    }
+   },
+   "examples": [
+    {
+     "scout_hungry": "13 3 3 3 3 3 3 3",
+     "forager_hungry": "3 13 3 3 3 3 3 3"
+    },
+    {
+     "scout_hungry": "4",
+     "forager_hungry": "4"
+    },
+    {
+     "scout_hungry": "2 15 2 7 15 2 7 2",
+     "forager_hungry": "2 15 2 7 15 2 7 2"
+    },
+    {
+     "scout_hungry": "4",
+     "forager_hungry": "4"
+    },
+    {
+     "scout_hungry": "4",
+     "forager_hungry": "4"
+    },
+    {
+     "scout_hungry": "3 13 3 3 3 3 3 3",
+     "forager_hungry": "3 13 3 3 3 3 3 3"
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "2 15 2 2 2 15 2 2",
+     "forager_hungry": "2 15 2 2 2 15 2 2"
+    }
+   ]
+  },
+  "shared": null
+ },
+ "s2_2": {
+  "verdict": {
+   "1_useful": true,
+   "2_marker": false,
+   "3_reuse": true,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -0.7298339605331421,
+    "wanted": 0.15087890625,
+    "rotten": 0.20703125,
+    "lion": 0.00146484375,
+    "tiger": 0.00146484375,
+    "delivered": 0.271484375,
+    "starved": 0.46142578125,
+    "ret_forager_hungry": -0.7196428775787354,
+    "ret_scout_hungry": -0.7399853467941284
+   },
+   "blocked": {
+    "ret": -1.704164981842041,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.00146484375,
+    "delivered": 0.0,
+    "starved": 1.0,
+    "ret_forager_hungry": -1.7080187797546387,
+    "ret_scout_hungry": -1.700326681137085
+   },
+   "shuffled": {
+    "ret": -1.4361181259155273,
+    "wanted": 0.07666015625,
+    "rotten": 0.111328125,
+    "lion": 0.09228515625,
+    "tiger": 0.15576171875,
+    "delivered": 0.146484375,
+    "starved": 0.7021484375,
+    "ret_forager_hungry": -1.4217467308044434,
+    "ret_scout_hungry": -1.4504338502883911
+   },
+   "silent_control": {
+    "ret": -1.4919044971466064,
+    "wanted": 0.03515625,
+    "rotten": 0.01416015625,
+    "lion": 0.01611328125,
+    "tiger": 0.03125,
+    "delivered": 0.0380859375,
+    "starved": 0.9072265625,
+    "ret_forager_hungry": -1.4843837022781372,
+    "ret_scout_hungry": -1.4993958473205566
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.32620320855614976,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.047244094488188976,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.017687074829931974,
+    "n": 735
+   },
+   "ripe_to_rotten": {
+    "changed": 0.2061752988047809,
+    "n": 2008
+   }
+  },
+  "structure": {
+   "topsim": 0.07594537086237745,
+   "distinct": 9,
+   "mean_length": 6.833333333333333,
+   "silent_share": 0.14583333333333334,
+   "markers": {
+    "glade": {
+     "gap": 0.19444444444444442,
+     "symbol": 0,
+     "value": "2"
+    },
+    "food": {
+     "gap": 0.013888888888888895,
+     "symbol": 14,
+     "value": "1"
+    },
+    "ripeness": {
+     "gap": 0.03240740740740741,
+     "symbol": 14,
+     "value": "True"
+    },
+    "predator": {
+     "gap": 0.1640625,
+     "symbol": 0,
+     "value": "-1"
+    },
+    "state": {
+     "gap": 0.21875,
+     "symbol": 0,
+     "value": "1"
+    }
+   }
+  },
+  "hunger_marker": {
+   "symbol": 1,
+   "in_scout_hungry": 0.0,
+   "in_forager_hungry": 0.0,
+   "jaccard_without_marker": 0.5187174479166667,
+   "identical": 0.9892578125,
+   "food_symbols": {
+    "apple": {
+     "symbol": 14,
+     "gap": 0.0119606384169971
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.02696355552304286
+    },
+    "mushroom": {
+     "symbol": 1,
+     "gap": 0.0
+    }
+   },
+   "examples": [
+    {
+     "scout_hungry": "0 2 2 14 14 14 14 14",
+     "forager_hungry": "0 2 2 14 14 14 14 14"
+    },
+    {
+     "scout_hungry": "0 2 2 2 2 2 2 2",
+     "forager_hungry": "0 2 2 2 2 2 2 2"
+    },
+    {
+     "scout_hungry": "0 2 2 2 2 2 2 2",
+     "forager_hungry": "0 2 2 2 2 2 2 2"
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "",
+     "forager_hungry": ""
+    },
+    {
+     "scout_hungry": "0 2 2 14 14 14 14 14",
+     "forager_hungry": "0 2 2 14 14 14 14 14"
+    }
+   ]
+  },
+  "shared": null
+ },
+ "s3_0": {
+  "verdict": {
+   "1_useful": false,
+   "2_shared": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "blocked": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "shuffled": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "forager_silenced": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "silent_control": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.0,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.0,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.0,
+    "n": 735
+   }
+  },
+  "structure": {
+   "topsim": NaN,
+   "distinct": 1,
+   "mean_length": 0.0,
+   "silent_share": 1.0,
+   "markers": {
+    "glade": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    },
+    "food": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    },
+    "predator": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    },
+    "state": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    }
+   }
+  },
+  "hunger_marker": null,
+  "shared": {
+   "scout": {
+    "apple": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "mushroom": {
+     "symbol": 0,
+     "gap": 0.0
+    }
+   },
+   "forager": {
+    "apple": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "mushroom": {
+     "symbol": 0,
+     "gap": 0.0
+    }
+   },
+   "shared_foods": 0,
+   "forager_length": 0.0,
+   "scout_length": 0.0,
+   "examples": [
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "berry",
+     "forager_wants": "apple",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    }
+   ]
+  }
+ },
+ "s3_1": {
+  "verdict": {
+   "1_useful": false,
+   "2_shared": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -1.9943138360977173,
+    "wanted": 0.15283203125,
+    "rotten": 0.20068359375,
+    "lion": 0.00341796875,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 1.4765625
+   },
+   "blocked": {
+    "ret": -2.47552490234375,
+    "wanted": 0.15869140625,
+    "rotten": 0.2060546875,
+    "lion": 0.171875,
+    "tiger": 0.2958984375,
+    "delivered": 0.0,
+    "starved": 1.4560546875
+   },
+   "shuffled": {
+    "ret": -2.53924560546875,
+    "wanted": 0.0849609375,
+    "rotten": 0.1103515625,
+    "lion": 0.0966796875,
+    "tiger": 0.1572265625,
+    "delivered": 0.0,
+    "starved": 1.71240234375
+   },
+   "forager_silenced": {
+    "ret": -1.9943138360977173,
+    "wanted": 0.15283203125,
+    "rotten": 0.20068359375,
+    "lion": 0.00341796875,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 1.4765625
+   },
+   "silent_control": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.24197860962566844,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.0,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.0,
+    "n": 735
+   }
+  },
+  "structure": {
+   "topsim": 0.022518597136621455,
+   "distinct": 2,
+   "mean_length": 0.15046296296296297,
+   "silent_share": 0.8495370370370371,
+   "markers": {
+    "glade": {
+     "gap": 0.5401234567901235,
+     "symbol": 6,
+     "value": "2"
+    },
+    "food": {
+     "gap": 0.013888888888888867,
+     "symbol": 6,
+     "value": "1"
+    },
+    "predator": {
+     "gap": 0.11354166666666665,
+     "symbol": 6,
+     "value": "1"
+    },
+    "state": {
+     "gap": 0.17708333333333331,
+     "symbol": 6,
+     "value": "3"
+    }
+   }
+  },
+  "hunger_marker": null,
+  "shared": {
+   "scout": {
+    "apple": {
+     "symbol": 6,
+     "gap": 0.0015857041687299955
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "mushroom": {
+     "symbol": 6,
+     "gap": 0.0074230705731448965
+    }
+   },
+   "forager": {
+    "apple": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "mushroom": {
+     "symbol": 0,
+     "gap": 0.0
+    }
+   },
+   "shared_foods": 0,
+   "forager_length": 0.0,
+   "scout_length": 0.47802734375,
+   "examples": [
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "mushroom",
+     "scout_says": "6",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "mushroom",
+     "scout_says": "6",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "mushroom",
+     "scout_says": "6",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "berry",
+     "forager_wants": "apple",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    }
+   ]
+  }
+ },
+ "s3_2": {
+  "verdict": {
+   "1_useful": false,
+   "2_shared": false,
+   "all": false
+  },
+  "returns": {
+   "normal": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "blocked": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "shuffled": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "forager_silenced": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   },
+   "silent_control": {
+    "ret": -2.6000001430511475,
+    "wanted": 0.0,
+    "rotten": 0.0,
+    "lion": 0.0,
+    "tiger": 0.0,
+    "delivered": 0.0,
+    "starved": 2.0
+   }
+  },
+  "sensitivity": {
+   "lion_to_tiger_asleep": {
+    "changed": 0.0,
+    "n": 748
+   },
+   "lion_to_tiger_caged": {
+    "changed": 0.0,
+    "n": 508
+   },
+   "lion_to_tiger_guarding": {
+    "changed": 0.0,
+    "n": 735
+   }
+  },
+  "structure": {
+   "topsim": NaN,
+   "distinct": 1,
+   "mean_length": 0.0,
+   "silent_share": 1.0,
+   "markers": {
+    "glade": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    },
+    "food": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    },
+    "predator": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    },
+    "state": {
+     "gap": 0.0,
+     "symbol": null,
+     "value": "None"
+    }
+   }
+  },
+  "hunger_marker": null,
+  "shared": {
+   "scout": {
+    "apple": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "mushroom": {
+     "symbol": 0,
+     "gap": 0.0
+    }
+   },
+   "forager": {
+    "apple": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "berry": {
+     "symbol": 0,
+     "gap": 0.0
+    },
+    "mushroom": {
+     "symbol": 0,
+     "gap": 0.0
+    }
+   },
+   "shared_foods": 0,
+   "forager_length": 0.0,
+   "scout_length": 0.0,
+   "examples": [
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "berry",
+     "forager_wants": "apple",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "mushroom",
+     "forager_wants": "mushroom",
+     "scout_says": "",
+     "forager_says": ""
+    },
+    {
+     "scout_wants": "apple",
+     "forager_wants": "berry",
+     "scout_says": "",
+     "forager_says": ""
+    }
+   ]
+  }
+ }
+}

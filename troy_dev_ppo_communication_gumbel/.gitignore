@@ -6,3 +6,8 @@ __pycache__/
 .pytest_cache/
 .venv/
 .claude/
+
+# Training checkpoints and scratch runs stay local; summaries, logs and figures are committed.
+results/**/*.pt
+runs/
+logs_errand/

@@ -174,3 +174,24 @@ populations and unassigned neural symbol slots, with a separate inventory-
 invariance bias for spatial binding. The [report and all-seed evidence](results/spontaneous_grammar/README.md)
 distinguish useful communication, finite order-sensitive codes, productivity
 limits and frozen transfer into the existing MuJoCo arena.
+
+## Environmental pressures on grammar
+
+The [grammar-pressures study](experiments/grammar_pressures/README.md) tests
+which pressures (bottlenecks, iterated learning, babbling, perspective) push a
+GPU event world toward compositional messages. The [watchtower](experiments/watchtower/README.md)
+and [errand](experiments/errand/README.md) studies follow it: a scout in a tower
+briefs a forager, and in the errand world knowledge is split so that neither
+agent can decide alone. Results live under `results/grammar_pressures`,
+`results/watchtower` and `results/errand` (checkpoints stay local).
+
+Launchers are in `scripts/`: `scripts/run_grammar_followups.bat` for the local
+grammar sweeps, and `scripts/slurm/errand_private2k.sh` for the errand runs on a
+Slurm GPU node. The errand code needs only PyTorch and NumPy:
+
+```bash
+conda create -n alkog python=3.11 -y && conda activate alkog
+pip install torch --index-url https://download.pytorch.org/whl/cu128
+pip install numpy pytest
+python -m pytest tests/experiments/test_errand.py -q
+```

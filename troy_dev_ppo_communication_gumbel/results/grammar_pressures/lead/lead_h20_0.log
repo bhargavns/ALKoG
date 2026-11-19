@@ -1,0 +1,35 @@
+{"update": 1000, "generation": 0, "sampled_success": 0.546875, "greedy": 0.525390625, "length": 2.689453125, "cost": 0.001665, "seconds": 32.88811449997593}
+{"update": 2000, "generation": 0, "sampled_success": 0.5771484375, "greedy": 0.5361328125, "length": 2.609375, "cost": 0.003331666666666667, "seconds": 65.7851996999816}
+{"update": 3000, "generation": 0, "sampled_success": 0.5869140625, "greedy": 0.5361328125, "length": 0.8408203125, "cost": 0.004998333333333334, "seconds": 98.05880669999169}
+{"update": 4000, "generation": 0, "sampled_success": 0.5732421875, "greedy": 0.50390625, "length": 2.09375, "cost": 0.006665, "seconds": 128.13478079997003}
+{"update": 5000, "generation": 0, "sampled_success": 0.5673828125, "greedy": 0.5078125, "length": 0.5, "cost": 0.008331666666666668, "seconds": 157.9454410999897}
+{"update": 6000, "generation": 0, "sampled_success": 0.5986328125, "greedy": 0.509765625, "length": 0.5205078125, "cost": 0.009998333333333333, "seconds": 188.33322149998276}
+{"update": 7000, "generation": 0, "sampled_success": 0.5703125, "greedy": 0.5283203125, "length": 0.703125, "cost": 0.01, "seconds": 218.22931389999576}
+{"update": 8000, "generation": 0, "sampled_success": 0.5927734375, "greedy": 0.53515625, "length": 0.5732421875, "cost": 0.01, "seconds": 248.8969470000011}
+{"update": 9000, "generation": 0, "sampled_success": 0.59375, "greedy": 0.53125, "length": 0.5615234375, "cost": 0.01, "seconds": 278.5563988999929}
+{"update": 10000, "generation": 0, "sampled_success": 0.5751953125, "greedy": 0.5263671875, "length": 0.5859375, "cost": 0.01, "seconds": 308.44398330000695}
+{"update": 11000, "generation": 0, "sampled_success": 0.587890625, "greedy": 0.5205078125, "length": 0.6201171875, "cost": 0.01, "seconds": 337.9765609999886}
+{"update": 12000, "generation": 0, "sampled_success": 0.6005859375, "greedy": 0.5361328125, "length": 0.57421875, "cost": 0.01, "seconds": 367.972869499994}
+{"update": 13000, "generation": 0, "sampled_success": 0.6005859375, "greedy": 0.517578125, "length": 0.541015625, "cost": 0.01, "seconds": 397.90371250000317}
+{"update": 14000, "generation": 0, "sampled_success": 0.5771484375, "greedy": 0.546875, "length": 0.533203125, "cost": 0.01, "seconds": 427.3270013000001}
+{"update": 15000, "generation": 0, "sampled_success": 0.591796875, "greedy": 0.53515625, "length": 0.568359375, "cost": 0.01, "seconds": 456.4320001999731}
+{"update": 16000, "generation": 0, "sampled_success": 0.6025390625, "greedy": 0.5361328125, "length": 0.576171875, "cost": 0.01, "seconds": 486.20819450001}
+{"update": 17000, "generation": 0, "sampled_success": 0.583984375, "greedy": 0.529296875, "length": 0.9775390625, "cost": 0.01, "seconds": 515.0961176999845}
+{"update": 18000, "generation": 0, "sampled_success": 0.626953125, "greedy": 0.5615234375, "length": 0.74609375, "cost": 0.01, "seconds": 544.8473559999838}
+{"update": 19000, "generation": 0, "sampled_success": 0.6357421875, "greedy": 0.578125, "length": 0.73828125, "cost": 0.01, "seconds": 574.4315711999661}
+{"update": 20000, "generation": 0, "sampled_success": 0.798828125, "greedy": 0.7744140625, "length": 1.4580078125, "cost": 0.01, "seconds": 603.6761219999753}
+acc 0.79/0.76 | len k1,2,3 1.30,1.33,1.27 | word cons 0.79 len 1.23 dist 0.69 shareAP 0.83 SA 0.83 | concat 0.09 bag 0.09 order 0.98 | held concat 0.10 synth-understood 0.52 (own 0.67) cov 0.55 | swap acc 0.49 | newc150 0.77
+  train  hides(green grain, yellow lion)      differ:P_type                   -> 2 2          22:apple/gone/lion/near
+  train  hides(red lion, yellow grain)        differ:pred                     -> 3            3:caged/hides/mushroom/yellow
+  train  near(blue apple, green apple)        differ:pred                     -> 2 2          22:apple/gone/lion/near
+  train  chases(green mushroom, green apple)  differ:pred                     ->              
+  train  near(yellow apple, blue tiger)       differ:A_type,P_colour          -> 2 2          22:apple/gone/lion/near
+  train  chases(blue mushroom, blue apple)    differ:A_colour,P_type          -> 1            1:apple/blue/grain/guards
+  train  chases(yellow grain, red berry)      differ:A_type,P_colour          -> 2 2          22:apple/gone/lion/near
+  train  gone(red berry)                      differ:pred,S_type              ->              
+  train  near(yellow grain, blue tiger)       differ:pred,A_colour,P_colour   ->              
+  train  chases(blue mushroom, red lion)      differ:A_type,A_colour,P_colour -> 3 3          33:berry
+  train  hides(red berry, red grain)          differ:pred,A_type,A_colour     -> 3 3          33:berry
+  train  guards(yellow lion, blue mushroom)   differ:pred,A_colour,P_type     -> 3 3          33:berry
+  constr near(red apple, red lion)            differ:pred,P_colour            -> 2 2          22:apple/gone/lion/near
+  novel_ near(red tiger, red grain)           differ:pred,P_type              -> 2 2          22:apple/gone/lion/near

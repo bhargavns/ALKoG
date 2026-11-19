@@ -1,0 +1,15 @@
+{
+ "seed": 1,
+ "updates": 12000,
+ "batch": 256,
+ "vocab": 12,
+ "max_len": 8,
+ "width": 64,
+ "needs": 1,
+ "cost": 0.01,
+ "entropy": 0.1,
+ "entropy_until": 0.9,
+ "lr": 0.001,
+ "silent": false,
+ "auxiliary_losses": "none"
+}

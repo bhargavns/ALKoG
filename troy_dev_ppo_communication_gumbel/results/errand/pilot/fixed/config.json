@@ -1,0 +1,19 @@
+{
+ "rules": "fixed",
+ "phase": "count",
+ "scout_ripe": true,
+ "forager_talks": false,
+ "silent": false,
+ "seed": 0,
+ "updates": 300,
+ "B": 2048,
+ "lr": 0.0003,
+ "epochs": 3,
+ "minibatches": 2,
+ "cost": 0.005,
+ "ent_act": 0.01,
+ "ent_talk": 0.01,
+ "curriculum": 0.2,
+ "cost_from": 0.4,
+ "auxiliary_losses": "none"
+}

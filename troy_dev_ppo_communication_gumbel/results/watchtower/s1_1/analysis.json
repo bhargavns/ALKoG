@@ -1,0 +1,205 @@
+{
+ "config": {
+  "stage": 1,
+  "seed": 1,
+  "updates": 2500,
+  "B": 256,
+  "lr": 0.0003,
+  "epochs": 3,
+  "minibatches": 2,
+  "cost": 0.005,
+  "silent": false,
+  "ent_act": 0.01,
+  "ent_talk": 0.01,
+  "curriculum": 0.2,
+  "cost_from": 0.4,
+  "auxiliary_losses": "none"
+ },
+ "returns": {
+  "normal": {
+   "ret": 0.03583986312150955,
+   "wanted": 0.29833984375,
+   "rotten": 0.201171875,
+   "lion": 0.00048828125,
+   "tiger": 0.005859375,
+   "delivered": 0.0,
+   "starved": 0.10693359375
+  },
+  "blocked": {
+   "ret": -1.176911473274231,
+   "wanted": 0.158203125,
+   "rotten": 0.21533203125,
+   "lion": 0.1572265625,
+   "tiger": 0.28466796875,
+   "delivered": 0.0,
+   "starved": 0.45068359375
+  },
+  "shuffled": {
+   "ret": -1.2103418111801147,
+   "wanted": 0.138671875,
+   "rotten": 0.19384765625,
+   "lion": 0.142578125,
+   "tiger": 0.25830078125,
+   "delivered": 0.0,
+   "starved": 0.50537109375
+  },
+  "silent_control": {
+   "ret": -1.1586228609085083,
+   "wanted": 0.08544921875,
+   "rotten": 0.0224609375,
+   "lion": 0.0380859375,
+   "tiger": 0.0625,
+   "delivered": 0.0,
+   "starved": 0.779296875
+  }
+ },
+ "sensitivity": {
+  "lion_to_tiger_asleep": {
+   "changed": 0.4625668449197861,
+   "n": 748
+  },
+  "lion_to_tiger_caged": {
+   "changed": 0.10039370078740158,
+   "n": 508
+  },
+  "lion_to_tiger_guarding": {
+   "changed": 0.07346938775510205,
+   "n": 735
+  },
+  "ripe_to_rotten": {
+   "changed": 0.16633466135458166,
+   "n": 2008
+  }
+ },
+ "structure": {
+  "topsim": 0.04651103878052507,
+  "distinct": 23,
+  "mean_length": 2.462962962962963,
+  "silent_share": 0.6921296296296297,
+  "markers": {
+   "glade": {
+    "gap": 0.42129629629629634,
+    "symbol": 9,
+    "value": "2"
+   },
+   "food": {
+    "gap": 0.03125000000000001,
+    "symbol": 12,
+    "value": "2"
+   },
+   "ripeness": {
+    "gap": 0.048611111111111105,
+    "symbol": 9,
+    "value": "True"
+   },
+   "predator": {
+    "gap": 0.10286458333333333,
+    "symbol": 2,
+    "value": "-1"
+   },
+   "state": {
+    "gap": 0.13020833333333331,
+    "symbol": 2,
+    "value": "1"
+   }
+  },
+  "examples": [
+   {
+    "map": "NW: ripe apple",
+    "says": ""
+   },
+   {
+    "map": "NW: ripe apple, tiger guarding",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten apple, tiger asleep",
+    "says": ""
+   },
+   {
+    "map": "NW: ripe berry, lion guarding",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten berry, lion asleep",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten berry, tiger hunting",
+    "says": "2 2 2 2 2 2 2 2"
+   },
+   {
+    "map": "NW: ripe mushroom, tiger caged",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten mushroom, lion hunting",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe apple, lion caged",
+    "says": "9 9 9 9 9 9 9 9"
+   },
+   {
+    "map": "NE: rotten apple",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten apple, tiger guarding",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe berry, tiger asleep",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten berry, lion guarding",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe mushroom, lion asleep",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe mushroom, tiger hunting",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten mushroom, tiger caged",
+    "says": ""
+   },
+   {
+    "map": "SW: ripe apple, lion hunting",
+    "says": "8 8 2 8 2 8 2 8"
+   },
+   {
+    "map": "SW: rotten apple, lion caged",
+    "says": "12 2 12 2 12 2 12 2"
+   },
+   {
+    "map": "SW: ripe berry",
+    "says": ""
+   },
+   {
+    "map": "SW: ripe berry, tiger guarding",
+    "says": "9 9 9 9 9 9 9 9"
+   },
+   {
+    "map": "SW: rotten berry, tiger asleep",
+    "says": "15 9 9 9 9 9 9 9"
+   },
+   {
+    "map": "SW: ripe mushroom, lion guarding",
+    "says": "15 9 9 9 9 9 9 9"
+   },
+   {
+    "map": "SW: rotten mushroom, lion asleep",
+    "says": "2 2 2 2 2 2 2 2"
+   },
+   {
+    "map": "SW: rotten mushroom, tiger hunting",
+    "says": "9 9 9 9 9 9 9 9"
+   }
+  ]
+ }
+}

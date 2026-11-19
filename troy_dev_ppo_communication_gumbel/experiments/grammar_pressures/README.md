@@ -241,7 +241,7 @@ Galke, Ram and Raviv (2022), Emergent communication for understanding human lang
 Li and Bowling (2019), Ease-of-teaching and language structure from emergent communication. https://arxiv.org/abs/1906.02403
 Lian, Bisazza and Verhoef (2023), Communication drives the emergence of language universals in neural agents. https://arxiv.org/abs/2301.13083
 
-## Follow-up runs (prepared, launch with `run_followups.bat`)
+## Follow-up runs (prepared, launch with `scripts/run_grammar_followups.bat`)
 
 Two questions, with the pass line fixed before any of these runs exist.
 
@@ -334,6 +334,58 @@ earlier turnover pilots.
 This is the first step toward speakers talking about their own states: a
 marker for the speaker's mood that is separable from the words for the world,
 and that extends to wants it has never expressed.
+
+## Third round: a world with consequences (`consequences.py`)
+
+Until now nothing in the event world mattered: a lion was a one-hot column,
+and the only job of a message was to pick out a room.  Here events have
+consequences and the collector has needs.
+
+* **Consequences.** Lions and tigers are predators; the other four types are
+  food.  A room is *dangerous* if a predator is free: `loose(lion)`, or a
+  predator agent of `guards`, `chases` or `near`, or a predator patient of
+  `near`.  A predator that is present but not free (`caged`, a hiding agent,
+  or on the receiving end of `guards`/`chases`/`hides`) is *tame*; `ripe` and
+  `gone` predators count as nothing.
+  Food is *available* if it is `ripe` (intransitive) or a participant of a
+  transitive event that does not guard or hide it.  Roles now change outcomes:
+  `chases(lion, apple)` is dangerous, `chases(apple, lion)` is not.  Colour
+  never changes an outcome.
+* **Needs.** The collector is privately *hungry* (+1 for entering a room with
+  available food) or a *keeper* (+1 for a tame predator).  Either way a
+  dangerous room costs -1, staying home is 0, and each symbol costs 0.01.
+* **What each agent knows.** The speaker has been in all four rooms and sees
+  them fully, as an unordered set, so it cannot point by position.  It does
+  not know the collector's need.  The collector knows its need and sees each
+  room through fog: who is there (type, colour, role) but not what is
+  happening (the predicate is hidden).  So the message must carry the hidden
+  states, tied to visible identities, for whichever need the collector has.
+* **Learning.** Speaker: REINFORCE on the payoff of the collector's choice.
+  Collector: after each episode every room's payoff for its need is revealed
+  and it learns to choose the best option.  No auxiliary losses.
+* **Conditions** (3 seeds, 12 symbols, up to 8 per message, 12,000 updates):
+  `cons2` (need private, two needs), `cons1` (always hungry: the speaker can
+  in effect just name the food room), `cons2_silent` (speaker says nothing; the
+  best the collector can do from what it sees).
+
+Tests (`consequences.py --analyse`):
+
+* **Payoff** normal / blocked / shuffled message, against the silent control
+  and a full-information oracle, per need.
+* **Consequence sensitivity.** Change one room's predicate so that its
+  outcome changes for some need (`caged` to `loose` lion) or so that it
+  changes for no need (`gone` to `caged` apple).  Does the message change?
+  A language about consequences changes for the first and not the second.
+* **Status markers.** Scenes with one eventful room and three uneventful ones:
+  is there a symbol for *danger*, *food* and *tame* that is present whatever
+  the entity, and absent otherwise?
+
+**Pass line, fixed before any run, per `cons2` seed; pass if 2 of 3 seeds:**
+(a) mean payoff at least 0.3 above the silent control; (b) the message changes
+for >= 80% of consequential edits and <= 30% of inconsequential ones; (c) for
+each of danger, food and tame, a symbol present in >= 80% of that status's
+utterances for every entity type and in <= 20% of the others.
+Prediction: `cons1` passes (a) and fails (c).
 
 ```
 python -m experiments.grammar_pressures.sweep --output results/grammar_pressures/iterated --seeds 0 1 2 --updates 6000 --workers 12 --conditions il_k_tight il_k_loose il_l_tight il_l_loose

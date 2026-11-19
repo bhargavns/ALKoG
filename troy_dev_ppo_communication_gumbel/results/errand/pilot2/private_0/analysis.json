@@ -1,0 +1,147 @@
+{
+ "config": {
+  "rules": "private",
+  "phase": "count",
+  "scout_ripe": true,
+  "forager_talks": false,
+  "silent": false,
+  "seed": 0,
+  "updates": 1000,
+  "B": 2048,
+  "lr": 0.0003,
+  "epochs": 3,
+  "chunk": 1024,
+  "cost": 0.0,
+  "ent_act": 0.01,
+  "ent_talk": 0.01,
+  "curriculum": 0.2,
+  "cost_from": 0.4,
+  "auxiliary_losses": "none"
+ },
+ "returns": {
+  "normal": {
+   "ret": 1.32864511013031,
+   "items": 1.4619140625,
+   "rotten": 0.00927734375,
+   "unneeded": 0.0,
+   "complete": 0.702392578125,
+   "lion": 0.112060546875,
+   "tiger": 0.095703125,
+   "briefings": 1.813720703125
+  },
+  "blocked": {
+   "ret": 0.6931202411651611,
+   "items": 1.130126953125,
+   "rotten": 0.011474609375,
+   "unneeded": 0.0,
+   "complete": 0.521728515625,
+   "lion": 0.133544921875,
+   "tiger": 0.160888671875,
+   "briefings": 1.777099609375
+  },
+  "shuffled": {
+   "ret": 0.7011890411376953,
+   "items": 1.15380859375,
+   "rotten": 0.017333984375,
+   "unneeded": 0.0,
+   "complete": 0.532958984375,
+   "lion": 0.1298828125,
+   "tiger": 0.178466796875,
+   "briefings": 1.741943359375
+  },
+  "held_out": {
+   "ret": 1.2430591583251953,
+   "items": 1.452880859375,
+   "rotten": 0.0087890625,
+   "unneeded": 0.0,
+   "complete": 0.681640625,
+   "lion": 0.125,
+   "tiger": 0.1103515625,
+   "briefings": 1.83056640625
+  },
+  "silent_control": {
+   "ret": 0.8755835890769958,
+   "items": 1.27099609375,
+   "rotten": 0.02001953125,
+   "unneeded": 0.0,
+   "complete": 0.6083984375,
+   "lion": 0.105712890625,
+   "tiger": 0.197509765625,
+   "briefings": 1.706787109375
+  },
+  "silent_held_out": {
+   "ret": 0.46600595116615295,
+   "items": 1.118896484375,
+   "rotten": 0.018798828125,
+   "unneeded": 0.0,
+   "complete": 0.508544921875,
+   "lion": 0.1416015625,
+   "tiger": 0.27294921875,
+   "briefings": 1.65625
+  }
+ },
+ "sensitivity": {
+  "lion_to_tiger_asleep": {
+   "changed": 0.35534934497816595,
+   "n": 1832
+  },
+  "lion_to_tiger_caged": {
+   "changed": 0.1309431021044427,
+   "n": 1283
+  }
+ },
+ "forager_decides": {
+  "changed": 0.33580246567726135,
+  "n": 3645,
+  "first_into_danger": 0.044796500355005264,
+  "went_out": 0.893798828125
+ },
+ "structure": {
+  "topsim": 0.10205187786907881,
+  "distinct": 155,
+  "mean_length": 8.0,
+  "silent_share": 0.0,
+  "examples": [
+   {
+    "scene": "NW: ripe mushroom, rotten apple, tiger awake; NE: ripe apple, rotten mushroom, tiger awake; SW: ripe berry, ripe berry; SE: ripe mushroom, ripe apple, tiger asleep | lions fed, tigers fed | objective: 1 any",
+    "says": "10 10 10 10 0 10 10 10"
+   },
+   {
+    "scene": "NW: ripe apple, rotten apple; NE: ripe apple, ripe berry, lion awake; SW: rotten mushroom, rotten apple, tiger awake; SE: rotten berry, rotten apple | lions hungry, tigers hungry | objective: 2 any",
+    "says": "12 12 12 12 14 14 4 7"
+   },
+   {
+    "scene": "NW: ripe berry, rotten berry, lion asleep; NE: rotten mushroom, ripe berry, lion asleep; SW: ripe mushroom, rotten mushroom, lion asleep; SE: rotten apple, rotten berry, lion awake | lions fed, tigers fed | objective: 2 any",
+    "says": "11 4 4 4 4 4 4 4"
+   },
+   {
+    "scene": "NW: ripe mushroom, rotten berry, lion awake; NE: ripe berry, ripe berry, lion caged; SW: ripe berry, rotten mushroom; SE: ripe apple, rotten apple | lions hungry, tigers fed | objective: 1 any",
+    "says": "10 10 10 10 10 10 10 10"
+   },
+   {
+    "scene": "NW: ripe apple, rotten berry; NE: ripe mushroom, rotten mushroom, lion awake; SW: rotten berry, ripe mushroom; SE: ripe apple, rotten mushroom, tiger awake | lions fed, tigers hungry | objective: 3 any",
+    "says": "12 0 0 0 10 8 0 0"
+   },
+   {
+    "scene": "NW: rotten mushroom, ripe mushroom, lion caged; NE: rotten mushroom, rotten mushroom; SW: ripe apple, ripe berry, lion asleep; SE: ripe apple, rotten berry, lion awake | lions fed, tigers hungry | objective: 3 any",
+    "says": "10 10 10 10 10 10 10 10"
+   },
+   {
+    "scene": "NW: rotten apple, rotten apple, tiger awake; NE: ripe berry, rotten mushroom, lion awake; SW: rotten berry, rotten berry, tiger asleep; SE: ripe mushroom, ripe apple, tiger asleep | lions fed, tigers hungry | objective: 2 any",
+    "says": "0 0 0 0 0 3 0 10"
+   },
+   {
+    "scene": "NW: ripe apple, rotten mushroom; NE: ripe apple, ripe apple, tiger caged; SW: ripe mushroom, ripe berry, lion caged; SE: rotten berry, rotten apple, tiger caged | lions fed, tigers hungry | objective: 2 any",
+    "says": "11 4 4 4 4 4 4 4"
+   },
+   {
+    "scene": "NW: ripe apple, rotten berry; NE: ripe mushroom, ripe berry, lion asleep; SW: ripe berry, rotten apple, lion asleep; SE: ripe apple, ripe berry, tiger caged | lions fed, tigers fed | objective: 2 any",
+    "says": "10 10 10 10 10 10 10 10"
+   },
+   {
+    "scene": "NW: ripe apple, ripe mushroom, lion awake; NE: rotten berry, ripe berry, tiger awake; SW: rotten mushroom, ripe berry; SE: rotten mushroom, rotten apple, lion awake | lions hungry, tigers fed | objective: 2 any",
+    "says": "10 10 10 10 4 10 4 4"
+   }
+  ]
+ }
+}

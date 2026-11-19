@@ -1,0 +1,205 @@
+{
+ "config": {
+  "stage": 1,
+  "seed": 0,
+  "updates": 2500,
+  "B": 256,
+  "lr": 0.0003,
+  "epochs": 3,
+  "minibatches": 2,
+  "cost": 0.005,
+  "silent": false,
+  "ent_act": 0.01,
+  "ent_talk": 0.01,
+  "curriculum": 0.2,
+  "cost_from": 0.4,
+  "auxiliary_losses": "none"
+ },
+ "returns": {
+  "normal": {
+   "ret": 0.021818865090608597,
+   "wanted": 0.29541015625,
+   "rotten": 0.20654296875,
+   "lion": 0.001953125,
+   "tiger": 0.00537109375,
+   "delivered": 0.0,
+   "starved": 0.0986328125
+  },
+  "blocked": {
+   "ret": -1.1578052043914795,
+   "wanted": 0.1494140625,
+   "rotten": 0.2138671875,
+   "lion": 0.16357421875,
+   "tiger": 0.2626953125,
+   "delivered": 0.0,
+   "starved": 0.4443359375
+  },
+  "shuffled": {
+   "ret": -1.2997264862060547,
+   "wanted": 0.123046875,
+   "rotten": 0.20361328125,
+   "lion": 0.1640625,
+   "tiger": 0.26318359375,
+   "delivered": 0.0,
+   "starved": 0.517578125
+  },
+  "silent_control": {
+   "ret": -1.0937693119049072,
+   "wanted": 0.09619140625,
+   "rotten": 0.03466796875,
+   "lion": 0.03955078125,
+   "tiger": 0.05859375,
+   "delivered": 0.0,
+   "starved": 0.74365234375
+  }
+ },
+ "sensitivity": {
+  "lion_to_tiger_asleep": {
+   "changed": 0.6336898395721925,
+   "n": 748
+  },
+  "lion_to_tiger_caged": {
+   "changed": 0.11220472440944881,
+   "n": 508
+  },
+  "lion_to_tiger_guarding": {
+   "changed": 0.09659863945578231,
+   "n": 735
+  },
+  "ripe_to_rotten": {
+   "changed": 0.2968127490039841,
+   "n": 2008
+  }
+ },
+ "structure": {
+  "topsim": 0.15351839971089543,
+  "distinct": 47,
+  "mean_length": 6.458333333333333,
+  "silent_share": 0.1886574074074074,
+  "markers": {
+   "glade": {
+    "gap": 0.5617283950617283,
+    "symbol": 1,
+    "value": "1"
+   },
+   "food": {
+    "gap": 0.03993055555555555,
+    "symbol": 10,
+    "value": "0"
+   },
+   "ripeness": {
+    "gap": 0.18518518518518523,
+    "symbol": 1,
+    "value": "True"
+   },
+   "predator": {
+    "gap": 0.18489583333333337,
+    "symbol": 6,
+    "value": "-1"
+   },
+   "state": {
+    "gap": 0.3020833333333333,
+    "symbol": 1,
+    "value": "1"
+   }
+  },
+  "examples": [
+   {
+    "map": "NW: ripe apple",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "NW: ripe apple, tiger guarding",
+    "says": "10 14 10 14 10 14 10 14"
+   },
+   {
+    "map": "NW: rotten apple, tiger asleep",
+    "says": "10 14 10 14 10 14 10 14"
+   },
+   {
+    "map": "NW: ripe berry, lion guarding",
+    "says": "10 14 10 14 10 14 10 14"
+   },
+   {
+    "map": "NW: rotten berry, lion asleep",
+    "says": "1 1 1 1 1 1 10 1"
+   },
+   {
+    "map": "NW: rotten berry, tiger hunting",
+    "says": "1 10 14 14 10 14 14 10"
+   },
+   {
+    "map": "NW: ripe mushroom, tiger caged",
+    "says": "1 1 1 6 1 6 1 6"
+   },
+   {
+    "map": "NW: rotten mushroom, lion hunting",
+    "says": "10 14 10 14 10 14 10 14"
+   },
+   {
+    "map": "NE: ripe apple, lion caged",
+    "says": "1 1 1 1 1 1 1 6"
+   },
+   {
+    "map": "NE: rotten apple",
+    "says": "1 1 1 1 1 6 1 6"
+   },
+   {
+    "map": "NE: rotten apple, tiger guarding",
+    "says": "1 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "NE: ripe berry, tiger asleep",
+    "says": "10 14 10 14 10 14 10 14"
+   },
+   {
+    "map": "NE: rotten berry, lion guarding",
+    "says": "1 1 1 1 1 1 1 1"
+   },
+   {
+    "map": "NE: ripe mushroom, lion asleep",
+    "says": "1 1 1 1 1 1 6 1"
+   },
+   {
+    "map": "NE: ripe mushroom, tiger hunting",
+    "says": "10 10 10 10 10 10 10 10"
+   },
+   {
+    "map": "NE: rotten mushroom, tiger caged",
+    "says": "1 1 1 1 1 1 1 1"
+   },
+   {
+    "map": "SW: ripe apple, lion hunting",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "SW: rotten apple, lion caged",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "SW: ripe berry",
+    "says": "1 1 1 1 1 1 1 1"
+   },
+   {
+    "map": "SW: ripe berry, tiger guarding",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "SW: rotten berry, tiger asleep",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "SW: ripe mushroom, lion guarding",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "SW: rotten mushroom, lion asleep",
+    "says": "6 6 6 6 6 6 6 6"
+   },
+   {
+    "map": "SW: rotten mushroom, tiger hunting",
+    "says": "6 6 6 6 6 6 6 6"
+   }
+  ]
+ }
+}

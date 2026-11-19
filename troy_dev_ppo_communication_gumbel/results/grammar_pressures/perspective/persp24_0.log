@@ -1,0 +1,23 @@
+{"update": 1000, "win": 0.87109375, "length": 5.89453125, "seconds": 58.62266030005412}
+{"update": 2000, "win": 0.92578125, "length": 5.98046875, "seconds": 118.81039350002538}
+{"update": 3000, "win": 0.92578125, "length": 5.984375, "seconds": 180.42038520000642}
+{"update": 4000, "win": 0.95703125, "length": 6.0, "seconds": 240.73639080004068}
+{"update": 5000, "win": 0.9765625, "length": 6.0, "seconds": 300.1649522000225}
+{"update": 6000, "win": 0.9921875, "length": 6.0, "seconds": 359.96691970003303}
+{"update": 7000, "win": 0.9921875, "length": 6.0, "seconds": 417.3214266000432}
+{"update": 8000, "win": 1.0, "length": 6.0, "seconds": 474.58336330001475}
+{"update": 9000, "win": 0.99609375, "length": 6.0, "seconds": 531.218087700021}
+{"update": 10000, "win": 0.99609375, "length": 6.0, "seconds": 571.609574800008}
+{"update": 11000, "win": 1.0, "length": 6.0, "seconds": 609.5874177000369}
+{"update": 12000, "win": 1.0, "length": 6.0, "seconds": 645.8121405999991}
+win 1.00 (room 1.00 deed 1.00) | want-marker 10 in want 0.45 / report 0.00, pos {'last': 687, 'none': 1646, 'inside': 667} | len want 6.00 report 6.00 | same-word 0.11 cons 0.79 distinct 0.44 pairs-identical 0.02 | HELD own 0.03 (deed 1.00) built 0.03 uses-marker 1.00
+  hides(red grain, green tiger)        about P_type    tiger     seen: 2 7 3 3 0 0  wanted: 2 2 2 0 10 0
+  loose(blue berry)                    about pred      loose     seen: 20 20 7 7 1 1 wanted: 20 20 7 7 1 10
+  guards(red mushroom, yellow lion)    about A_type    mushroom  seen: 20 20 21 7 1 1 wanted: 20 20 7 7 1 10
+  chases(blue apple, green tiger)      about A_type    apple     seen: 20 20 20 1 1 23 wanted: 20 20 7 1 23 4
+  guards(green grain, yellow berry)    about A_type    grain     seen: 20 20 7 7 1 1 wanted: 20 20 2 3 10 0
+  guards(blue apple, blue tiger)       about pred      guards    seen: 20 20 7 1 1 20 wanted: 20 20 13 13 8 8
+  chases(green apple, green tiger)     about P_type    tiger     seen: 2 7 3 3 0 0  wanted: 2 2 2 0 10 0
+  near(green mushroom, green apple)    about pred      near      seen: 20 20 7 1 1 1 wanted: 20 20 7 7 1 10
+  chases(red mushroom, green grain)    about P_type    grain     seen: 20 20 7 7 1 1 wanted: 2 2 2 0 10 0
+  chases(green apple, blue tiger)      about P_type    tiger     seen: 2 7 3 3 0 0  wanted: 2 2 2 0 10 0

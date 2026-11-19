@@ -1,0 +1,190 @@
+{
+ "config": {
+  "seed": 0,
+  "updates": 12000,
+  "batch": 256,
+  "vocab": 12,
+  "max_len": 6,
+  "width": 64,
+  "cost": 0.01,
+  "entropy": 0.1,
+  "entropy_until": 0.9,
+  "lr": 0.001,
+  "held": [
+   [
+    "colour",
+    0,
+    3
+   ],
+   [
+    "pred",
+    1,
+    3
+   ],
+   [
+    "pred",
+    2,
+    3
+   ],
+   [
+    "type",
+    0,
+    5
+   ]
+  ],
+  "auxiliary_losses": "none"
+ },
+ "accuracy": {
+  "both": 1.0,
+  "room": 1.0,
+  "deed": 1.0
+ },
+ "marker": {
+  "want_marker": 0,
+  "in_want": 1.0,
+  "in_report": 0.0,
+  "report_marker": 4,
+  "report_marker_in_report": 0.263,
+  "report_marker_in_want": 0.0,
+  "want_marker_first": 1.0,
+  "want_marker_last": 0.263,
+  "length_want": 4.282666666666667,
+  "length_report": 3.8533333333333335,
+  "positions": {
+   "first": 3000
+  }
+ },
+ "reuse": {
+  "identical_after_marker_removed": 0.37933333333333336,
+  "identical_raw": 0.0,
+  "report_words_distinct": 0.3333333333333333,
+  "property_word_same_in_both_moods": 0.3333333333333333,
+  "property_word_consistency": 0.8762745699853938
+ },
+ "held_want": {
+  "both": 0.06400000303983688,
+  "room": 0.06400000303983688,
+  "deed": 1.0,
+  "built": {
+   "both": 0.05999999865889549,
+   "room": 0.05999999865889549,
+   "deed": 1.0
+  },
+  "speaker_uses_marker": 1.0,
+  "speaker_says_built": 0.884
+ },
+ "examples": [
+  {
+   "event": "hides(red grain, green tiger)",
+   "about": "P_type",
+   "property": "tiger",
+   "report": "7",
+   "want": "0 7"
+  },
+  {
+   "event": "loose(blue berry)",
+   "about": "pred",
+   "property": "loose",
+   "report": "1 9 9 4 4 4",
+   "want": "0 7 0 0 0 0"
+  },
+  {
+   "event": "guards(red mushroom, yellow lion)",
+   "about": "A_type",
+   "property": "mushroom",
+   "report": "1 1 9 9 9 9",
+   "want": "0 7 9 9 9 9"
+  },
+  {
+   "event": "chases(blue apple, green tiger)",
+   "about": "A_type",
+   "property": "apple",
+   "report": "9 9 9 4 4 4",
+   "want": "0 7 0 0 0 0"
+  },
+  {
+   "event": "guards(green grain, yellow berry)",
+   "about": "A_type",
+   "property": "grain",
+   "report": "5",
+   "want": "0 7"
+  },
+  {
+   "event": "guards(blue apple, blue tiger)",
+   "about": "pred",
+   "property": "guards",
+   "report": "7",
+   "want": "0 7"
+  },
+  {
+   "event": "chases(green apple, green tiger)",
+   "about": "P_type",
+   "property": "tiger",
+   "report": "7",
+   "want": "0 7"
+  },
+  {
+   "event": "near(green mushroom, green apple)",
+   "about": "pred",
+   "property": "near",
+   "report": "9 9 9 4 4 4",
+   "want": "0 7 0 0 0 0"
+  },
+  {
+   "event": "chases(red mushroom, green grain)",
+   "about": "P_type",
+   "property": "grain",
+   "report": "5",
+   "want": "0 7"
+  },
+  {
+   "event": "chases(green apple, blue tiger)",
+   "about": "P_type",
+   "property": "tiger",
+   "report": "5",
+   "want": "0 7"
+  },
+  {
+   "event": "hides(yellow grain, blue tiger)",
+   "about": "A_type",
+   "property": "grain",
+   "report": "5",
+   "want": "0 5"
+  },
+  {
+   "event": "hides(green apple, yellow lion)",
+   "about": "A_type",
+   "property": "apple",
+   "report": "9 9 9 4 4 4",
+   "want": "0 7 0 0 0 0"
+  },
+  {
+   "event": "near(green grain, yellow tiger)",
+   "about": "A_type",
+   "property": "grain",
+   "report": "5",
+   "want": "0 7"
+  },
+  {
+   "event": "near(red mushroom, blue lion)",
+   "about": "pred",
+   "property": "near",
+   "report": "9 9 9 4 4 4",
+   "want": "0 7 0 0 0 0"
+  },
+  {
+   "event": "near(red lion, green grain)",
+   "about": "P_type",
+   "property": "grain",
+   "report": "5",
+   "want": "0 7"
+  },
+  {
+   "event": "guards(red berry, yellow tiger)",
+   "about": "pred",
+   "property": "guards",
+   "report": "7",
+   "want": "0 7"
+  }
+ ]
+}

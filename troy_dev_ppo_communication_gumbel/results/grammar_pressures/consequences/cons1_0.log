@@ -1,0 +1,12 @@
+{"update": 1000, "payoff": 0.765625, "oracle": 0.84765625, "length": 5.16015625, "seconds": 32.78858349996153}
+{"update": 2000, "payoff": 0.8046875, "oracle": 0.87109375, "length": 5.24609375, "seconds": 65.91233739996096}
+{"update": 3000, "payoff": 0.73828125, "oracle": 0.8984375, "length": 4.57421875, "seconds": 100.2527473999653}
+{"update": 4000, "payoff": 0.75, "oracle": 0.88671875, "length": 4.23046875, "seconds": 133.96236559998943}
+{"update": 5000, "payoff": 0.78515625, "oracle": 0.875, "length": 4.21875, "seconds": 168.37962799996603}
+{"update": 6000, "payoff": 0.8359375, "oracle": 0.90625, "length": 3.42578125, "seconds": 202.76264139998239}
+{"update": 7000, "payoff": 0.7265625, "oracle": 0.89453125, "length": 3.19140625, "seconds": 236.78193970001303}
+{"update": 8000, "payoff": 0.75390625, "oracle": 0.87890625, "length": 2.6328125, "seconds": 270.5630181999877}
+{"update": 9000, "payoff": 0.78515625, "oracle": 0.875, "length": 1.82421875, "seconds": 302.3208405000041}
+{"update": 10000, "payoff": 0.7421875, "oracle": 0.87890625, "length": 1.453125, "seconds": 333.3656134000048}
+{"update": 11000, "payoff": 0.796875, "oracle": 0.921875, "length": 0.015625, "seconds": 364.8599264000077}
+{"update": 12000, "payoff": 0.73046875, "oracle": 0.87109375, "length": 0.00390625, "seconds": 395.27112749998923}

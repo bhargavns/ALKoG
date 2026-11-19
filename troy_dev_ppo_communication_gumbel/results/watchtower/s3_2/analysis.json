@@ -1,0 +1,288 @@
+{
+ "config": {
+  "stage": 3,
+  "seed": 2,
+  "updates": 2500,
+  "B": 256,
+  "lr": 0.0003,
+  "epochs": 3,
+  "minibatches": 2,
+  "cost": 0.005,
+  "silent": false,
+  "ent_act": 0.01,
+  "ent_talk": 0.01,
+  "curriculum": 0.2,
+  "cost_from": 0.4,
+  "auxiliary_losses": "none"
+ },
+ "returns": {
+  "normal": {
+   "ret": -2.6000001430511475,
+   "wanted": 0.0,
+   "rotten": 0.0,
+   "lion": 0.0,
+   "tiger": 0.0,
+   "delivered": 0.0,
+   "starved": 2.0
+  },
+  "blocked": {
+   "ret": -2.6000001430511475,
+   "wanted": 0.0,
+   "rotten": 0.0,
+   "lion": 0.0,
+   "tiger": 0.0,
+   "delivered": 0.0,
+   "starved": 2.0
+  },
+  "shuffled": {
+   "ret": -2.6000001430511475,
+   "wanted": 0.0,
+   "rotten": 0.0,
+   "lion": 0.0,
+   "tiger": 0.0,
+   "delivered": 0.0,
+   "starved": 2.0
+  },
+  "forager_silenced": {
+   "ret": -2.6000001430511475,
+   "wanted": 0.0,
+   "rotten": 0.0,
+   "lion": 0.0,
+   "tiger": 0.0,
+   "delivered": 0.0,
+   "starved": 2.0
+  },
+  "silent_control": {
+   "ret": -2.6000001430511475,
+   "wanted": 0.0,
+   "rotten": 0.0,
+   "lion": 0.0,
+   "tiger": 0.0,
+   "delivered": 0.0,
+   "starved": 2.0
+  }
+ },
+ "sensitivity": {
+  "lion_to_tiger_asleep": {
+   "changed": 0.0,
+   "n": 748
+  },
+  "lion_to_tiger_caged": {
+   "changed": 0.0,
+   "n": 508
+  },
+  "lion_to_tiger_guarding": {
+   "changed": 0.0,
+   "n": 735
+  }
+ },
+ "structure": {
+  "topsim": NaN,
+  "distinct": 1,
+  "mean_length": 0.0,
+  "silent_share": 1.0,
+  "markers": {
+   "glade": {
+    "gap": 0.0,
+    "symbol": null,
+    "value": "None"
+   },
+   "food": {
+    "gap": 0.0,
+    "symbol": null,
+    "value": "None"
+   },
+   "predator": {
+    "gap": 0.0,
+    "symbol": null,
+    "value": "None"
+   },
+   "state": {
+    "gap": 0.0,
+    "symbol": null,
+    "value": "None"
+   }
+  },
+  "examples": [
+   {
+    "map": "NW: ripe apple",
+    "says": ""
+   },
+   {
+    "map": "NW: ripe apple, tiger guarding",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten apple, tiger asleep",
+    "says": ""
+   },
+   {
+    "map": "NW: ripe berry, lion guarding",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten berry, lion asleep",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten berry, tiger hunting",
+    "says": ""
+   },
+   {
+    "map": "NW: ripe mushroom, tiger caged",
+    "says": ""
+   },
+   {
+    "map": "NW: rotten mushroom, lion hunting",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe apple, lion caged",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten apple",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten apple, tiger guarding",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe berry, tiger asleep",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten berry, lion guarding",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe mushroom, lion asleep",
+    "says": ""
+   },
+   {
+    "map": "NE: ripe mushroom, tiger hunting",
+    "says": ""
+   },
+   {
+    "map": "NE: rotten mushroom, tiger caged",
+    "says": ""
+   },
+   {
+    "map": "SW: ripe apple, lion hunting",
+    "says": ""
+   },
+   {
+    "map": "SW: rotten apple, lion caged",
+    "says": ""
+   },
+   {
+    "map": "SW: ripe berry",
+    "says": ""
+   },
+   {
+    "map": "SW: ripe berry, tiger guarding",
+    "says": ""
+   },
+   {
+    "map": "SW: rotten berry, tiger asleep",
+    "says": ""
+   },
+   {
+    "map": "SW: ripe mushroom, lion guarding",
+    "says": ""
+   },
+   {
+    "map": "SW: rotten mushroom, lion asleep",
+    "says": ""
+   },
+   {
+    "map": "SW: rotten mushroom, tiger hunting",
+    "says": ""
+   }
+  ]
+ },
+ "shared": {
+  "scout": {
+   "apple": {
+    "symbol": 0,
+    "gap": 0.0
+   },
+   "berry": {
+    "symbol": 0,
+    "gap": 0.0
+   },
+   "mushroom": {
+    "symbol": 0,
+    "gap": 0.0
+   }
+  },
+  "forager": {
+   "apple": {
+    "symbol": 0,
+    "gap": 0.0
+   },
+   "berry": {
+    "symbol": 0,
+    "gap": 0.0
+   },
+   "mushroom": {
+    "symbol": 0,
+    "gap": 0.0
+   }
+  },
+  "shared_foods": 0,
+  "forager_length": 0.0,
+  "scout_length": 0.0,
+  "examples": [
+   {
+    "scout_wants": "mushroom",
+    "forager_wants": "mushroom",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "apple",
+    "forager_wants": "berry",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "apple",
+    "forager_wants": "mushroom",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "mushroom",
+    "forager_wants": "berry",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "apple",
+    "forager_wants": "mushroom",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "berry",
+    "forager_wants": "apple",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "mushroom",
+    "forager_wants": "mushroom",
+    "scout_says": "",
+    "forager_says": ""
+   },
+   {
+    "scout_wants": "apple",
+    "forager_wants": "berry",
+    "scout_says": "",
+    "forager_says": ""
+   }
+  ]
+ }
+}

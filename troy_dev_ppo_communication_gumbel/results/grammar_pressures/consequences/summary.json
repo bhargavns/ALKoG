@@ -1,0 +1,299 @@
+{
+ "cons1_0": {
+  "payoff": {
+   "hungry": {
+    "normal": 0.7617499828338623,
+    "blocked": 0.7617499828338623,
+    "shuffled": 0.7617499828338623,
+    "oracle": 0.878000020980835,
+    "silent_control": 0.7590000033378601
+   }
+  },
+  "length": 0.0,
+  "distinct": 1,
+  "sensitivity": {
+   "consequential": 0.0,
+   "inconsequential": 0.0,
+   "n_cons": 2198,
+   "n_incons": 2302
+  },
+  "markers": {
+   "danger": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "food": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "tame": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   }
+  },
+  "pass_line": {
+   "a_payoff": false,
+   "b_sensitivity": false,
+   "c_markers": false,
+   "all": false,
+   "payoff_gain": 0.0027499794960021973
+  }
+ },
+ "cons1_1": {
+  "payoff": {
+   "hungry": {
+    "normal": 0.7630000114440918,
+    "blocked": 0.7630000114440918,
+    "shuffled": 0.7630000114440918,
+    "oracle": 0.878000020980835,
+    "silent_control": 0.7590000033378601
+   }
+  },
+  "length": 0.0,
+  "distinct": 1,
+  "sensitivity": {
+   "consequential": 0.0,
+   "inconsequential": 0.0,
+   "n_cons": 2198,
+   "n_incons": 2302
+  },
+  "markers": {
+   "danger": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "food": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "tame": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   }
+  },
+  "pass_line": {
+   "a_payoff": false,
+   "b_sensitivity": false,
+   "c_markers": false,
+   "all": false,
+   "payoff_gain": 0.0040000081062316895
+  }
+ },
+ "cons1_2": {
+  "payoff": {
+   "hungry": {
+    "normal": 0.7639999985694885,
+    "blocked": 0.7639999985694885,
+    "shuffled": 0.7639999985694885,
+    "oracle": 0.878000020980835,
+    "silent_control": 0.7605000138282776
+   }
+  },
+  "length": 0.0,
+  "distinct": 1,
+  "sensitivity": {
+   "consequential": 0.0,
+   "inconsequential": 0.0,
+   "n_cons": 2198,
+   "n_incons": 2302
+  },
+  "markers": {
+   "danger": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "food": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "tame": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   }
+  },
+  "pass_line": {
+   "a_payoff": false,
+   "b_sensitivity": false,
+   "c_markers": false,
+   "all": false,
+   "payoff_gain": 0.0034999847412109375
+  }
+ },
+ "cons2_0": {
+  "payoff": {
+   "hungry": {
+    "normal": 0.7605000138282776,
+    "blocked": 0.7605000138282776,
+    "shuffled": 0.7605000138282776,
+    "oracle": 0.878000020980835,
+    "silent_control": 0.7590000033378601
+   },
+   "keeper": {
+    "normal": 0.1472499966621399,
+    "blocked": 0.1472499966621399,
+    "shuffled": 0.1472499966621399,
+    "oracle": 0.550000011920929,
+    "silent_control": 0.15174999833106995
+   }
+  },
+  "length": 0.0,
+  "distinct": 1,
+  "sensitivity": {
+   "consequential": 0.0,
+   "inconsequential": 0.0,
+   "n_cons": 2198,
+   "n_incons": 2302
+  },
+  "markers": {
+   "danger": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "food": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "tame": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   }
+  },
+  "pass_line": {
+   "a_payoff": false,
+   "b_sensitivity": false,
+   "c_markers": false,
+   "all": false,
+   "payoff_gain": -0.0014999955892562866
+  }
+ },
+ "cons2_1": {
+  "payoff": {
+   "hungry": {
+    "normal": 0.7574999928474426,
+    "blocked": 0.7574999928474426,
+    "shuffled": 0.7574999928474426,
+    "oracle": 0.878000020980835,
+    "silent_control": 0.7590000033378601
+   },
+   "keeper": {
+    "normal": 0.14499999582767487,
+    "blocked": 0.14499999582767487,
+    "shuffled": 0.14499999582767487,
+    "oracle": 0.550000011920929,
+    "silent_control": 0.14749999344348907
+   }
+  },
+  "length": 0.0,
+  "distinct": 1,
+  "sensitivity": {
+   "consequential": 0.0,
+   "inconsequential": 0.0,
+   "n_cons": 2198,
+   "n_incons": 2302
+  },
+  "markers": {
+   "danger": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "food": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "tame": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   }
+  },
+  "pass_line": {
+   "a_payoff": false,
+   "b_sensitivity": false,
+   "c_markers": false,
+   "all": false,
+   "payoff_gain": -0.0020000040531158447
+  }
+ },
+ "cons2_2": {
+  "payoff": {
+   "hungry": {
+    "normal": 0.7612500190734863,
+    "blocked": 0.7612500190734863,
+    "shuffled": 0.7612500190734863,
+    "oracle": 0.878000020980835,
+    "silent_control": 0.7605000138282776
+   },
+   "keeper": {
+    "normal": 0.14749999344348907,
+    "blocked": 0.14749999344348907,
+    "shuffled": 0.14749999344348907,
+    "oracle": 0.550000011920929,
+    "silent_control": 0.14824999868869781
+   }
+  },
+  "length": 0.0,
+  "distinct": 1,
+  "sensitivity": {
+   "consequential": 0.0,
+   "inconsequential": 0.0,
+   "n_cons": 2198,
+   "n_incons": 2302
+  },
+  "markers": {
+   "danger": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "food": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   },
+   "tame": {
+    "symbol": 0,
+    "in_status": 0.0,
+    "in_others": 0.0,
+    "min_over_types": 0.0
+   }
+  },
+  "pass_line": {
+   "a_payoff": false,
+   "b_sensitivity": false,
+   "c_markers": false,
+   "all": false,
+   "payoff_gain": 0.0
+  }
+ }
+}

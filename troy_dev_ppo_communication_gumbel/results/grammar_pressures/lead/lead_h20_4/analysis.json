@@ -1,0 +1,575 @@
+{
+ "config": {
+  "seed": 4,
+  "updates": 20000,
+  "sets": 64,
+  "n_cand": 4,
+  "vocab": 6,
+  "max_len": 6,
+  "width": 64,
+  "learner": "rf",
+  "context": true,
+  "focus": [
+   1,
+   2,
+   3
+  ],
+  "curriculum": true,
+  "graded": false,
+  "noise": 0.0,
+  "far": 0,
+  "entropy_until": 0.9,
+  "cost": 0.01,
+  "hazard": 0.2,
+  "generations": 0,
+  "life": 500,
+  "bottleneck": 250,
+  "init": null,
+  "imitation": 150,
+  "childhood": 100,
+  "lr": 0.001,
+  "tau": 1.0,
+  "entropy": 0.1,
+  "game_episodes": 5120000,
+  "overheard_utterances": 0,
+  "seconds": 595.0042125000036,
+  "torch": "2.14.1+cu130",
+  "auxiliary_losses": "none",
+  "semantic_slots": "none",
+  "role_labels": "none"
+ },
+ "accuracy": {
+  "train": {
+   "normal": 0.734375,
+   "shuffled": 0.24609375,
+   "blocked": 0.25
+  },
+  "novel_entity": {
+   "normal": 0.7001953125,
+   "shuffled": 0.2744140625,
+   "blocked": 0.25
+  },
+  "novel_pair": {
+   "normal": 0.7421875,
+   "shuffled": 0.2529296875,
+   "blocked": 0.25
+  },
+  "construction": {
+   "normal": 0.701171875,
+   "shuffled": 0.25390625,
+   "blocked": 0.25
+  },
+  "novel_role": {
+   "normal": 0.7421875,
+   "shuffled": 0.234375,
+   "blocked": 0.25
+  }
+ },
+ "brevity": {
+  "train": {
+   "1": {
+    "length": 0.8827930174563591,
+    "accuracy": 0.7182044887780549
+   },
+   "2": {
+    "length": 0.9545454545454546,
+    "accuracy": 0.5751748251748252
+   },
+   "3": {
+    "length": 0.97,
+    "accuracy": 0.5183333333333333
+   }
+  },
+  "heldout": {
+   "1": {
+    "length": 0.8528610354223434,
+    "accuracy": 0.7520435967302452
+   },
+   "2": {
+    "length": 0.9418181818181818,
+    "accuracy": 0.5527272727272727
+   },
+   "3": {
+    "length": 0.9509803921568627,
+    "accuracy": 0.49019607843137253
+   }
+  }
+ },
+ "lexicon": {
+  "word_consistency": 0.8546876725327813,
+  "word_consistency_by_kind": {
+   "pred": 0.9125,
+   "type": 0.8036461208879688,
+   "colour": 0.96875
+  },
+  "mean_word_length": 0.9,
+  "values_distinguished": 0.5520833333333333,
+  "type_word_shared_A_P": 0.6666666666666666,
+  "type_word_shared_S_A": 0.8333333333333334,
+  "type_word_shared_S_P": 0.8333333333333334,
+  "colour_word_shared_A_P": null,
+  "colour_word_shared_S_A": null,
+  "colour_word_shared_S_P": null,
+  "class_overlap": {
+   "type_colour": 4,
+   "type_pred": 4,
+   "colour_pred": 4
+  },
+  "distinct_forms": {
+   "type": 4,
+   "colour": 4,
+   "pred": 4
+  },
+  "words": {
+   "intr.S_colour=red": "",
+   "intr.S_colour=green": "3",
+   "intr.S_colour=yellow": "5",
+   "intr.S_colour=blue": "2",
+   "intr.S_type=apple": "3",
+   "intr.S_type=berry": "3",
+   "intr.S_type=grain": "5",
+   "intr.S_type=mushroom": "5",
+   "intr.S_type=lion": "2",
+   "intr.S_type=tiger": "2",
+   "intr.pred=loose": "3",
+   "intr.pred=caged": "2",
+   "intr.pred=ripe": "3",
+   "intr.pred=gone": "5",
+   "tr.A_type=apple": "3",
+   "tr.A_type=berry": "3",
+   "tr.A_type=grain": "5",
+   "tr.A_type=mushroom": "3",
+   "tr.A_type=lion": "2",
+   "tr.A_type=tiger": "2",
+   "tr.P_type=apple": "3",
+   "tr.P_type=berry": "3",
+   "tr.P_type=grain": "5",
+   "tr.P_type=mushroom": "5",
+   "tr.P_type=lion": "",
+   "tr.P_type=tiger": "2",
+   "tr.pred=guards": "2",
+   "tr.pred=chases": "5",
+   "tr.pred=near": "3",
+   "tr.pred=hides": ""
+  }
+ },
+ "combination": {
+  "train": {
+   "contexts": 576,
+   "speaker_understood": 0.5694444444444444,
+   "concatenative": 0.1684981684981685,
+   "same_bag": 0.1684981684981685,
+   "order_consistency": 0.9901960784313726,
+   "mean_length": 0.96875
+  },
+  "novel_entity": {
+   "contexts": 108,
+   "speaker_understood": 0.49074074074074076,
+   "concatenative": 0.13953488372093023,
+   "same_bag": 0.13953488372093023,
+   "order_consistency": 0.875,
+   "mean_length": 0.9629629629629629,
+   "synthesised": 43,
+   "synthesis_coverage": 0.39814814814814814,
+   "synthesis_understood": 0.3023255813953488,
+   "synthesis_predicts_speaker": 0.11627906976744186
+  },
+  "novel_pair": {
+   "contexts": 55,
+   "speaker_understood": 0.6727272727272727,
+   "concatenative": 0.18181818181818182,
+   "same_bag": 0.18181818181818182,
+   "order_consistency": 0.8333333333333334,
+   "mean_length": 1.018181818181818,
+   "synthesised": 55,
+   "synthesis_coverage": 1.0,
+   "synthesis_understood": 0.5636363636363636,
+   "synthesis_predicts_speaker": 0.16363636363636364
+  },
+  "construction": {
+   "contexts": 49,
+   "speaker_understood": 0.5102040816326531,
+   "concatenative": 0.09523809523809523,
+   "same_bag": 0.09523809523809523,
+   "order_consistency": 1.0,
+   "mean_length": 0.8775510204081632,
+   "synthesised": 21,
+   "synthesis_coverage": 0.42857142857142855,
+   "synthesis_understood": 0.3333333333333333,
+   "synthesis_predicts_speaker": 0.09523809523809523
+  },
+  "novel_role": {
+   "contexts": 47,
+   "speaker_understood": 0.6595744680851063,
+   "concatenative": 0.23809523809523808,
+   "same_bag": 0.23809523809523808,
+   "order_consistency": 1.0,
+   "mean_length": 0.8936170212765957,
+   "synthesised": 21,
+   "synthesis_coverage": 0.44680851063829785,
+   "synthesis_understood": 0.5238095238095238,
+   "synthesis_predicts_speaker": 0.23809523809523808
+  }
+ },
+ "roles": {
+  "train": {
+   "contexts": 600,
+   "accuracy": 0.4533333333333333,
+   "error_is_reversed_twin": 0.725609756097561,
+   "mean_length": 1.18,
+   "mentions": {
+    "A_type": 0.49,
+    "P_type": 0.31,
+    "A_colour": 0.0,
+    "P_colour": 0.0
+   },
+   "reversed_string_picks_reversed_roles": 0.02531645569620253,
+   "lengths": {
+    "1": 390,
+    "2": 154,
+    "0": 53,
+    "3": 2
+   }
+  },
+  "heldout": {
+   "contexts": 600,
+   "accuracy": 0.4666666666666667,
+   "error_is_reversed_twin": 0.7125,
+   "mean_length": 1.21,
+   "mentions": {
+    "A_type": 0.45666666666666667,
+    "P_type": 0.3333333333333333,
+    "A_colour": 0.0,
+    "P_colour": 0.0
+   },
+   "reversed_string_picks_reversed_roles": 0.04081632653061224,
+   "lengths": {
+    "1": 377,
+    "2": 168,
+    "0": 51,
+    "3": 3
+   }
+  }
+ },
+ "entanglement": null,
+ "newcomer": {
+  "50": {
+   "train": 0.6171875,
+   "heldout": 0.63232421875
+  },
+  "150": {
+   "train": 0.751953125,
+   "heldout": 0.76220703125
+  },
+  "500": {
+   "train": 0.7578125,
+   "heldout": 0.77587890625
+  }
+ },
+ "examples": [
+  {
+   "target": "hides(blue apple, yellow tiger)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "A_type"
+   ],
+   "others": [
+    "hides(blue tiger, yellow tiger)",
+    "hides(blue mushroom, yellow tiger)",
+    "hides(blue lion, yellow tiger)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "caged(red berry)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "pred"
+   ],
+   "others": [
+    "ripe(red berry)",
+    "gone(red berry)",
+    "loose(red berry)"
+   ],
+   "utterance": "2",
+   "gloss": "2:blue/caged/guards/lion/tiger"
+  },
+  {
+   "target": "guards(red grain, yellow grain)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "A_type"
+   ],
+   "others": [
+    "guards(red lion, yellow grain)",
+    "guards(red mushroom, yellow grain)",
+    "guards(red berry, yellow grain)"
+   ],
+   "utterance": "5",
+   "gloss": "5:chases/gone/grain/mushroom/yellow"
+  },
+  {
+   "target": "loose(blue apple)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "pred"
+   ],
+   "others": [
+    "gone(blue apple)",
+    "ripe(blue apple)",
+    "caged(blue apple)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "guards(red mushroom, yellow grain)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "pred",
+    "P_colour"
+   ],
+   "others": [
+    "hides(red mushroom, yellow grain)",
+    "guards(red mushroom, red grain)",
+    "guards(red mushroom, green grain)"
+   ],
+   "utterance": "5 4",
+   "gloss": "5:chases/gone/grain/mushroom/yellow  4:?"
+  },
+  {
+   "target": "hides(red berry, green berry)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "pred",
+    "A_type"
+   ],
+   "others": [
+    "hides(red lion, green berry)",
+    "near(red berry, green berry)",
+    "chases(red berry, green berry)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "near(green mushroom, green grain)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "near(green mushroom, green tiger)",
+    "near(green mushroom, yellow grain)",
+    "near(green mushroom, green berry)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "chases(yellow apple, blue lion)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "pred",
+    "P_colour"
+   ],
+   "others": [
+    "hides(yellow apple, blue lion)",
+    "chases(yellow apple, yellow lion)",
+    "chases(yellow apple, red lion)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "guards(green tiger, green mushroom)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "A_type",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "guards(green tiger, blue mushroom)",
+    "guards(green grain, green mushroom)",
+    "guards(green tiger, green berry)"
+   ],
+   "utterance": "",
+   "gloss": ""
+  },
+  {
+   "target": "guards(red grain, red lion)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "pred",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "guards(red grain, yellow lion)",
+    "hides(red grain, red lion)",
+    "guards(red grain, red berry)"
+   ],
+   "utterance": "2",
+   "gloss": "2:blue/caged/guards/lion/tiger"
+  },
+  {
+   "target": "near(blue tiger, red berry)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "A_type",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "near(blue apple, red berry)",
+    "near(blue tiger, red grain)",
+    "near(blue tiger, green berry)"
+   ],
+   "utterance": "2",
+   "gloss": "2:blue/caged/guards/lion/tiger"
+  },
+  {
+   "target": "guards(green apple, yellow lion)",
+   "partition": "train",
+   "rooms_differ_in": [
+    "A_colour",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "guards(yellow apple, yellow lion)",
+    "guards(green apple, yellow tiger)",
+    "guards(green apple, blue lion)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "guards(yellow tiger, red lion)",
+   "partition": "novel_role",
+   "rooms_differ_in": [
+    "pred",
+    "P_type"
+   ],
+   "others": [
+    "guards(yellow tiger, red grain)",
+    "near(yellow tiger, red lion)",
+    "chases(yellow tiger, red lion)"
+   ],
+   "utterance": "2",
+   "gloss": "2:blue/caged/guards/lion/tiger"
+  },
+  {
+   "target": "near(green lion, green grain)",
+   "partition": "novel_entity",
+   "rooms_differ_in": [
+    "pred",
+    "P_colour"
+   ],
+   "others": [
+    "chases(green lion, green grain)",
+    "near(green lion, red grain)",
+    "near(green lion, yellow grain)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "guards(yellow grain, yellow mushroom)",
+   "partition": "novel_entity",
+   "rooms_differ_in": [
+    "pred",
+    "A_colour"
+   ],
+   "others": [
+    "near(yellow grain, yellow mushroom)",
+    "guards(red grain, yellow mushroom)",
+    "guards(green grain, yellow mushroom)"
+   ],
+   "utterance": "4 5",
+   "gloss": "4:?  5:chases/gone/grain/mushroom/yellow"
+  },
+  {
+   "target": "hides(yellow tiger, red grain)",
+   "partition": "novel_role",
+   "rooms_differ_in": [
+    "pred",
+    "P_colour"
+   ],
+   "others": [
+    "hides(yellow tiger, yellow grain)",
+    "chases(yellow tiger, red grain)",
+    "guards(yellow tiger, red grain)"
+   ],
+   "utterance": "",
+   "gloss": ""
+  },
+  {
+   "target": "near(yellow mushroom, green grain)",
+   "partition": "novel_entity",
+   "rooms_differ_in": [
+    "pred",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "near(yellow mushroom, yellow grain)",
+    "hides(yellow mushroom, green grain)",
+    "near(yellow mushroom, green tiger)"
+   ],
+   "utterance": "3",
+   "gloss": "3:apple/berry/green/loose/mushroom/near/ripe"
+  },
+  {
+   "target": "near(green apple, red grain)",
+   "partition": "novel_pair",
+   "rooms_differ_in": [
+    "pred",
+    "A_type",
+    "P_type"
+   ],
+   "others": [
+    "near(green grain, red grain)",
+    "near(green apple, red berry)",
+    "hides(green apple, red grain)"
+   ],
+   "utterance": "",
+   "gloss": ""
+  },
+  {
+   "target": "hides(red apple, red lion)",
+   "partition": "construction",
+   "rooms_differ_in": [
+    "pred",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "hides(red apple, red grain)",
+    "near(red apple, red lion)",
+    "hides(red apple, blue lion)"
+   ],
+   "utterance": "2",
+   "gloss": "2:blue/caged/guards/lion/tiger"
+  },
+  {
+   "target": "hides(blue berry, yellow grain)",
+   "partition": "construction",
+   "rooms_differ_in": [
+    "pred",
+    "P_type",
+    "P_colour"
+   ],
+   "others": [
+    "chases(blue berry, yellow grain)",
+    "hides(blue berry, green grain)",
+    "hides(blue berry, yellow berry)"
+   ],
+   "utterance": "4 3",
+   "gloss": "4:?  3:apple/berry/green/loose/mushroom/near/ripe"
+  }
+ ]
+}

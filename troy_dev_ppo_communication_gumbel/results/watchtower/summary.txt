@@ -1,0 +1,9 @@
+s1_0     ret +0.02 blk -1.16 shuf -1.30 silent -1.09 | len 6.5 topsim 0.15 | 1_useful=PASS 2_lion_tiger=fail 3_structure=fail all=fail
+s1_1     ret +0.04 blk -1.18 shuf -1.21 silent -1.16 | len 2.5 topsim 0.05 | 1_useful=PASS 2_lion_tiger=fail 3_structure=fail all=fail
+s1_2     ret -0.15 blk -1.43 shuf -1.17 silent -1.18 | len 1.4 topsim 0.04 | 1_useful=PASS 2_lion_tiger=fail 3_structure=fail all=fail
+s2_0     ret -0.71 blk -1.61 shuf -1.37 silent -1.41 | len 1.1 topsim 0.06 | 1_useful=PASS 2_marker=fail 3_reuse=fail all=fail
+s2_1     ret -0.02 blk -1.59 shuf -1.27 silent -1.52 | len 3.6 topsim 0.05 | 1_useful=PASS 2_marker=fail 3_reuse=PASS all=fail
+s2_2     ret -0.73 blk -1.70 shuf -1.44 silent -1.49 | len 6.8 topsim 0.08 | 1_useful=PASS 2_marker=fail 3_reuse=PASS all=fail
+s3_0     ret -2.60 blk -2.60 shuf -2.60 silent -2.60 | len 0.0 topsim nan | 1_useful=fail 2_shared=fail all=fail
+s3_1     ret -1.99 blk -2.48 shuf -2.54 silent -2.60 | len 0.2 topsim 0.02 | 1_useful=fail 2_shared=fail all=fail
+s3_2     ret -2.60 blk -2.60 shuf -2.60 silent -2.60 | len 0.0 topsim nan | 1_useful=fail 2_shared=fail all=fail

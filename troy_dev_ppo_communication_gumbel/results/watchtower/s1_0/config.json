@@ -1,0 +1,16 @@
+{
+ "stage": 1,
+ "seed": 0,
+ "updates": 2500,
+ "B": 256,
+ "lr": 0.0003,
+ "epochs": 3,
+ "minibatches": 2,
+ "cost": 0.005,
+ "silent": false,
+ "ent_act": 0.01,
+ "ent_talk": 0.01,
+ "curriculum": 0.2,
+ "cost_from": 0.4,
+ "auxiliary_losses": "none"
+}
