@@ -1,7 +1,0 @@
-# Research artifacts must retain exact bytes, including ASCII-encoded PDFs.
-*.pdf binary
-*.pt binary
-*.png binary
-*.gif binary
-*.pptx binary
-experiments/spontaneous_grammar/*.py -text whitespace=trailing-space,space-before-tab,cr-at-eol

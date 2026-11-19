@@ -1,8 +1,0 @@
-{
-  "full_final_checkpoints": 65,
-  "inference_checkpoints": 65,
-  "frozen_source_blobs_exact": true,
-  "pdf_copies_identical": true,
-  "all_inference_archive_hashes_exact": true,
-  "all_original_checkpoint_hashes_unchanged": true
-}

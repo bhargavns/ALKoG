@@ -1,74 +1,50 @@
-# ALKoG — Active Learning Knowledge Graph Framework
+# Foraging communication
 
-A simulated knowledge graph-based active learning framework for studying emergent symbolic grounding in multi-agent RL environments.
+Can environmental pressure make two learning agents develop communication that
+looks like language, with words that combine?  A **scout** in a tower sees the
+whole map; a **forager** on the ground sees only the cells around it.  They learn
+together with recurrent PPO from a shared team reward, and the scout's only way
+to help is to talk.
 
-Agents in a procedurally generated 2D/3D world learn to:
-1. **Perceive** — propose productive bounding boxes over their visual field
-2. **Represent** — build a structured knowledge graph of entity relationships
-3. **Communicate** — develop a shared token vocabulary through interaction with a partner agent
-4. **Reason** — answer relational queries using the accumulated KG
+| study | question | status |
+|---|---|---|
+| [watchtower](foraging/watchtower/README.md) | Does a scout that sees everything learn to describe the scene? | done: the scout learned only "go to glade X" |
+| [errand](foraging/errand/README.md) | Does splitting knowledge (the forager has a goal and knows which animals are fed, the scout knows where everything is) force descriptive messages? | pilots done; three-seed study running |
 
-## Architecture overview
+## Layout
 
 ```
-alkog/
-├── config/         Block 1 -  Pydantic configs (rewards, KG, agent, training, env)
-├── kg/             Block 2 -  Knowledge graph module (nodes, edges, NetworkX backend)
-├── agents/         Block 3 -  Token vocabulary + symbol binding
-│                   Block 5 -  Neural architecture (visual encoder, GNN, policy)
-├── training/       Block 6 -  Reward functions
-│                   Block 7 -  PPO training loop + curriculum manager
-├── environment/    Block 8 -  Mock Gymnasium environment (no Godot required)
-├── evaluation/     Block 9 -  KG Gini impurity, communication success metrics
-└── utils/          Logging, W&B wrapper
+foraging/
+  metrics.py          rank correlation and edit distance for topographic similarity
+  watchtower/         env.py, agents.py, train.py, analysis.py, README.md
+  errand/             same files; reuses the watchtower message encoder/decoder
+tests/                rule checks for both worlds
+scripts/
+  watchtower_study.sh       the watchtower study, all runs in parallel
+  slurm/errand_private2k.sh the errand private-rules study on one Slurm GPU node
+results/              summaries, logs and training curves (checkpoints stay local)
 ```
-
-Godot integration (Block 10–13) adds the real simulation as a drop-in replacement
-for the mock environment via a WebSocket bridge.
 
 ## Setup
 
+Python 3.11, PyTorch and NumPy.  The worlds run as batches of tensors on the GPU.
+
 ```bash
-# Requires Python 3.11+
-pip install poetry
-poetry install
-
-# Validate the config loads correctly:
-python scripts/train.py --dry-run
-
-# Run with a custom config:
-python scripts/train.py --config configs/default.yaml --run-name my_experiment
+conda create -n foraging python=3.11 -y && conda activate foraging
+pip install torch --index-url https://download.pytorch.org/whl/cu128
+pip install -r requirements.txt
+python -m pytest -q
 ```
 
-## Key design decisions
+## Running
 
-| Decision | Choice | Rationale |
-|---|---|---|
-| RL algorithm | PPO → GRPO | PPO first for stability; GRPO later for KG reasoning tasks |
-| Visual encoder | ResNet18 pretrained | Fast convergence on early curriculum; upgrade to ResNet50 for Phase 3-4 |
-| KG edge types | Pre-defined enum | Keeps the relational space tractable; 4 types cover the proposal's examples |
-| Agent communication | Finite token vocab, no pre-assigned meanings | Mirrors the proposal's emergent-language design |
-| Simulation backend | Godot 4 via WebSocket | Swappable with mock env; identical Python interface either way |
+From the repository root:
 
-## Reward structure
+```bash
+python -m foraging.errand.train --rules private --seed 0 --updates 2000 --output results/errand/X/private_0
+python -m foraging.errand.train --rules private --silent --seed 0 --updates 2000 --output results/errand/X/private_silent_0
+python -m foraging.errand.analysis --summarise results/errand/X
+```
 
-| Signal | Value | When |
-|---|---|---|
-| Task completion | +1.0 | Episode objective reached |
-| Communication success | +0.5 | Partner takes correct action after utterance |
-| Predictive accuracy | +0.2 | Agent correctly predicts interaction outcome |
-| Novel abstraction | +0.1 | New KG node reused in a future episode |
-| Time step cost | −0.01 | Every step |
-| Failed interaction | −0.3 | Touching dangerous object / falling |
-| Communication failure | −0.2 | Partner takes wrong action after utterance |
-| Redundant abstraction | −0.1 | New node too similar to existing node |
-| KG inconsistency | −0.15 | KG prediction contradicted by observation |
-
-## Curriculum
-
-| Phase | Agents | Objects | Primary reward driver |
-|---|---|---|---|
-| 1 — Solo Exploration | 1 | 2-3 | Navigation |
-| 2 — Affordance Discovery | 1 | 5-8 | Interaction |
-| 3 — Partner Communication | 2 | 5-8 | Communication success |
-| 4 — Compositional Reasoning | 2 | 8-15 | Relational tasks |
+On a Slurm cluster: edit the `cd` line in `scripts/slurm/errand_private2k.sh`, then
+`mkdir -p logs_errand && sbatch scripts/slurm/errand_private2k.sh`.

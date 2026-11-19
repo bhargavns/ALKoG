@@ -1,7 +1,0 @@
-torch==2.14.1+cu130
-numpy==2.4.6
-mujoco==3.17.0
-gymnasium==1.4.0
-pytest==9.2.0
-matplotlib==3.11.2
-Pillow==13.0.0

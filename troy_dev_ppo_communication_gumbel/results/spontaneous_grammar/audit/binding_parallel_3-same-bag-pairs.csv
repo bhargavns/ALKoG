@@ -1,2 +1,0 @@
-heldout_id,training_counterpart_id,heldout_facts,counterpart_facts,heldout_symbols,counterpart_symbols,both_correct_normal,both_correct_sorted
-2204,2018,"(2, 3, 1, 2, 2, 1, 0)","(2, 2, 1, 2, 3, 1, 0)","(2, 2, 7, 2, 6, 0, 4, 6)","(2, 6, 7, 2, 6, 0, 4, 2)",0,0

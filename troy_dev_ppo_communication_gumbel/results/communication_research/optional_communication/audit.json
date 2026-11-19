@@ -1,9 +1,0 @@
-{
-  "main_runs": 42,
-  "followup_runs": 9,
-  "final_evaluation_cells": 1530,
-  "episode_condition_executions": 1566720,
-  "tests": "133 passed",
-  "archive_bytes": 16087594,
-  "archive_sha256": "d09534d65ba7164867503a15e67744775c13799e3d3ebcb427f85bff35e6fe0a"
-}

@@ -1,7 +1,0 @@
-{
-  "archive": "spontaneous-grammar-study.zip",
-  "archive_sha256": "10f613facfd59adb3b52fc24e6ea782769807c50b5c070b88ed073a31d8aa8e0",
-  "archive_bytes": 285124197,
-  "entries": 1495,
-  "all_65_model_tensor_copies_exact": true
-}
