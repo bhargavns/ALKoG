@@ -9,7 +9,8 @@ to help is to talk.
 | study | question | status |
 |---|---|---|
 | [watchtower](foraging/watchtower/README.md) | Does a scout that sees everything learn to describe the scene? | done: the scout learned only "go to glade X" |
-| [errand](foraging/errand/README.md) | Does splitting knowledge (the forager has a goal and knows which animals are fed, the scout knows where everything is) force descriptive messages? | pilots done; three-seed study running |
+| [errand](foraging/errand/README.md) | Does splitting knowledge (the forager has a goal and knows which animals are fed, the scout knows where everything is) force descriptive messages? | done: useful, danger-focused, but holistic (reports on 1-2 glades) |
+| [community](foraging/community/README.md) | Does a world that needs description, a population of different foragers, and transmission to newcomers produce reusable words? | built; not yet run |
 
 ## Layout
 
@@ -17,11 +18,13 @@ to help is to talk.
 foraging/
   metrics.py          rank correlation and edit distance for topographic similarity
   watchtower/         env.py, agents.py, train.py, analysis.py, README.md
-  errand/             same files; reuses the watchtower message encoder/decoder
+  errand/             same files; reuses the watchtower message encoder/decoder; words.py: word-level diagnosis
+  community/          sparse food, named objectives, four foragers, forager turnover, scout generations
 tests/                rule checks for both worlds
 scripts/
   watchtower_study.sh       the watchtower study, all runs in parallel
   slurm/errand_private2k.sh the errand private-rules study on one Slurm GPU node
+  slurm/community.sh        the community study, in batches A, B, C
 results/              summaries, logs and training curves (checkpoints stay local)
 ```
 
